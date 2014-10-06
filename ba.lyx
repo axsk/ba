@@ -1,0 +1,264 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Section
+Introduction to Markov Chains
+\end_layout
+
+\begin_layout Standard
+A Markov chain is a stochastic process, consisting of a sequence of random
+ variables 
+\begin_inset Formula $X_{i}:\Omega\rightarrow S$
+\end_inset
+
+, 
+\begin_inset Formula $i\in\mathbb{N}$
+\end_inset
+
+ satisfying the Markov property: 
+\begin_inset Formula 
+\[
+P(X_{t+1}=x|X_{1}=x_{1},X_{2}=X_{2},...,X_{t}=x_{t})=P(X_{t+1}=x|X_{t}=x_{t})\,\forall t\in\mathbb{N}.
+\]
+
+\end_inset
+
+It is common to interpret S as the state space of possible outcomes of measureme
+nts at the time 
+\begin_inset Formula $t$
+\end_inset
+
+ represented by 
+\begin_inset Formula $X_{t}$
+\end_inset
+
+.
+ The Markov property assures, that the transitions to the next timestep
+ 
+\begin_inset Formula $t+1$
+\end_inset
+
+ only depend on the current state 
+\begin_inset Formula $x_{t}$
+\end_inset
+
+.
+ This means that the process at time 
+\begin_inset Formula $t$
+\end_inset
+
+ has no memory of its previous history 
+\begin_inset Formula $(x_{1},...,x_{t-1})$
+\end_inset
+
+, thus this also sometimes called the memoryless property.
+\end_layout
+
+\begin_layout Standard
+We will furthermore assume that 
+\begin_inset Formula $S$
+\end_inset
+
+ is finite and that the process is autonomous, i.e.
+ not explicitly depending on the time:
+\begin_inset Formula 
+\[
+P(X_{t+1}=x|X_{t}=y)=P(X_{t}=x|X_{t-1}=y)\forall t\in\mathbb{N}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This does not realy impose a restriction as any non-autonomous process can
+ be turned into an autonomous one.
+ By adding all possible times to the state space 
+\begin_inset Formula $S$
+\end_inset
+
+ taking the cartesian product 
+\begin_inset Formula $S':=\mathbb{N}\times S$
+\end_inset
+
+ the explicit time-dependence of the process on 
+\begin_inset Formula $S$
+\end_inset
+
+ can be implicitly subsumed by an autonomous process on 
+\begin_inset Formula $S'$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+For finite 
+\begin_inset Formula $S$
+\end_inset
+
+ we can, enumerating all states in S, encode the whole process in the transition
+ matrix
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+P_{ij}:=P\left(X_{t+1}=j|X_{t}=i\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A stationary distribution is a row vector 
+\begin_inset Formula $\pi$
+\end_inset
+
+ satisfying
+\begin_inset Formula 
+\[
+\pi P=\pi
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A markov chain is called reversible if there exists a stationary distribution
+ 
+\begin_inset Formula $\pi$
+\end_inset
+
+ satisfying the detailed balance equation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\pi_{i}P_{ij}=\pi_{j}P_{ji}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+which assures that the back and forth transitions between any two states
+ 
+\begin_inset Formula $\pi_{i}$
+\end_inset
+
+, 
+\begin_inset Formula $\pi_{j}$
+\end_inset
+
+ equalize.
+\end_layout
+
+\begin_layout Section
+Metastability
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Section
+Spectral Clustering
+\end_layout
+
+\begin_layout Section
+PCCA+
+\end_layout
+
+\begin_layout Section
+Stochastic interpretation
+\end_layout
+
+\begin_layout Section
+Nonreversible processes
+\end_layout
+
+\begin_layout Section
+Implementation
+\end_layout
+
+\begin_layout Section
+Eyetracking
+\end_layout
+
+\begin_layout Section
+References
+\end_layout
+
+\end_body
+\end_document
