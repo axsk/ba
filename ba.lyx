@@ -2,8 +2,13 @@
 \lyxformat 413
 \begin_document
 \begin_header
-\textclass article
+\textclass amsart
 \use_default_options true
+\begin_modules
+theorems-ams
+eqs-within-sections
+figs-within-sections
+\end_modules
 \maintain_unincluded_children false
 \language english
 \language_package default
@@ -25,6 +30,7 @@
 \bibtex_command default
 \index_command default
 \paperfontsize default
+\spacing single
 \use_hyperref false
 \papersize default
 \use_geometry false
@@ -59,11 +65,21 @@
 
 \begin_body
 
+\begin_layout Title
+
+\shape up
+PCCA+ on Markov Chains
+\end_layout
+
 \begin_layout Section
+
+\shape up
 Introduction
 \end_layout
 
 \begin_layout Section
+
+\shape up
 Introduction to Markov Chains
 \end_layout
 
@@ -160,8 +176,11 @@ For finite
 \begin_inset Formula $S$
 \end_inset
 
- we can, enumerating all states in S, encode the whole process in the transition
- matrix
+ we can, enumerating all states in 
+\begin_inset Formula $S$
+\end_inset
+
+, encode the whole process in the transition matrix
 \end_layout
 
 \begin_layout Standard
@@ -224,39 +243,244 @@ which assures that the back and forth transitions between any two states
  equalize.
 \end_layout
 
-\begin_layout Section
-Metastability
+\begin_layout Subsection
+Discretization of the state space
 \end_layout
 
 \begin_layout Standard
+Although we only consider a discrete state space in this thesis, the results
+ are extensible to continous state spaces as well.
+ 
+\end_layout
+
+\begin_layout Standard
+The easiest way is using a set-based discretization, dividing the state
+ space into a finite mesh of subsets.
+\end_layout
+
+\begin_layout Standard
+For high dimensional state spaces, as for example met in molecular dynamics,
+ this approach exhibits the curse of dimensionality, as the size of the
+ mesh grows exponentially with the dimensions.
+ As solution to this problem Weber developed a meshless version of PCCA+
+ using a global Galerkin discretization.
+\end_layout
+
+\begin_layout Subsection
+Metastability
+\begin_inset Formula 
+\[
+Px\approx x
+\]
+
+\end_inset
+
 
 \end_layout
 
 \begin_layout Section
+
+\shape up
 Spectral Clustering
 \end_layout
 
+\begin_layout Subsection
+Membership functions
+\end_layout
+
+\begin_layout Standard
+As the state space 
+\begin_inset Formula $S$
+\end_inset
+
+ tends to be rather large in 
+\emph on
+applications
+\emph default
+, extracting information from the corresponding 
+\begin_inset Formula $N=\left|S\right|$
+\end_inset
+
+ dimensional transition matrix 
+\begin_inset Formula $P$
+\end_inset
+
+ can be difficult.
+\end_layout
+
+\begin_layout Standard
+A common approach to reduce the complexity is combining 
+\begin_inset Quotes eld
+\end_inset
+
+common
+\begin_inset Quotes erd
+\end_inset
+
+ states into a smaller set of 
+\begin_inset Formula $n$
+\end_inset
+
+ so called clusters.
+ These are represented by the 
+\emph on
+characteristic vector
+\emph default
+ 
+\begin_inset Formula $\chi_{i}\in\left\{ 0,1\right\} ^{n}$
+\end_inset
+
+ of the i-th cluster:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\chi_{i,k}\left(k\right)=\begin{cases}
+1, & \text{if state \ensuremath{i}}\text{ belongs to cluster }k\\
+0, & \text{else }
+\end{cases}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This approach, used by Perron Cluster Analysis (PCCA) of Deuflhard et al.,
+ has the disadvantage of no beeing robust against small pertubations
+\end_layout
+
+\begin_layout Standard
+the predecessor of PCCA+This discrete concept can be extended to the fuzzy
+ setting by allowing the now so called membership vectors 
+\begin_inset Formula $\chi_{i}$
+\end_inset
+
+ to take values in 
+\begin_inset Formula $\left[0,1\right]$
+\end_inset
+
+ while still satisfying the partition of unity property.
+\end_layout
+
+\begin_layout Standard
+In any case, to represent the whole state space in this manner we require
+ the partition of unity property
+\begin_inset Formula 
+\[
+\sum_{i}\chi_{i}=1
+\]
+
+\end_inset
+
+assuring that each state is contained in exactly one cluster.
+\end_layout
+
+\begin_layout Standard
+The key idea of extracting metastable behaviour via PCCA+ is transforming
+ the eigenvectors of 
+\begin_inset Formula $P$
+\end_inset
+
+ to a membership basis of 
+\begin_inset Formula $S$
+\end_inset
+
+.
+ Taking linear combinations 
+\begin_inset Formula $A$
+\end_inset
+
+ of 
+\begin_inset Formula $n$
+\end_inset
+
+ eigenvectors 
+\begin_inset Formula $ $
+\end_inset
+
+
+\begin_inset Formula $X=\left(x_{1},...,x_{n}\right)$
+\end_inset
+
+ with eigenvalues 
+\begin_inset Formula $\lambda_{1},...,\lambda_{n}\approx1$
+\end_inset
+
+ guarantees 
+\begin_inset Quotes eld
+\end_inset
+
+metastable
+\begin_inset Quotes erd
+\end_inset
+
+ (in some way) properties of the cluster 
+\begin_inset Formula $\chi_{j}=XA_{:,j}$
+\end_inset
+
+
+\begin_inset Formula $ $
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\left\langle P\chi_{j},\chi_{j}\right\rangle  & =\left\langle \sum_{k}PX_{ik}A_{kj},\sum_{k}X_{ik}A_{kj}\right\rangle \\
+ & =\left\langle \sum_{k}\lambda_{k}X_{ik}A_{kj},\sum_{k}X_{ik}A_{kj}\right\rangle \\
+ & =\sum_{i,k}\lambda_{k}\left(X_{ik}A_{kj}\right)^{2}\\
+ & \ge\min_{k}\lambda_{k}\sum\left(X_{ik}A_{kj}\right)_{i,k}^{2}\\
+ & =\min_{k}\lambda_{k}\left\langle \chi_{j},\chi_{j}\right\rangle \\
+\Rightarrow\frac{\left\langle P\chi_{j},\chi_{j}\right\rangle }{\left\langle \chi_{j},\chi_{j}\right\rangle } & \approx1
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
+
+\shape up
 PCCA+
 \end_layout
 
 \begin_layout Section
+
+\shape up
 Stochastic interpretation
 \end_layout
 
 \begin_layout Section
+
+\shape up
 Nonreversible processes
 \end_layout
 
 \begin_layout Section
+
+\shape up
 Implementation
 \end_layout
 
 \begin_layout Section
+
+\shape up
 Eyetracking
 \end_layout
 
 \begin_layout Section
+
+\shape up
 References
 \end_layout
 
