@@ -1,5 +1,5 @@
-#LyX 2.0 created this file. For more info see http://www.lyx.org/
-\lyxformat 413
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
 \begin_document
 \begin_header
 \textclass amsart
@@ -17,13 +17,13 @@ figs-within-sections
 \font_roman default
 \font_sans default
 \font_typewriter default
+\font_math auto
 \font_default_family default
 \use_non_tex_fonts false
 \font_sc false
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
-
 \graphics default
 \default_output_format default
 \output_sync 0
@@ -34,15 +34,24 @@ figs-within-sections
 \use_hyperref false
 \papersize default
 \use_geometry false
-\use_amsmath 1
-\use_esint 1
-\use_mhchem 1
-\use_mathdots 1
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
 \cite_engine basic
+\cite_engine_type default
+\biblio_style plain
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
 \suppress_date false
+\justification true
 \use_refstyle 1
 \index Index
 \shortcut idx
@@ -195,7 +204,11 @@ P_{ij}:=P\left(X_{t+1}=j|X_{t}=i\right)
 \end_layout
 
 \begin_layout Standard
-A stationary distribution is a row vector 
+A 
+\emph on
+stationary distribution
+\emph default
+ is a row vector 
 \begin_inset Formula $\pi$
 \end_inset
 
@@ -211,8 +224,11 @@ A stationary distribution is a row vector
 \end_layout
 
 \begin_layout Standard
-A markov chain is called reversible if there exists a stationary distribution
- 
+A markov chain is called 
+\emph on
+reversible
+\emph default
+ if there exists a stationary distribution 
 \begin_inset Formula $\pi$
 \end_inset
 
@@ -285,44 +301,19 @@ Spectral Clustering
 \end_layout
 
 \begin_layout Subsection
-Membership functions
+Membership vectors
 \end_layout
 
 \begin_layout Standard
-As the state space 
-\begin_inset Formula $S$
-\end_inset
-
- tends to be rather large in 
-\emph on
-applications
-\emph default
-, extracting information from the corresponding 
-\begin_inset Formula $N=\left|S\right|$
-\end_inset
-
- dimensional transition matrix 
-\begin_inset Formula $P$
-\end_inset
-
- can be difficult.
-\end_layout
-
-\begin_layout Standard
-A common approach to reduce the complexity is combining 
-\begin_inset Quotes eld
-\end_inset
-
-common
-\begin_inset Quotes erd
-\end_inset
-
- states into a smaller set of 
+We now look for a way to represent the clustering into 
 \begin_inset Formula $n$
 \end_inset
 
- so called clusters.
- These are represented by the 
+ clusters.
+\end_layout
+
+\begin_layout Standard
+One possibility of assigning states to a cluster k is by means of a 
 \emph on
 characteristic vector
 \emph default
@@ -330,13 +321,13 @@ characteristic vector
 \begin_inset Formula $\chi_{i}\in\left\{ 0,1\right\} ^{n}$
 \end_inset
 
- of the i-th cluster:
+:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\chi_{i,k}\left(k\right)=\begin{cases}
+\chi_{k,i}=\begin{cases}
 1, & \text{if state \ensuremath{i}}\text{ belongs to cluster }k\\
 0, & \text{else }
 \end{cases}.
@@ -348,43 +339,269 @@ characteristic vector
 \end_layout
 
 \begin_layout Standard
-This approach, used by Perron Cluster Analysis (PCCA) of Deuflhard et al.,
- has the disadvantage of no beeing robust against small pertubations
+This 
+\emph on
+crisp clustering 
+\emph default
+approach, used by 
+\emph on
+Perron Cluster Analysis
+\emph default
+ (PCCA) of Deuflhard et al., has the disadvantage of not beeing robust against
+ small pertubations, as continious changes in 
+\begin_inset Formula $P$
+\end_inset
+
+ finally result in discontinous changes in the clustering.
 \end_layout
 
 \begin_layout Standard
-the predecessor of PCCA+This discrete concept can be extended to the fuzzy
- setting by allowing the now so called membership vectors 
-\begin_inset Formula $\chi_{i}$
+Weber and Galliat, Deuflhard and Weber therefor developed a robust version,
+ 
+\emph on
+Robust Perron Cluster Analyis
+\emph default
+ (PCCA+), by making use of a 
+\emph on
+fuzzy clustering
+\emph default
+ representing each cluster by an
+\emph on
+ almost characteristic vector 
+\begin_inset Formula $\chi_{k}\in\left[0,1\right]^{n}$
 \end_inset
 
- to take values in 
-\begin_inset Formula $\left[0,1\right]$
-\end_inset
+.
 
- while still satisfying the partition of unity property.
+\emph default
+ 
 \end_layout
 
 \begin_layout Standard
-In any case, to represent the whole state space in this manner we require
- the partition of unity property
+
+\emph on
+Almost characteristic vectors 
+\begin_inset Formula $\left\{ \chi_{i}\right\} _{i=1}^{n}$
+\end_inset
+
+
+\emph default
+ satisfying the partition of unity property
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula 
 \[
-\sum_{i}\chi_{i}=1
+\sum_{i=1}^{n}\chi_{i}=1
 \]
 
 \end_inset
 
-assuring that each state is contained in exactly one cluster.
+
+\end_layout
+
+\begin_layout Standard
+are called 
+\emph on
+membership vectors
+\emph default
+ as they describe the membership of each state to each cluster meaningfully.
+\end_layout
+
+\begin_layout Subsection
+Galerkin projection
+\end_layout
+
+\begin_layout Standard
+Given a set of 
+\emph on
+membership vectors 
+\emph default
+describing a clustering, we now aim at a Galerkin projection to get a reduced
+ version of 
+\begin_inset Formula $P$
+\end_inset
+
+ representing the dynamics on the clusters.
+\end_layout
+
+\begin_layout Standard
+Assuming a 
+\emph on
+starting distribution 
+\emph default
+
+\begin_inset Formula $\eta\in\left[0,1\right]^{N}$
+\end_inset
+
+, we define the diagonal matrix 
+\begin_inset Formula $D_{\eta}:=diag\left(\eta_{1},...,\eta_{N}\right)\in\left[0,1\right]^{NxN}$
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Standard
+By multiplying the conditional transitions of 
+\begin_inset Formula $P$
+\end_inset
+
+ with the actual starting distribution we get the unconditional transitions
+ matrix 
+\begin_inset Formula $D_{\eta}P$
+\end_inset
+
+, which we can interpret as amount of actual transitions between the states.
+ Now multiplying with a membership vector 
+\begin_inset Formula $\chi_{i}^{T}$
+\end_inset
+
+ from the left gives the numbers of transitions starting in 
+\begin_inset Formula $\chi_{i}$
+\end_inset
+
+ and finally multiplying with 
+\begin_inset Formula $\chi_{j}$
+\end_inset
+
+ from the right measures the amount of these transitions landing in 
+\begin_inset Formula $\chi_{j}$
+\end_inset
+
+, i.e.
+ 
+\begin_inset Formula $\chi_{i}^{T}D_{\eta}P\chi_{j}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+gives the unconditional number of transitions from cluster 
+\begin_inset Formula $i$
+\end_inset
+
+ to cluster 
+\begin_inset Formula $j$
+\end_inset
+
+.
+ Note that this interpretation is associative in the sense that we come
+ to the same results by for example first interpreting 
+\begin_inset Formula $\chi_{i}^{T}D_{\eta}$
+\end_inset
+
+ as actual amount of states in the cluster 
+\begin_inset Formula $\chi_{i}$
+\end_inset
+
+ and measure the overlap with where the transitions to 
+\begin_inset Formula $\chi_{j}$
+\end_inset
+
+, come from: 
+\begin_inset Formula $\left(\chi_{i}^{T}D_{\eta}\right)(P\chi_{j})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+We can vectorize this equation to compute the unconditional transitions
+ by means of the 
+\emph on
+membership matrix 
+\begin_inset Formula $\chi=\left(\chi_{1},...,\chi_{n}\right)$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\chi^{T}D_{\eta}P\chi
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We then turn this unconditional transitions into conditinal by dividing
+ by the number of states belonging to 
+\begin_inset Formula $\chi_{i}$
+\end_inset
+
+ and have to make up the fact that we do not count all transitions...
+ Baustelle
+\end_layout
+
+\begin_layout Standard
+Thus we finally define the 
+\emph on
+coupling matrix via
+\begin_inset Formula 
+\[
+P_{C}:=\left(\chi^{T}D_{\eta}\chi\right)^{-1}\chi^{T}D_{\eta}P\chi.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For a correct representation of the dynamics of the markov chain we require
+ that discretization and time propagation commute in the sense that 
+\begin_inset Formula 
+\[
+P\chi=\chi P_{C}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This property ensures that the 
+\emph on
+coupling matrix 
+\emph default
+represents the right dynamics even for long times, as we can see by following
+ both outer paths of the following diagram.
+\end_layout
+
+\begin_layout Standard
+Thus one can also consider 
+\begin_inset Formula $\left(\cdot\rightarrow\cdot\chi,\, P\rightarrow P_{C}\right)$
+\end_inset
+
+ as a functor.
+\end_layout
+
+\begin_layout Standard
+ROLE OF 
+\begin_inset Formula $\eta$
+\end_inset
+
+?
+\end_layout
+
+\begin_layout Subsection
+Metastability and PCCA+
 \end_layout
 
 \begin_layout Standard
 The key idea of extracting metastable behaviour via PCCA+ is transforming
- the eigenvectors of 
+ the eigenvectors 
+\begin_inset Formula $X$
+\end_inset
+
+ of 
 \begin_inset Formula $P$
 \end_inset
 
- to a membership basis of 
+ to membership vectors representing the clusters of 
 \begin_inset Formula $S$
 \end_inset
 
@@ -398,10 +615,6 @@ The key idea of extracting metastable behaviour via PCCA+ is transforming
 \end_inset
 
  eigenvectors 
-\begin_inset Formula $ $
-\end_inset
-
-
 \begin_inset Formula $X=\left(x_{1},...,x_{n}\right)$
 \end_inset
 
@@ -421,18 +634,7 @@ metastable
 \begin_inset Formula $\chi_{j}=XA_{:,j}$
 \end_inset
 
-
-\begin_inset Formula $ $
-\end_inset
-
 :
-\begin_inset Formula 
-\[
-\]
-
-\end_inset
-
-
 \begin_inset Formula 
 \begin{align*}
 \left\langle P\chi_{j},\chi_{j}\right\rangle  & =\left\langle \sum_{k}PX_{ik}A_{kj},\sum_{k}X_{ik}A_{kj}\right\rangle \\
