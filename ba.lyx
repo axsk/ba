@@ -2,7 +2,7 @@
 \lyxformat 474
 \begin_document
 \begin_header
-\textclass amsart
+\textclass scrartcl
 \use_default_options true
 \begin_modules
 theorems-ams
@@ -86,6 +86,30 @@ PCCA+ on Markov Chains
 Introduction
 \end_layout
 
+\begin_layout Standard
+In this thesis I will try to give an overview over the PCCA+ algorithm,
+ as well as it's application.
+\end_layout
+
+\begin_layout Standard
+I therefore will cover the basic PCCA+ setting, as primarily investigated
+ by 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Weber2006"
+
+\end_inset
+
+ in his dissertation.
+\end_layout
+
+\begin_layout Standard
+I will furthermore include newest results on extending this to the setting
+ of non-reversible chains, propose a new stochastic interpretation for fuzzy-set
+ clustering and showcase an application to human eye-tracking data used
+ for object recognition.
+\end_layout
+
 \begin_layout Section
 
 \shape up
@@ -93,8 +117,16 @@ Introduction to Markov Chains
 \end_layout
 
 \begin_layout Standard
-A Markov chain is a stochastic process, consisting of a sequence of random
- variables 
+Let 
+\begin_inset Formula $S$
+\end_inset
+
+ be a finite set.
+ A Markov chain on 
+\begin_inset Formula $S$
+\end_inset
+
+ is a stochastic process, consisting of a sequence of random variables 
 \begin_inset Formula $X_{i}:\Omega\rightarrow S$
 \end_inset
 
@@ -284,11 +316,14 @@ For high dimensional state spaces, as for example met in molecular dynamics,
 
 \begin_layout Subsection
 Metastability
-\begin_inset Formula 
-\[
-Px\approx x
-\]
+\end_layout
 
+\begin_layout Standard
+Definition Deuflhard via tr()
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $Px\approx x$
 \end_inset
 
 
@@ -378,9 +413,9 @@ fuzzy clustering
 \end_layout
 
 \begin_layout Standard
-
+A
 \emph on
-Almost characteristic vectors 
+lmost characteristic vectors 
 \begin_inset Formula $\left\{ \chi_{i}\right\} _{i=1}^{n}$
 \end_inset
 
@@ -417,12 +452,11 @@ Given a set of
 \emph on
 membership vectors 
 \emph default
-describing a clustering, we now aim at a Galerkin projection to get a reduced
- version of 
+describing a clustering, we now aim at a Galerkin projection of 
 \begin_inset Formula $P$
 \end_inset
 
- representing the dynamics on the clusters.
+, to get a reduced version representing the dynamics on the clusters.
 \end_layout
 
 \begin_layout Standard
@@ -439,6 +473,261 @@ starting distribution
 \end_inset
 
  .
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\eta$
+\end_inset
+
+ vs 
+\begin_inset Formula $\pi$
+\end_inset
+
+?
+\end_layout
+
+\begin_layout Standard
+Thus we finally define the 
+\emph on
+coupling matrix 
+\emph default
+via
+\emph on
+
+\begin_inset Formula 
+\[
+P_{C}:=\left(\chi^{T}D_{\eta}\chi\right)^{-1}\chi^{T}D_{\eta}P\chi.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For a correct representation of the dynamics of the markov chain we require
+ that discretization via 
+\begin_inset Formula $\chi$
+\end_inset
+
+ and time propagation commute in the sense that 
+\begin_inset Formula 
+\[
+P\chi=\chi P_{C}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This property ensures that the 
+\emph on
+coupling matrix 
+\emph default
+represents the right dynamics even, as we can see by following both outer
+ paths of the following diagram.
+\end_layout
+
+\begin_layout Standard
+Now assume, as we will enforce in PCCA+, that 
+\begin_inset Formula $\chi$
+\end_inset
+
+ is of the form 
+\begin_inset Formula $\chi=XA$
+\end_inset
+
+, where 
+\begin_inset Formula $X\in\mathbb{R}^{N\times n}$
+\end_inset
+
+ is spanning an invariant subspace of 
+\begin_inset Formula $P$
+\end_inset
+
+, i.e.
+ 
+\begin_inset Formula $PX=X\Lambda$
+\end_inset
+
+ for some 
+\begin_inset Formula $Q\in\mathbb{R}^{n\times n}$
+\end_inset
+
+.
+ Furthermore assume the orthonormality condition
+\begin_inset Formula 
+\[
+X^{T}D_{\eta}X=I
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We then see (THEOREM?)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+P_{C} & = & \left(\chi^{T}D_{\eta}\chi\right)^{-1}\chi^{T}D_{\eta}P\chi\\
+ & = & \left(A^{T}X^{T}D_{\eta}XA\right)^{-1}A^{T}X^{T}D_{\eta}X\Lambda A\\
+ & = & \left(A^{T}A\right)^{-1}\left(A^{T}\Lambda A\right)\\
+ & = & A^{-1}\Lambda A,
+\end{eqnarray*}
+
+\end_inset
+
+which implies
+\begin_inset Formula 
+\[
+P\chi=PXA=X\Lambda A=XAA^{-1}\Lambda A=\chi P_{C}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Metastability and PCCA+
+\end_layout
+
+\begin_layout Standard
+The key idea of extracting metastable behaviour via PCCA+ is transforming
+ the eigenvectors 
+\begin_inset Formula $X$
+\end_inset
+
+ of 
+\begin_inset Formula $P$
+\end_inset
+
+ to membership vectors representing the clusters of 
+\begin_inset Formula $S$
+\end_inset
+
+.
+ Taking linear combinations 
+\begin_inset Formula $A$
+\end_inset
+
+ of 
+\begin_inset Formula $n$
+\end_inset
+
+ eigenvectors 
+\begin_inset Formula $X=\left(x_{1},...,x_{n}\right)$
+\end_inset
+
+ with eigenvalues 
+\begin_inset Formula $\lambda_{1},...,\lambda_{n}\approx1$
+\end_inset
+
+ guarantees 
+\begin_inset Quotes eld
+\end_inset
+
+metastable
+\begin_inset Quotes erd
+\end_inset
+
+ (in some way) properties of the cluster 
+\begin_inset Formula $\chi_{j}=XA_{:,j}$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{align*}
+\left\langle P\chi_{j},\chi_{j}\right\rangle  & =\left\langle \sum_{k}PX_{ik}A_{kj},\sum_{k}X_{ik}A_{kj}\right\rangle \\
+ & =\left\langle \sum_{k}\lambda_{k}X_{ik}A_{kj},\sum_{k}X_{ik}A_{kj}\right\rangle \\
+ & =\sum_{i,k}\lambda_{k}\left(X_{ik}A_{kj}\right)^{2}\\
+ & \ge\min_{k}\lambda_{k}\sum\left(X_{ik}A_{kj}\right)_{i,k}^{2}\\
+ & =\min_{k}\lambda_{k}\left\langle \chi_{j},\chi_{j}\right\rangle \\
+\Rightarrow\frac{\left\langle P\chi_{j},\chi_{j}\right\rangle }{\left\langle \chi_{j},\chi_{j}\right\rangle } & \approx1
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Also these so called perron vectors only exist when the matrix is diagonalizable
+ (the process is reversible), this approach can be extended to non-reversible
+ processes by using a Schur decomposition instead of a diagonalization.
+ Reordering the Schur decomposition and selecting only the highest eigenvalue
+ eigenvectors then leads to a similar 
+\begin_inset Formula $P$
+\end_inset
+
+-invariant subspace.
+\end_layout
+
+\begin_layout Section
+
+\shape up
+PCCA+
+\end_layout
+
+\begin_layout Standard
+So the goal is to linearly transform the matrix 
+\begin_inset Formula $X$
+\end_inset
+
+ spanning the invariant subspace to a set of membership vectors.
+\end_layout
+
+\begin_layout Standard
+It is useful to think of the rows of X and 
+\begin_inset Formula $\chi$
+\end_inset
+
+ as points in n-dimensional space.
+\end_layout
+
+\begin_layout Standard
+The membership vector conditions, positivity and partition of unity, ensure
+ that the rows of 
+\begin_inset Formula $\chi$
+\end_inset
+
+ lie on the standard 
+\begin_inset Formula $\left(n-1\right)$
+\end_inset
+
+-simplex.
+\end_layout
+
+\begin_layout Standard
+Hence we look for a linear transformation 
+\begin_inset Formula $A$
+\end_inset
+
+ mapping the 
+\begin_inset Formula $N$
+\end_inset
+
+ points of each row of 
+\begin_inset Formula $X$
+\end_inset
+
+ onto that simplex.
+\end_layout
+
+\begin_layout Standard
+We will now gather some results about this problem:
+\end_layout
+
+\begin_layout Section
+
+\shape up
+Stochastic interpretation
 \end_layout
 
 \begin_layout Standard
@@ -535,137 +824,14 @@ We then turn this unconditional transitions into conditinal by dividing
  Baustelle
 \end_layout
 
-\begin_layout Standard
-Thus we finally define the 
-\emph on
-coupling matrix via
-\begin_inset Formula 
-\[
-P_{C}:=\left(\chi^{T}D_{\eta}\chi\right)^{-1}\chi^{T}D_{\eta}P\chi.
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-For a correct representation of the dynamics of the markov chain we require
- that discretization and time propagation commute in the sense that 
-\begin_inset Formula 
-\[
-P\chi=\chi P_{C}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-This property ensures that the 
-\emph on
-coupling matrix 
-\emph default
-represents the right dynamics even for long times, as we can see by following
- both outer paths of the following diagram.
-\end_layout
-
-\begin_layout Standard
-Thus one can also consider 
-\begin_inset Formula $\left(\cdot\rightarrow\cdot\chi,\, P\rightarrow P_{C}\right)$
-\end_inset
-
- as a functor.
-\end_layout
-
-\begin_layout Standard
-ROLE OF 
-\begin_inset Formula $\eta$
-\end_inset
-
-?
-\end_layout
-
-\begin_layout Subsection
-Metastability and PCCA+
-\end_layout
-
-\begin_layout Standard
-The key idea of extracting metastable behaviour via PCCA+ is transforming
- the eigenvectors 
-\begin_inset Formula $X$
-\end_inset
-
- of 
-\begin_inset Formula $P$
-\end_inset
-
- to membership vectors representing the clusters of 
-\begin_inset Formula $S$
-\end_inset
-
-.
- Taking linear combinations 
-\begin_inset Formula $A$
-\end_inset
-
- of 
-\begin_inset Formula $n$
-\end_inset
-
- eigenvectors 
-\begin_inset Formula $X=\left(x_{1},...,x_{n}\right)$
-\end_inset
-
- with eigenvalues 
-\begin_inset Formula $\lambda_{1},...,\lambda_{n}\approx1$
-\end_inset
-
- guarantees 
-\begin_inset Quotes eld
-\end_inset
-
-metastable
-\begin_inset Quotes erd
-\end_inset
-
- (in some way) properties of the cluster 
-\begin_inset Formula $\chi_{j}=XA_{:,j}$
-\end_inset
-
-:
-\begin_inset Formula 
-\begin{align*}
-\left\langle P\chi_{j},\chi_{j}\right\rangle  & =\left\langle \sum_{k}PX_{ik}A_{kj},\sum_{k}X_{ik}A_{kj}\right\rangle \\
- & =\left\langle \sum_{k}\lambda_{k}X_{ik}A_{kj},\sum_{k}X_{ik}A_{kj}\right\rangle \\
- & =\sum_{i,k}\lambda_{k}\left(X_{ik}A_{kj}\right)^{2}\\
- & \ge\min_{k}\lambda_{k}\sum\left(X_{ik}A_{kj}\right)_{i,k}^{2}\\
- & =\min_{k}\lambda_{k}\left\langle \chi_{j},\chi_{j}\right\rangle \\
-\Rightarrow\frac{\left\langle P\chi_{j},\chi_{j}\right\rangle }{\left\langle \chi_{j},\chi_{j}\right\rangle } & \approx1
-\end{align*}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-
-\shape up
-PCCA+
-\end_layout
-
-\begin_layout Section
-
-\shape up
-Stochastic interpretation
-\end_layout
-
 \begin_layout Section
 
 \shape up
 Nonreversible processes
+\end_layout
+
+\begin_layout Standard
+Extra chapter?
 \end_layout
 
 \begin_layout Section
@@ -680,10 +846,17 @@ Implementation
 Eyetracking
 \end_layout
 
-\begin_layout Section
+\begin_layout Standard
 
 \shape up
-References
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "ba"
+options "bibtotoc,plain"
+
+\end_inset
+
+
 \end_layout
 
 \end_body
