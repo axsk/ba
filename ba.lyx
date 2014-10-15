@@ -110,6 +110,10 @@ I will furthermore include newest results on extending this to the setting
  for object recognition.
 \end_layout
 
+\begin_layout Standard
+Mainly self-contained up to linear algebra knowledge.
+\end_layout
+
 \begin_layout Section
 
 \shape up
@@ -314,21 +318,6 @@ For high dimensional state spaces, as for example met in molecular dynamics,
  using a global Galerkin discretization.
 \end_layout
 
-\begin_layout Subsection
-Metastability
-\end_layout
-
-\begin_layout Standard
-Definition Deuflhard via tr()
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula $Px\approx x$
-\end_inset
-
-
-\end_layout
-
 \begin_layout Section
 
 \shape up
@@ -426,9 +415,9 @@ lmost characteristic vectors
 
 \begin_layout Standard
 \begin_inset Formula 
-\[
-\sum_{i=1}^{n}\chi_{i}=1
-\]
+\begin{equation}
+\sum_{i=1}^{n}\chi_{i}=1\label{eq:pu}
+\end{equation}
 
 \end_inset
 
@@ -440,11 +429,23 @@ are called
 \emph on
 membership vectors
 \emph default
- as they describe the membership of each state to each cluster meaningfully.
+ as they describe the relative membership of each state to each cluster.
 \end_layout
 
 \begin_layout Subsection
 Galerkin projection
+\end_layout
+
+\begin_layout Subsubsection
+Motivation for the spectral decomposition
+\end_layout
+
+\begin_layout Standard
+why using eigenvector data?
+\end_layout
+
+\begin_layout Subsubsection
+The coupling matrix
 \end_layout
 
 \begin_layout Standard
@@ -512,9 +513,9 @@ For a correct representation of the dynamics of the markov chain we require
 
  and time propagation commute in the sense that 
 \begin_inset Formula 
-\[
-P\chi=\chi P_{C}
-\]
+\begin{equation}
+P\chi=\chi P_{C}.\label{eq:com}
+\end{equation}
 
 \end_inset
 
@@ -531,48 +532,75 @@ represents the right dynamics even, as we can see by following both outer
 \end_layout
 
 \begin_layout Standard
-Now assume, as we will enforce in PCCA+, that 
+We now show this property is satisfied, assuming that 
 \begin_inset Formula $\chi$
 \end_inset
 
- is of the form 
-\begin_inset Formula $\chi=XA$
-\end_inset
-
-, where 
-\begin_inset Formula $X\in\mathbb{R}^{N\times n}$
-\end_inset
-
- is spanning an invariant subspace of 
+ is a linear combination of vectors spanning an 
 \begin_inset Formula $P$
 \end_inset
 
-, i.e.
- 
-\begin_inset Formula $PX=X\Lambda$
+-invariant subspace satisfying an orthonormality condition, which will be
+ satisfied by the PCCA+ approach.
+\end_layout
+
+\begin_layout Theorem
+Let 
+\begin_inset Formula $\chi=XA$
 \end_inset
 
- for some 
-\begin_inset Formula $Q\in\mathbb{R}^{n\times n}$
+, 
+\begin_inset Formula $X\in\mathbb{R}^{N\times n}$
 \end_inset
 
-.
- Furthermore assume the orthonormality condition
+, 
+\begin_inset Formula $A\in\mathbb{R}^{n\times n}$
+\end_inset
+
+ satisfying the subspace condition
 \begin_inset Formula 
-\[
-X^{T}D_{\eta}X=I
-\]
+\begin{equation}
+PX=X\Lambda\label{eq:ss}
+\end{equation}
+
+\end_inset
+
+for some 
+\begin_inset Formula $\Lambda\in\mathbb{R}^{n\times n}$
+\end_inset
+
+ and the orthonormality condition
+\begin_inset Formula 
+\begin{equation}
+X^{T}D_{\eta}X=I.\label{eq:on}
+\end{equation}
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
-We then see (THEOREM?)
+\begin_layout Theorem
+Then the 
+\begin_inset Formula $P_{C}$
+\end_inset
+
+ is conjugate to 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+ and discretization-propagation commutativity 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:com"
+
+\end_inset
+
+ holds.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Proof
+We calculate
 \begin_inset Formula 
 \begin{eqnarray*}
 P_{C} & = & \left(\chi^{T}D_{\eta}\chi\right)^{-1}\chi^{T}D_{\eta}P\chi\\
@@ -594,139 +622,7 @@ P\chi=PXA=X\Lambda A=XAA^{-1}\Lambda A=\chi P_{C}.
 
 \end_layout
 
-\begin_layout Subsection
-Metastability and PCCA+
-\end_layout
-
-\begin_layout Standard
-The key idea of extracting metastable behaviour via PCCA+ is transforming
- the eigenvectors 
-\begin_inset Formula $X$
-\end_inset
-
- of 
-\begin_inset Formula $P$
-\end_inset
-
- to membership vectors representing the clusters of 
-\begin_inset Formula $S$
-\end_inset
-
-.
- Taking linear combinations 
-\begin_inset Formula $A$
-\end_inset
-
- of 
-\begin_inset Formula $n$
-\end_inset
-
- eigenvectors 
-\begin_inset Formula $X=\left(x_{1},...,x_{n}\right)$
-\end_inset
-
- with eigenvalues 
-\begin_inset Formula $\lambda_{1},...,\lambda_{n}\approx1$
-\end_inset
-
- guarantees 
-\begin_inset Quotes eld
-\end_inset
-
-metastable
-\begin_inset Quotes erd
-\end_inset
-
- (in some way) properties of the cluster 
-\begin_inset Formula $\chi_{j}=XA_{:,j}$
-\end_inset
-
-:
-\begin_inset Formula 
-\begin{align*}
-\left\langle P\chi_{j},\chi_{j}\right\rangle  & =\left\langle \sum_{k}PX_{ik}A_{kj},\sum_{k}X_{ik}A_{kj}\right\rangle \\
- & =\left\langle \sum_{k}\lambda_{k}X_{ik}A_{kj},\sum_{k}X_{ik}A_{kj}\right\rangle \\
- & =\sum_{i,k}\lambda_{k}\left(X_{ik}A_{kj}\right)^{2}\\
- & \ge\min_{k}\lambda_{k}\sum\left(X_{ik}A_{kj}\right)_{i,k}^{2}\\
- & =\min_{k}\lambda_{k}\left\langle \chi_{j},\chi_{j}\right\rangle \\
-\Rightarrow\frac{\left\langle P\chi_{j},\chi_{j}\right\rangle }{\left\langle \chi_{j},\chi_{j}\right\rangle } & \approx1
-\end{align*}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Also these so called perron vectors only exist when the matrix is diagonalizable
- (the process is reversible), this approach can be extended to non-reversible
- processes by using a Schur decomposition instead of a diagonalization.
- Reordering the Schur decomposition and selecting only the highest eigenvalue
- eigenvectors then leads to a similar 
-\begin_inset Formula $P$
-\end_inset
-
--invariant subspace.
-\end_layout
-
-\begin_layout Section
-
-\shape up
-PCCA+
-\end_layout
-
-\begin_layout Standard
-So the goal is to linearly transform the matrix 
-\begin_inset Formula $X$
-\end_inset
-
- spanning the invariant subspace to a set of membership vectors.
-\end_layout
-
-\begin_layout Standard
-It is useful to think of the rows of X and 
-\begin_inset Formula $\chi$
-\end_inset
-
- as points in n-dimensional space.
-\end_layout
-
-\begin_layout Standard
-The membership vector conditions, positivity and partition of unity, ensure
- that the rows of 
-\begin_inset Formula $\chi$
-\end_inset
-
- lie on the standard 
-\begin_inset Formula $\left(n-1\right)$
-\end_inset
-
--simplex.
-\end_layout
-
-\begin_layout Standard
-Hence we look for a linear transformation 
-\begin_inset Formula $A$
-\end_inset
-
- mapping the 
-\begin_inset Formula $N$
-\end_inset
-
- points of each row of 
-\begin_inset Formula $X$
-\end_inset
-
- onto that simplex.
-\end_layout
-
-\begin_layout Standard
-We will now gather some results about this problem:
-\end_layout
-
-\begin_layout Section
-
-\shape up
+\begin_layout Subsubsection
 Stochastic interpretation
 \end_layout
 
@@ -824,26 +720,279 @@ We then turn this unconditional transitions into conditinal by dividing
  Baustelle
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
+PCCA+ and metastability
+\end_layout
+
+\begin_layout Standard
+The goal is to linearly transform the matrix 
+\begin_inset Formula $X$
+\end_inset
+
+ spanning the invariant subspace to a 
+\begin_inset Quotes eld
+\end_inset
+
+good
+\begin_inset Quotes erd
+\end_inset
+
+, specified by some objective function, set of membership vectors.
+\end_layout
+
+\begin_layout Subsubsection
+Construction of 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Feasible Set
+\end_layout
+
+\begin_layout Standard
+It is useful to think of the rows of X and 
+\begin_inset Formula $\chi$
+\end_inset
+
+ as points in n-dimensional space.
+\end_layout
+
+\begin_layout Standard
+The membership vector conditions, positivity and partition of unity, ensure
+ that the rows of 
+\begin_inset Formula $\chi$
+\end_inset
+
+ lie on the standard 
+\begin_inset Formula $\left(n-1\right)$
+\end_inset
+
+-simplex.
+\end_layout
+
+\begin_layout Standard
+Hence we look for a linear transformation 
+\begin_inset Formula $A$
+\end_inset
+
+ mapping the 
+\begin_inset Formula $N$
+\end_inset
+
+ points of each row of 
+\begin_inset Formula $X$
+\end_inset
+
+ onto that simplex.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+restrictionoffeasible\label{eq:fa}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Optimization
+\end_layout
+
+\begin_layout Standard
+Since we have a lot of matrices satisfying the conditions, we now have the
+ freedom to choose the clustering with the highest metastability.
+\end_layout
+
+\begin_layout Standard
+METASTABILITIES:
+\end_layout
+
+\begin_layout Standard
+During the last years several objectives developed.
+\end_layout
+
+\begin_layout Standard
+Weber proposed to maximize the crispness objective
+\begin_inset Formula 
+\[
+I:=\sum_{j=1}^{n}\max_{l=1..N}\chi_{l,j}\le n_{C}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+assuring a high correspondance of each state to some cluster, thus leading
+ to a almost crisp clustering.
+\end_layout
+
+\begin_layout Standard
+In 3.5.3 it is explained that 
+\begin_inset Formula $I_{1}$
+\end_inset
+
+ is an upper bound for the metastability FOR REV.
+ PROCESSES.
+\end_layout
+
+\begin_layout Standard
+He also proposed the 
+\emph on
+metastability objective
+\emph default
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I_{2}:=\text{trace}\left(P_{C}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Same trace because conjugate?
+\end_layout
+
+\begin_layout Subsection
 
 \shape up
 Nonreversible processes
 \end_layout
 
-\begin_layout Standard
-Extra chapter?
+\begin_layout Subsubsection
+Stochastic interpretation of the coupling matrix
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsubsection
+Construction of 
+\begin_inset Formula $\Lambda$
+\end_inset
 
-\shape up
-Implementation
+
+\end_layout
+
+\begin_layout Subsubsection
+Optimization
+\end_layout
+
+\begin_layout Standard
+Röblitz reinterpretation of crispness obj.
+\end_layout
+
+\begin_layout Standard
+new metastability objective
+\end_layout
+
+\begin_layout Subsection
+Summary
 \end_layout
 
 \begin_layout Section
 
 \shape up
 Eyetracking
+\end_layout
+
+\begin_layout Subsection
+The experiment
+\end_layout
+
+\begin_layout Subsection
+Application of PCCA+
+\end_layout
+
+\begin_layout Subsection
+Results
+\end_layout
+
+\begin_layout Section
+
+\shape up
+Junk
+\end_layout
+
+\begin_layout Standard
+The key idea of extracting metastable behaviour via PCCA+ is transforming
+ the eigenvectors 
+\begin_inset Formula $X$
+\end_inset
+
+ of 
+\begin_inset Formula $P$
+\end_inset
+
+ to membership vectors representing the clusters of 
+\begin_inset Formula $S$
+\end_inset
+
+.
+ Taking linear combinations 
+\begin_inset Formula $A$
+\end_inset
+
+ of 
+\begin_inset Formula $n$
+\end_inset
+
+ eigenvectors 
+\begin_inset Formula $X=\left(x_{1},...,x_{n}\right)$
+\end_inset
+
+ with eigenvalues 
+\begin_inset Formula $\lambda_{1},...,\lambda_{n}\approx1$
+\end_inset
+
+ guarantees 
+\begin_inset Quotes eld
+\end_inset
+
+metastable
+\begin_inset Quotes erd
+\end_inset
+
+ (in some way) properties of the cluster 
+\begin_inset Formula $\chi_{j}=XA_{:,j}$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{align*}
+\left\langle P\chi_{j},\chi_{j}\right\rangle  & =\left\langle \sum_{k}PX_{ik}A_{kj},\sum_{k}X_{ik}A_{kj}\right\rangle \\
+ & =\left\langle \sum_{k}\lambda_{k}X_{ik}A_{kj},\sum_{k}X_{ik}A_{kj}\right\rangle \\
+ & =\sum_{i,k}\lambda_{k}\left(X_{ik}A_{kj}\right)^{2}\\
+ & \ge\min_{k}\lambda_{k}\sum\left(X_{ik}A_{kj}\right)_{i,k}^{2}\\
+ & =\min_{k}\lambda_{k}\left\langle \chi_{j},\chi_{j}\right\rangle \\
+\Rightarrow\frac{\left\langle P\chi_{j},\chi_{j}\right\rangle }{\left\langle \chi_{j},\chi_{j}\right\rangle } & \approx1
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Also these so called perron vectors only exist when the matrix is diagonalizable
+ (the process is reversible), this approach can be extended to non-reversible
+ processes by using a Schur decomposition instead of a diagonalization.
+ Reordering the Schur decomposition and selecting only the highest eigenvalue
+ eigenvectors then leads to a similar 
+\begin_inset Formula $P$
+\end_inset
+
+-invariant subspace.
 \end_layout
 
 \begin_layout Standard
