@@ -282,13 +282,21 @@ reversible
 
 \begin_layout Standard
 \begin_inset Formula 
-\[
-\pi_{i}P_{ij}=\pi_{j}P_{ji}
-\]
+\begin{equation}
+\pi_{i}P_{ij}=\pi_{j}P_{ji}\label{eq:db}
+\end{equation}
 
 \end_inset
 
 
+\begin_inset Formula 
+\[
+D_{\pi}P=P^{T}D_{\pi}
+\]
+
+\end_inset
+
+D_pi?
 \end_layout
 
 \begin_layout Standard
@@ -324,7 +332,14 @@ For high dimensional state spaces, as for example met in molecular dynamics,
  this approach exhibits the curse of dimensionality, as the size of the
  mesh grows exponentially with the dimensions.
  As solution to this problem Weber developed a meshless version of PCCA+
- using a global Galerkin discretization.
+ using a global Galerkin discretization
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Weber2006"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -406,7 +421,7 @@ Perron Cluster Analysis
 \end_layout
 
 \begin_layout Standard
-Weber and Galliat, Deuflhard and Weber therefor developed a robust version,
+Weber and Galliat, Deuflhard and Weber therefore developed a robust version,
  
 \emph on
 Robust Perron Cluster Analyis
@@ -476,7 +491,7 @@ membership vectors
 \begin_inset Formula $n<N$
 \end_inset
 
- eigenvectors with the largest eigenvalues, one hopes to keep the principal
+ eigenvectors with the largest eigenvalues, one hopes to preserve the principal
  dynamics of 
 \begin_inset Formula $P$
 \end_inset
@@ -569,8 +584,8 @@ This property ensures that the
 \emph on
 coupling matrix 
 \emph default
-represents the right dynamics even, as we can see by following both outer
- paths of the following diagram.
+represents the right dynamics even for iterative application, as we can
+ see by following both outer paths of the following diagram.
 \end_layout
 
 \begin_layout Standard
@@ -587,6 +602,12 @@ We now show this property is satisfied, assuming that
 \end_layout
 
 \begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:comm"
+
+\end_inset
+
 Let 
 \begin_inset Formula $\chi=XA$
 \end_inset
@@ -767,11 +788,21 @@ PCCA+ and metastability
 \end_layout
 
 \begin_layout Standard
-The goal is to linearly transform the matrix 
+We now first present the PCCA+ algorithm in the case of reversible processes.
+\end_layout
+
+\begin_layout Standard
+We first will construct the matrix 
 \begin_inset Formula $X$
 \end_inset
 
- spanning the invariant subspace to a 
+ spanning the invariant subspace, then examine the possible linear transformatio
+ns 
+\begin_inset Formula $A$
+\end_inset
+
+ mapping these to a set of membership vectors and finally propose and optimizati
+on problem to specify a 
 \begin_inset Quotes eld
 \end_inset
 
@@ -779,12 +810,141 @@ good
 \begin_inset Quotes erd
 \end_inset
 
-, specified by some objective function, set of membership vectors.
+ solution, representing the goal of metastability in the form of a objective
+ function.
 \end_layout
 
 \begin_layout Subsubsection
 Construction of 
+\begin_inset Formula $X$
+\end_inset
+
+ and 
 \begin_inset Formula $\Lambda$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:constrXL"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To satisfy the orthonormality condition 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:on"
+
+\end_inset
+
+ we define the matrix 
+\begin_inset Formula $\tilde{P}:=D_{\pi}^{\frac{1}{2}}PD_{\pi}^{-\frac{1}{2}}$
+\end_inset
+
+, where 
+\begin_inset Formula $D_{\pi}$
+\end_inset
+
+ denotes the diagonal matrix with the stationary distribution 
+\begin_inset Formula $\pi$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+As we assume a reversible process the detailed balance condition 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:db"
+
+\end_inset
+
+ holds, assuring that 
+\begin_inset Formula $\tilde{P}$
+\end_inset
+
+ is symmetric:
+\begin_inset Formula 
+\[
+\tilde{P}^{T}=D_{\pi}^{-\frac{1}{2}}P^{T}D_{\pi}^{\frac{1}{2}}=D_{\pi}^{-\frac{1}{2}}D_{\pi}PD_{\pi}^{-1}D_{\eta}^{\frac{1}{2}}=\tilde{P}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We therefore can diagonalize 
+\begin_inset Formula $\tilde{P}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\tilde{P}\tilde{X'}=\tilde{X'}\Lambda'$
+\end_inset
+
+ with 
+\begin_inset Formula $\tilde{X'}\in\mathbb{R}^{N\times N}$
+\end_inset
+
+ beeing orthonormal and 
+\begin_inset Formula $\Lambda'\in\mathbb{R}^{N\times N}$
+\end_inset
+
+ beeing diagonal.
+\end_layout
+
+\begin_layout Standard
+We then select the 
+\begin_inset Formula $n$
+\end_inset
+
+ largest eigenvalues and eigenvectors 
+\begin_inset Formula $\tilde{X}\in\mathbb{R}^{n\times n},$
+\end_inset
+
+ 
+\begin_inset Formula $\Lambda\in\mathbb{R}^{n\times n}$
+\end_inset
+
+ and define 
+\begin_inset Formula $X:=D_{\pi}^{-\frac{1}{2}}\tilde{X}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+We then see that the conditions for 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:comm"
+
+\end_inset
+
+ are satisfied:
+\begin_inset Formula 
+\begin{eqnarray*}
+\tilde{P}\tilde{X} & = & \tilde{X}\Lambda\\
+\Leftrightarrow D_{\pi}^{\frac{1}{2}}PD_{\pi}^{-\frac{1}{2}}D_{\pi}^{\frac{1}{2}}X & = & D_{\pi}^{\frac{1}{2}}X\Lambda\\
+\Leftrightarrow PX & = & X\Lambda
+\end{eqnarray*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\tilde{X}^{T}\tilde{X} & = & I\\
+\Leftrightarrow X^{T}D_{\pi}^{\frac{1}{2}}D_{\pi}^{\frac{1}{2}}X & = & I\\
+\Leftrightarrow X^{T}D_{\pi}X & = & I
+\end{eqnarray*}
+
 \end_inset
 
 
@@ -930,16 +1090,217 @@ Same trace because conjugate?
 Nonreversible processes
 \end_layout
 
+\begin_layout Standard
+The whole algorithm is also applicable to nonreversible processes, with
+ some smaller adjustments concerning the construction of the invariant subspace
+ and the stochastic interpretation, as well as a new optimization goal.
+\end_layout
+
 \begin_layout Subsubsection
 Stochastic interpretation of the coupling matrix
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:stochintnr"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
 Construction of 
+\begin_inset Formula $X$
+\end_inset
+
+ and 
 \begin_inset Formula $\Lambda$
 \end_inset
 
 
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:weightedss"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When the underlying stochastic process is not reversible the matrix 
+\begin_inset Formula $P$
+\end_inset
+
+ is no more real diagonalizable.
+ We therefore make use of the
+\emph on
+ real Schur decomposition
+\emph default
+, decomposing a matrix 
+\begin_inset Formula $A=QTQ^{-1}$
+\end_inset
+
+ into a orthonormal
+\emph on
+ 
+\emph default
+matrix 
+\begin_inset Formula $Q$
+\end_inset
+
+, called the 
+\emph on
+Schur vectors,
+\emph default
+ and an upper quasi-triangular (1-by-1 and 2-by-2 blocks on its diagonal)
+ matrix 
+\begin_inset Formula $T$
+\end_inset
+
+, called the 
+\emph on
+Schur form
+\emph default
+.
+ The columns of 
+\begin_inset Formula $Q$
+\end_inset
+
+ are called the Schur vectors of 
+\begin_inset Formula $P$
+\end_inset
+
+.
+ The eigenvalues of 
+\begin_inset Formula $P$
+\end_inset
+
+ appear on the diagonal of 
+\begin_inset Formula $T$
+\end_inset
+
+, where complex conjugate eigenvalues correspond to the 2-by-2 blocks.
+ 
+\end_layout
+
+\begin_layout Standard
+To compute an orthonormal basis for an invariant subspace belonging to 
+\begin_inset Formula $n$
+\end_inset
+
+ eigenvalues one can reorder the diagonal blocks of 
+\begin_inset Formula $T$
+\end_inset
+
+ such that the upper left 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ block contains these 
+\begin_inset Formula $n$
+\end_inset
+
+ eigenvalues.
+ Then the first 
+\begin_inset Formula $n$
+\end_inset
+
+ columns of the updated transformation matrix 
+\begin_inset Formula $Q$
+\end_inset
+
+ form a basis for the desired subspace 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schur"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+So we define, analogously to 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:constrXL"
+
+\end_inset
+
+ 
+\begin_inset Formula $\tilde{P}:=D_{\eta}^{\frac{1}{2}}PD_{\eta}^{-\frac{1}{2}}$
+\end_inset
+
+ and compute the 
+\emph on
+real Schur decomposition 
+\emph default
+of 
+\begin_inset Formula $\tilde{P}$
+\end_inset
+
+.
+ We then select the 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ blocks corresponding to the 
+\begin_inset Formula $n$
+\end_inset
+
+ eigenvalues with the highest absolute value by the reordering procedure.
+ Let us denote the resulting 
+\emph on
+Schur vectors 
+\emph default
+by 
+\begin_inset Formula $\tilde{X}$
+\end_inset
+
+ and the 
+\emph on
+Schur form 
+\emph default
+by 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Now 
+\begin_inset Formula $X:=D_{\pi}^{-\frac{1}{2}}\tilde{X}$
+\end_inset
+
+ and 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+ satisfy the conditions for 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:comm"
+
+\end_inset
+
+ (same calculations as in
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:constrXL"
+
+\end_inset
+
+ ).
+\end_layout
+
+\begin_layout Standard
+Note that we made no use of 
+\begin_inset Formula $\eta$
+\end_inset
+
+ beeing a stationary distribution so far.
 \end_layout
 
 \begin_layout Subsubsection
@@ -964,12 +1325,129 @@ Summary
 Application to eyetracking data
 \end_layout
 
+\begin_layout Standard
+This algorithm was applied to eyetracking data.
+\end_layout
+
 \begin_layout Subsection
 The experiment
 \end_layout
 
+\begin_layout Standard
+We measure the fixations 
+\begin_inset Formula $f_{i}\in\mathbb{R}^{2}$
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Implementation
+\end_layout
+
+\begin_layout Standard
+As state space we define the coordinates of each fixation 
+\begin_inset Formula $S:=\left\{ s_{i}\right\} ,\, s_{i}=f_{i}$
+\end_inset
+
+, though if one has too many fixations we recommend using for example a
+ k-means clustering of the fixations.
+\end_layout
+
+\begin_layout Standard
+We then compute the membership of each fixation 
+\begin_inset Formula $f_{i}$
+\end_inset
+
+ to each state 
+\begin_inset Formula $s_{j}$
+\end_inset
+
+ based on the gaussian of the distance:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+M_{ij}:=e^{\frac{\left|f_{i}-s_{j}\right|^{2}}{2\sigma^{2}}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Then summing over all measured transitions 
+\begin_inset Formula $f_{a}\rightarrow f_{b}$
+\end_inset
+
+ and normalizing to row sum 
+\begin_inset Formula $1$
+\end_inset
+
+ we compute the resulting transition matrix 
+\begin_inset Formula $P$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{eqnarray*}
+\\
+P_{ij} & = & \frac{\sum_{f_{a}\rightarrow f_{b}}M_{ai}M_{bj}}{\sum_{k,l}\sum_{f_{a}\rightarrow f_{b}}M_{ak}M_{bl}}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We compute the stationary distrubution as:
+\begin_inset Formula 
+\[
+this.pi=sum(this.C,2)/sum(sum(this.C));
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Once we have constructed 
+\begin_inset Formula $P$
+\end_inset
+
+ this way we now compute the invariant eigenspace using the weighted Schur
+ decomposition as in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:weightedss"
+
+\end_inset
+
+ and pass is to PCCA+, which in return gives us the clustering 
+\begin_inset Formula $\chi$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+We then use the stochastic interpretation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:stochintnr"
+
+\end_inset
+
+ to calculate a a transition matrix on our reduced state space.
+\end_layout
+
+\begin_layout Standard
+Then we compare the two testgroups by first reordering the clusters to maximize
+ the correlation between same-numbered clusters.
 \end_layout
 
 \begin_layout Subsection
