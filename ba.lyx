@@ -378,7 +378,11 @@ We now look for a way to represent the clustering into
 \end_layout
 
 \begin_layout Standard
-One possibility of assigning states to a cluster k is by means of a 
+One possibility of assigning states to a cluster 
+\begin_inset Formula $i$
+\end_inset
+
+ is by means of a 
 \emph on
 characteristic vector
 \emph default
@@ -392,8 +396,8 @@ characteristic vector
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\chi_{k,i}=\begin{cases}
-1, & \text{if state \ensuremath{i}}\text{ belongs to cluster }k\\
+\chi_{i,k}=\begin{cases}
+1, & \text{if state \ensuremath{k}}\text{ belongs to cluster }i\\
 0, & \text{else }
 \end{cases}.
 \]
@@ -412,8 +416,16 @@ approach, used by
 \emph on
 Perron Cluster Analysis
 \emph default
- (PCCA) of Deuflhard et al., has the disadvantage of not beeing robust against
- small pertubations, as continious changes in 
+ (PCCA) of Deuflhard et al.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Deuflhard2000"
+
+\end_inset
+
+, has the disadvantage of not beeing robust against small pertubations,
+ as continious changes in 
 \begin_inset Formula $P$
 \end_inset
 
@@ -433,13 +445,14 @@ fuzzy clustering
  representing each cluster by an
 \emph on
  almost characteristic vector 
-\begin_inset Formula $\chi_{k}\in\left[0,1\right]^{n}$
+\begin_inset Formula 
+\begin{equation}
+\chi_{i}\in\left[0,1\right]^{n}.\label{eq:pos}
+\end{equation}
+
 \end_inset
 
-.
 
-\emph default
- 
 \end_layout
 
 \begin_layout Standard
@@ -452,9 +465,6 @@ lmost characteristic vectors
 
 \emph default
  satisfying the partition of unity property
-\end_layout
-
-\begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
 \sum_{i=1}^{n}\chi_{i}=1\label{eq:pu}
@@ -471,6 +481,16 @@ are called
 membership vectors
 \emph default
  as they describe the relative membership of each state to each cluster.
+\end_layout
+
+\begin_layout Standard
+We will call the matrix 
+\begin_inset Formula $\chi:=\left(\chi_{i}\right)_{i=1}^{n}\in\mathbb{R}^{N\times n}$
+\end_inset
+
+ composed of of characteristic vector a 
+\emph on
+clustering.
 \end_layout
 
 \begin_layout Subsection
@@ -506,15 +526,96 @@ The coupling matrix
 \end_layout
 
 \begin_layout Standard
-Given a set of 
-\emph on
-membership vectors 
-\emph default
-describing a clustering, we now aim at a Galerkin projection of 
-\begin_inset Formula $P$
+To represent the dynamics on the reduced/clustered state space in the case
+ of a crisp clustering 
+\begin_inset Formula $\chi$
 \end_inset
 
-, to get a reduced version representing the dynamics on the clusters.
+, i.e.
+ 
+\begin_inset Formula $\chi_{i}\in\left\{ 0,1\right\} $
+\end_inset
+
+, Deuflhard et al.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Deuflhard2000"
+
+\end_inset
+
+ introduced the 
+\emph on
+coupling matrix
+\emph default
+ 
+\emph on
+
+\begin_inset Formula 
+\[
+W_{ij}:=\frac{\left\langle \chi_{j},P\chi_{i}\right\rangle _{\pi}}{\left\langle \chi_{i},\chi_{i}\right\rangle _{\pi}}=\frac{\chi_{j}^{T}D_{\pi}P\chi_{i}}{\chi_{i}^{T}D_{\pi}\chi_{i}}.
+\]
+
+\end_inset
+
+
+\emph default
+The entries 
+\begin_inset Formula $W_{ij}$
+\end_inset
+
+ can thus be interpreted as conditional transition probability from cluster
+ 
+\begin_inset Formula $i$
+\end_inset
+
+ to cluster 
+\begin_inset Formula $j$
+\end_inset
+
+, given the starting distribution 
+\begin_inset Formula $\pi$
+\end_inset
+
+
+\emph on
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\emph on
+\begin_inset Formula $\pi$
+\end_inset
+
+, 
+\begin_inset Formula $D_{\pi}$
+\end_inset
+
+, here 
+\begin_inset Formula $\eta$
+\end_inset
+
+ is enough?
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Unfortunately the stochastic interpretation of 
+\begin_inset Formula $W$
+\end_inset
+
+ fails for a fuzzy clustering, not least due to the fact that it's entries
+ may become negative.
+\end_layout
+
+\begin_layout Subsubsection
+The propagator matrix
 \end_layout
 
 \begin_layout Standard
@@ -531,9 +632,10 @@ starting distribution
 \end_inset
 
  .
-\end_layout
+\begin_inset Note Note
+status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Formula $\eta$
 \end_inset
 
@@ -544,31 +646,55 @@ starting distribution
 ?
 \end_layout
 
-\begin_layout Standard
-Thus we finally define the 
-\emph on
-coupling matrix 
-\emph default
-via
-\emph on
-
-\begin_inset Formula 
-\[
-P_{C}:=\left(\chi^{T}D_{\eta}\chi\right)^{-1}\chi^{T}D_{\eta}P\chi.
-\]
-
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-For a correct representation of the dynamics of the markov chain we require
- that discretization via 
+Kube and Weber 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kube2006,Kube2007"
+
+\end_inset
+
+ proposed the 
+\emph on
+coarse propagator matrix
+\emph default
+ 
+\emph on
+
+\begin_inset Formula 
+\[
+P_{C}:=\left(\chi^{T}D_{\eta}\chi\right)^{-1}\chi^{T}D_{\eta}P\chi,
+\]
+
+\end_inset
+
+
+\emph default
+which coincides with the 
+\emph on
+coupling matrix 
+\begin_inset Formula $W$
+\end_inset
+
+ 
+\emph default
+in the crisp clustering setting, but has the advantage of representing the
+ right dynamics of the underlying markov chain on 
+\begin_inset Formula $S$
+\end_inset
+
+, even on the coarser clustered state space, in the sense that discretization
+ via 
 \begin_inset Formula $\chi$
 \end_inset
 
- and time propagation commute in the sense that 
+ and time propagation commute, i.e.
+ 
 \begin_inset Formula 
 \begin{equation}
 P\chi=\chi P_{C}.\label{eq:com}
@@ -685,104 +811,6 @@ P\chi=PXA=X\Lambda A=XAA^{-1}\Lambda A=\chi P_{C}.
 
 \end_layout
 
-\begin_layout Subsubsection
-Stochastic interpretation
-\end_layout
-
-\begin_layout Standard
-By multiplying the conditional transitions of 
-\begin_inset Formula $P$
-\end_inset
-
- with the actual starting distribution we get the unconditional transitions
- matrix 
-\begin_inset Formula $D_{\eta}P$
-\end_inset
-
-, which we can interpret as amount of actual transitions between the states.
- Now multiplying with a membership vector 
-\begin_inset Formula $\chi_{i}^{T}$
-\end_inset
-
- from the left gives the numbers of transitions starting in 
-\begin_inset Formula $\chi_{i}$
-\end_inset
-
- and finally multiplying with 
-\begin_inset Formula $\chi_{j}$
-\end_inset
-
- from the right measures the amount of these transitions landing in 
-\begin_inset Formula $\chi_{j}$
-\end_inset
-
-, i.e.
- 
-\begin_inset Formula $\chi_{i}^{T}D_{\eta}P\chi_{j}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-gives the unconditional number of transitions from cluster 
-\begin_inset Formula $i$
-\end_inset
-
- to cluster 
-\begin_inset Formula $j$
-\end_inset
-
-.
- Note that this interpretation is associative in the sense that we come
- to the same results by for example first interpreting 
-\begin_inset Formula $\chi_{i}^{T}D_{\eta}$
-\end_inset
-
- as actual amount of states in the cluster 
-\begin_inset Formula $\chi_{i}$
-\end_inset
-
- and measure the overlap with where the transitions to 
-\begin_inset Formula $\chi_{j}$
-\end_inset
-
-, come from: 
-\begin_inset Formula $\left(\chi_{i}^{T}D_{\eta}\right)(P\chi_{j})$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-We can vectorize this equation to compute the unconditional transitions
- by means of the 
-\emph on
-membership matrix 
-\begin_inset Formula $\chi=\left(\chi_{1},...,\chi_{n}\right)$
-\end_inset
-
-:
-\begin_inset Formula 
-\[
-\chi^{T}D_{\eta}P\chi
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-We then turn this unconditional transitions into conditinal by dividing
- by the number of states belonging to 
-\begin_inset Formula $\chi_{i}$
-\end_inset
-
- and have to make up the fact that we do not count all transitions...
- Baustelle
-\end_layout
-
 \begin_layout Subsection
 PCCA+ and metastability
 \end_layout
@@ -801,8 +829,8 @@ ns
 \begin_inset Formula $A$
 \end_inset
 
- mapping these to a set of membership vectors and finally propose and optimizati
-on problem to specify a 
+ mapping these to a set of membership vectors and finally propose an optimizatio
+n problem to specify a 
 \begin_inset Quotes eld
 \end_inset
 
@@ -955,7 +983,15 @@ Feasible Set
 \end_layout
 
 \begin_layout Standard
-We will now examine the possible solutions 
+Given a fixed eigenvector matrix 
+\begin_inset Formula $X$
+\end_inset
+
+, we will now examine the set of feasible solutions 
+\begin_inset Formula $F_{A}\subset\mathbb{R}^{n\times n} $
+\end_inset
+
+ for the transformation matrix 
 \begin_inset Formula $A$
 \end_inset
 
@@ -971,51 +1007,49 @@ membership vectors
 \end_layout
 
 \begin_layout Standard
-It is useful to think of the rows of X and 
-\begin_inset Formula $\chi$
+Making use of the fact that 
+\begin_inset Formula $X_{i,1}=1,\, i=1,...,N$
 \end_inset
 
- as points in n-dimensional space.
-\end_layout
+ (reference?) one can reformulate the positivity 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:pos"
 
-\begin_layout Standard
-The membership vector conditions, positivity and partition of unity, ensure
- that the rows of 
-\begin_inset Formula $\chi$
 \end_inset
 
- lie on the standard 
-\begin_inset Formula $\left(n-1\right)$
+ and partition of unity conditions 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:pu"
+
 \end_inset
 
--simplex.
-\end_layout
-
-\begin_layout Standard
-Hence we look for a linear transformation 
-\begin_inset Formula $A$
-\end_inset
-
- mapping the 
-\begin_inset Formula $N$
-\end_inset
-
- points of each row of 
-\begin_inset Formula $X$
-\end_inset
-
- onto that simplex.
+ in terms of the matrices X and A:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{equation}
-restrictionoffeasible\label{eq:fa}
-\end{equation}
+\begin{eqnarray}
+A_{1,j} & \ge & -\sum_{k=2}^{n}X_{ik}A_{kj},\, i=1,...,N,\, j=1,...,n\,\left(\text{positivity}\right),\label{eq:fa}\\
+A_{i,1} & = & \delta_{i,1}-\sum_{j=2}^{n}A_{ij},\, i=1,...,n\,\left(\text{partition of unity}\right)
+\end{eqnarray}
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Since these constraints are linear the set 
+\begin_inset Formula $F_{A}$
+\end_inset
+
+ is convex, and it is not empty as the matrix 
+\begin_inset Formula $A_{ij}^{*}:=\frac{\delta_{i,1}}{n}$
+\end_inset
+
+ satisfies these conditions.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1023,28 +1057,62 @@ Optimization
 \end_layout
 
 \begin_layout Standard
-Since we have a lot of matrices satisfying the conditions, we now have the
- freedom to choose the clustering with the highest metastability.
+As Deuflhard and Weber 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Deuflhard2005"
+
+\end_inset
+
+ have shown, the set 
+\begin_inset Formula $F_{A}$
+\end_inset
+
+ is indeed uncountable, one can now specify an objective function leading
+ to a optimization problem to find a specific solution 
+\begin_inset Formula $A\in F_{A}$
+\end_inset
+
+.
+ I will now give an overview over the objectives, which were developed during
+ the last years.
 \end_layout
 
 \begin_layout Standard
-METASTABILITIES:
-\end_layout
+In 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Weber2006"
 
-\begin_layout Standard
-During the last years several objectives developed.
-\end_layout
+\end_inset
 
-\begin_layout Standard
-Weber proposed to maximize the crispness objective
+ Weber proposed the maximization of the following two objective functions
 \begin_inset Formula 
 \[
-I:=\sum_{j=1}^{n}\max_{l=1..N}\chi_{l,j}\le n_{C}
+I_{1}:=\sum_{j=1}^{n}\max_{l=1..N}\chi_{l,j}\le n_{C}
 \]
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I_{2}:=\text{trace}\left(W\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $I_{1}$
+\end_inset
+
+ can be interpr
 \end_layout
 
 \begin_layout Standard
@@ -1053,35 +1121,14 @@ assuring a high correspondance of each state to some cluster, thus leading
 \end_layout
 
 \begin_layout Standard
-In 3.5.3 it is explained that 
-\begin_inset Formula $I_{1}$
-\end_inset
-
- is an upper bound for the metastability FOR REV.
- PROCESSES.
-\end_layout
-
-\begin_layout Standard
-He also proposed the 
-\emph on
-metastability objective
-\emph default
-:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-I_{2}:=\text{trace}\left(P_{C}\right)
-\]
+However, as these in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Roeblitz2013"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-Same trace because conjugate?
+ it is argued that this metastability is 
 \end_layout
 
 \begin_layout Subsection
@@ -1458,6 +1505,108 @@ Results
 
 \shape up
 Junk
+\end_layout
+
+\begin_layout Subsubsection
+Stochastic interpretation
+\end_layout
+
+\begin_layout Standard
+By multiplying the conditional transitions of 
+\begin_inset Formula $P$
+\end_inset
+
+ with the actual starting distribution we get the unconditional transitions
+ matrix 
+\begin_inset Formula $D_{\eta}P$
+\end_inset
+
+, which we can interpret as amount of actual transitions between the states.
+ Now multiplying with a membership vector 
+\begin_inset Formula $\chi_{i}^{T}$
+\end_inset
+
+ from the left gives the numbers of transitions starting in 
+\begin_inset Formula $\chi_{i}$
+\end_inset
+
+ and finally multiplying with 
+\begin_inset Formula $\chi_{j}$
+\end_inset
+
+ from the right measures the amount of these transitions landing in 
+\begin_inset Formula $\chi_{j}$
+\end_inset
+
+, i.e.
+ 
+\begin_inset Formula $\chi_{i}^{T}D_{\eta}P\chi_{j}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+gives the unconditional number of transitions from cluster 
+\begin_inset Formula $i$
+\end_inset
+
+ to cluster 
+\begin_inset Formula $j$
+\end_inset
+
+.
+ Note that this interpretation is associative in the sense that we come
+ to the same results by for example first interpreting 
+\begin_inset Formula $\chi_{i}^{T}D_{\eta}$
+\end_inset
+
+ as actual amount of states in the cluster 
+\begin_inset Formula $\chi_{i}$
+\end_inset
+
+ and measure the overlap with where the transitions to 
+\begin_inset Formula $\chi_{j}$
+\end_inset
+
+, come from: 
+\begin_inset Formula $\left(\chi_{i}^{T}D_{\eta}\right)(P\chi_{j})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+We can vectorize this equation to compute the unconditional transitions
+ by means of the 
+\emph on
+membership matrix 
+\begin_inset Formula $\chi=\left(\chi_{1},...,\chi_{n}\right)$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\chi^{T}D_{\eta}P\chi
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We then turn this unconditional transitions into conditinal by dividing
+ by the number of states belonging to 
+\begin_inset Formula $\chi_{i}$
+\end_inset
+
+ and have to make up the fact that we do not count all transitions...
+ Baustelle
+\end_layout
+
+\begin_layout Subsection
+Junk2
 \end_layout
 
 \begin_layout Standard
