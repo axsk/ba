@@ -126,6 +126,10 @@ Mainly self-contained up to linear algebra knowledge.
 \begin_layout Section
 
 \shape up
+Theoretical background
+\end_layout
+
+\begin_layout Subsection
 Introduction to Markov Chains
 \end_layout
 
@@ -310,6 +314,10 @@ which assures that the back and forth transitions between any two states
 \end_inset
 
  equalize.
+\end_layout
+
+\begin_layout Subsection
+Examples to metastability
 \end_layout
 
 \begin_layout Subsection
@@ -710,8 +718,12 @@ This property ensures that the
 \emph on
 coupling matrix 
 \emph default
-represents the right dynamics even for iterative application, as we can
- see by following both outer paths of the following diagram.
+represents the right dynamics even for iterative application, i.e.
+ 
+\begin_inset Formula $P^{n}\chi=\chi P_{C}^{n}$
+\end_inset
+
+, which is in general not possible using a crisp clustering as in PCCA.
 \end_layout
 
 \begin_layout Standard
@@ -988,19 +1000,19 @@ Given a fixed eigenvector matrix
 \end_inset
 
 , we will now examine the set of feasible solutions 
-\begin_inset Formula $F_{A}\subset\mathbb{R}^{n\times n} $
+\begin_inset Formula $F_{A}\subset\mathbb{R}^{n\times n}$
 \end_inset
 
  for the transformation matrix 
 \begin_inset Formula $A$
 \end_inset
 
- leading to the 
+, defined by the leading to 
 \emph on
 membership vectors
 \emph default
  
-\begin_inset Formula $\chi$
+\begin_inset Formula $\chi=XA$
 \end_inset
 
 .
@@ -1018,14 +1030,15 @@ reference "eq:pos"
 
 \end_inset
 
- and partition of unity conditions 
+ and partition of unity 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:pu"
 
 \end_inset
 
- in terms of the matrices X and A:
+ conditions in terms of the matrices X and A, leading to the following constrain
+ts for A:
 \end_layout
 
 \begin_layout Standard
@@ -1041,11 +1054,11 @@ A_{i,1} & = & \delta_{i,1}-\sum_{j=2}^{n}A_{ij},\, i=1,...,n\,\left(\text{partit
 \end_layout
 
 \begin_layout Standard
-Since these constraints are linear the set 
+Since these constraints are linear in A the set 
 \begin_inset Formula $F_{A}$
 \end_inset
 
- is convex, and it is not empty as the matrix 
+ is a convex polytope, and it is not empty as the matrix 
 \begin_inset Formula $A_{ij}^{*}:=\frac{\delta_{i,1}}{n}$
 \end_inset
 
@@ -1086,11 +1099,12 @@ key "Weber2006"
 
 \end_inset
 
- Weber proposed the maximization of the following two objective functions
+ Weber proposed the maximization of one of the following two objective functions
 \begin_inset Formula 
-\[
-I_{1}:=\sum_{j=1}^{n}\max_{l=1..N}\chi_{l,j}\le n_{C}
-\]
+\begin{eqnarray*}
+I_{1}\left(A\right) & := & \sum_{j=1}^{n}\max_{l=1..N}\chi_{lj}\le n_{C}\\
+I_{2}\left(A\right) & := & \sum_{i=1}^{n}\lambda_{i}\sum_{j=1}^{n}\frac{A\left(i,j\right)^{2}}{A\left(1,j\right)}=\text{trace}\left(W\right),
+\end{eqnarray*}
 
 \end_inset
 
@@ -1098,14 +1112,92 @@ I_{1}:=\sum_{j=1}^{n}\max_{l=1..N}\chi_{l,j}\le n_{C}
 \end_layout
 
 \begin_layout Standard
+showing that both are convex over 
+\begin_inset Formula $F_{A}$
+\end_inset
+
+.
+ This means that their respective maxima are attained at the vertices 
+\begin_inset Formula $v\left(F_{A}\right)$
+\end_inset
+
+, which allows the determination of the 
+\begin_inset Formula $2n$
+\end_inset
+
+ active constraints
 \begin_inset Formula 
-\[
-I_{2}:=\text{trace}\left(W\right).
-\]
+\begin{eqnarray*}
+A_{i,1} & = & \delta_{i,1}-\sum_{j=2}^{n}A_{ij},\, i=1,...,n\\
+A_{1,j} & = & -\min_{l=1,...,N}\sum_{i=2}^{n}X_{li}A_{ij},\, j=1,....,n
+\end{eqnarray*}
 
 \end_inset
 
+ reducing the search space to 
+\begin_inset Formula $\left(n-1\right)^{2}$
+\end_inset
 
+ unknowns.
+ 
+\end_layout
+
+\begin_layout Minisec
+Linearization of 
+\begin_inset Formula $I_{1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Assuming that the 
+\emph on
+maximality assumption
+\emph default
+ 
+\begin_inset Formula $\forall j\in\left\{ 0,...,n\right\} \exists i\in\left\{ 0,...,N\right\} :\,\chi_{ij}=1$
+\end_inset
+
+ nearly holds (i.e.
+ 
+\begin_inset Formula $\chi_{ij}\approx1$
+\end_inset
+
+), he argues how to express 
+\begin_inset Formula $I_{1}$
+\end_inset
+
+ as the linear function 
+\begin_inset Formula $I_{1}\left(A\right)=\sum_{i,j=1}^{n}X_{ind(j),i}A_{ij}$
+\end_inset
+
+, where the 
+\emph on
+index map
+\emph default
+ 
+\begin_inset Formula $ind:\left\{ 1,...,N\right\} \rightarrow\left\{ 0,...,n\right\} $
+\end_inset
+
+ is calculated from 
+\begin_inset Formula $X$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Due to the possible high number of constraints the global maximization of
+ the linear/convex functions 
+\begin_inset Formula $I_{1}$
+\end_inset
+
+/
+\begin_inset Formula $I_{2}$
+\end_inset
+
+ may still be a time consuming process.
 \end_layout
 
 \begin_layout Standard
