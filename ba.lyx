@@ -2,7 +2,7 @@
 \lyxformat 474
 \begin_document
 \begin_header
-\textclass scrartcl
+\textclass article
 \use_default_options true
 \begin_modules
 theorems-ams
@@ -77,7 +77,7 @@ figs-within-sections
 \begin_layout Title
 
 \shape up
-PCCA+ on Markov Chains
+An overview over PCCA+ and its application to eye tracking data
 \end_layout
 
 \begin_layout Standard
@@ -496,9 +496,13 @@ We will call the matrix
 \begin_inset Formula $\chi:=\left(\chi_{i}\right)_{i=1}^{n}\in\mathbb{R}^{N\times n}$
 \end_inset
 
- composed of of characteristic vector a 
+ composed of the characteristic vectors a 
 \emph on
-clustering.
+clustering
+\emph default
+, whereas in literature it is also referred to as 
+\emph on
+conformations.
 \end_layout
 
 \begin_layout Subsection
@@ -620,6 +624,7 @@ Unfortunately the stochastic interpretation of
 
  fails for a fuzzy clustering, not least due to the fact that it's entries
  may become negative.
+ TRUE?!
 \end_layout
 
 \begin_layout Subsubsection
@@ -663,7 +668,7 @@ status open
 Kube and Weber 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Kube2006,Kube2007"
+key "Kube2007"
 
 \end_inset
 
@@ -803,12 +808,12 @@ reference "eq:com"
 \begin_layout Proof
 We calculate
 \begin_inset Formula 
-\begin{eqnarray*}
-P_{C} & = & \left(\chi^{T}D_{\eta}\chi\right)^{-1}\chi^{T}D_{\eta}P\chi\\
- & = & \left(A^{T}X^{T}D_{\eta}XA\right)^{-1}A^{T}X^{T}D_{\eta}X\Lambda A\\
- & = & \left(A^{T}A\right)^{-1}\left(A^{T}\Lambda A\right)\\
- & = & A^{-1}\Lambda A,
-\end{eqnarray*}
+\begin{eqnarray}
+P_{C} & = & \left(\chi^{T}D_{\eta}\chi\right)^{-1}\chi^{T}D_{\eta}P\chi\nonumber \\
+ & = & \left(A^{T}X^{T}D_{\eta}XA\right)^{-1}A^{T}X^{T}D_{\eta}X\Lambda A\nonumber \\
+ & = & \left(A^{T}A\right)^{-1}\left(A^{T}\Lambda A\right)\nonumber \\
+ & = & A^{-1}\Lambda A,\label{eq:conj}
+\end{eqnarray}
 
 \end_inset
 
@@ -1065,10 +1070,6 @@ Since these constraints are linear in A the set
  satisfies these conditions.
 \end_layout
 
-\begin_layout Subsubsection
-Optimization
-\end_layout
-
 \begin_layout Standard
 As Deuflhard and Weber 
 \begin_inset CommandInset citation
@@ -1081,30 +1082,209 @@ key "Deuflhard2005"
 \begin_inset Formula $F_{A}$
 \end_inset
 
- is indeed uncountable, one can now specify an objective function leading
- to a optimization problem to find a specific solution 
-\begin_inset Formula $A\in F_{A}$
-\end_inset
+ is indeed uncountable.
+ We therefore look for some criterion to choose a specific solution by means
+ of choosing an objective function for an optimization problem.
+ To motivate the specific choices we first try to gain some insight into
+ the geometry of the clustering problem.
+\end_layout
 
-.
- I will now give an overview over the objectives, which were developed during
- the last years.
+\begin_layout Subsubsection
+Geometric interpretation
 \end_layout
 
 \begin_layout Standard
-In 
+If one considers the 
+\begin_inset Formula $N$
+\end_inset
+
+ rows of the matrix 
+\begin_inset Formula $\chi$
+\end_inset
+
+ as points in the space 
+\begin_inset Formula $\mathbb{R}^{n}$
+\end_inset
+
+, the positivity and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:pos"
+
+\end_inset
+
+ and partition of unity 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:pu"
+
+\end_inset
+
+ conditions force these points to lie on the standard 
+\begin_inset Formula $\left(n-1\right)$
+\end_inset
+
+-simplex 
+\begin_inset Formula $\Delta$
+\end_inset
+
+.
+ Now, if 
+\begin_inset Formula $\chi=XA$
+\end_inset
+
+ this means the that the matrix 
+\begin_inset Formula $A$
+\end_inset
+
+ maps the the 
+\begin_inset Formula $N$
+\end_inset
+
+ rows of the eigenvector matrix 
+\begin_inset Formula $X$
+\end_inset
+
+ onto that simplex.
+ 
+\end_layout
+
+\begin_layout Standard
+Assuming that for every 
+\begin_inset Formula $j=1,...,N$
+\end_inset
+
+ there exists an 
+\begin_inset Formula $i=1,...,n$
+\end_inset
+
+ the convex hull of the rows of 
+\begin_inset Formula $X$
+\end_inset
+
+ already has the form of an 
+\begin_inset Formula $\left(n-1\right)$
+\end_inset
+
+-simplex, we can now choose 
+\begin_inset Formula $A$
+\end_inset
+
+ uniquely (up to permutation) to map this exactly onto 
+\begin_inset Formula $\Delta$
+\end_inset
+
+, which among all the ways of mapping 
+\begin_inset Formula $X$
+\end_inset
+
+ into 
+\begin_inset Formula $\Delta$
+\end_inset
+
+ gives us the highest distinguishability between the resulting clusters.
+ It is easy to check that this assumption is equivalent to
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\max_{i=1..N}\chi_{ij}=1,\, j=1,...,n
+\]
+
+\end_inset
+
+and therefore also called the 
+\emph on
+maximality assumption
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+(Upper bound for metastability on 
+\begin_inset Formula $W$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Subsubsection
+Index mapping algorithm
+\end_layout
+
+\begin_layout Subsubsection
+Maximal scaling condition
+\end_layout
+
+\begin_layout Standard
+As in the general the 
+\emph on
+maximality assumption
+\emph default
+ is not met, it seems natural to turn it into an optimization problem.
+ This has been done in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Deuflhard2005,Weber2006"
+
+\end_inset
+
+ by imposing maximization of the 
+\emph on
+maximal scaling condition 
+\begin_inset Formula 
+\[
+I_{1}\left(A\right):=\sum_{j=1}^{n}\max_{i=1..N}\chi_{ij}\le n_{C}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Assuming that the 
+\emph on
+maximality assumption
+\emph default
+ is almost met, i.e.
+ 
+\begin_inset Formula $\max_{i=1..N}\chi_{ij}\approx1,\, j=1,...,n$
+\end_inset
+
+, Weber 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Weber2006"
 
 \end_inset
 
- Weber proposed the maximization of one of the following two objective functions
+ argues that the maximizing indices can be determined by the 
+\emph on
+index mapping algortithm
+\emph default
+, turning this convex optimization problem into a linear one:
 \begin_inset Formula 
-\begin{eqnarray*}
-I_{1}\left(A\right) & := & \sum_{j=1}^{n}\max_{l=1..N}\chi_{lj}\le n_{C}\\
-I_{2}\left(A\right) & := & \sum_{i=1}^{n}\lambda_{i}\sum_{j=1}^{n}\frac{A\left(i,j\right)^{2}}{A\left(1,j\right)}=\text{trace}\left(W\right),
-\end{eqnarray*}
+\[
+I_{1}\left(A\right)=\sum_{i,j=1}^{n}X_{ind\left(X\right)_{j},i}A_{ij}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Maximal metastability condition
+\end_layout
+
+\begin_layout Standard
+Another choice might be optimizing towards a maximal metastability, as done
+ by Deuflhard and Weber 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Deuflhard2005,Weber2006"
 
 \end_inset
 
@@ -1112,7 +1292,114 @@ I_{2}\left(A\right) & := & \sum_{i=1}^{n}\lambda_{i}\sum_{j=1}^{n}\frac{A\left(i
 \end_layout
 
 \begin_layout Standard
-showing that both are convex over 
+\begin_inset Formula 
+\[
+I_{2}\left(A\right):=\text{trace}\left(W\right)=\sum_{i=1}^{n}\lambda_{i}\sum_{j=1}^{n}\frac{A\left(i,j\right)^{2}}{A\left(1,j\right)},
+\]
+
+\end_inset
+
+where they establish the latter equation by...
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Crispness objective
+\end_layout
+
+\begin_layout Standard
+Röblitz 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Roeblitz2013"
+
+\end_inset
+
+ argues that the use of 
+\begin_inset Formula $W$
+\end_inset
+
+ has no stochastic interpretation in the fuzzy setting.
+ Optimization of the trace of 
+\begin_inset Formula $P_{C}$
+\end_inset
+
+ makes no sense as it is similar to 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:conj"
+
+\end_inset
+
+ and therefore independent of 
+\begin_inset Formula $A$
+\end_inset
+
+.
+ Defining 
+\begin_inset Formula 
+\[
+\mathcal{S}=...
+\]
+
+\end_inset
+
+she therefore suggests maximization of 
+\begin_inset Formula 
+\[
+I_{3}:=\text{trace}\left(\mathcal{S}\right)=\sum_{i,j=1}^{n}\frac{\left(A_{ij}\right)^{2}}{A_{1,j}}
+\]
+
+\end_inset
+
+which is similar to 
+\begin_inset Formula $I_{2}$
+\end_inset
+
+ ....
+\end_layout
+
+\begin_layout Standard
+This condition minimizes the off-diagonal entries of 
+\begin_inset Formula $\mathcal{S}$
+\end_inset
+
+ which means that the corresponding clustering 
+\begin_inset Formula $\chi$
+\end_inset
+
+ is as crisp as possible.
+\end_layout
+
+\begin_layout Subsubsection
+Unconstrained Optimization
+\end_layout
+
+\begin_layout Standard
+Due to the high number of inequality constraints 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:fa"
+
+\end_inset
+
+ solving these linear or convex problems may still be very time consuming.
+ Therefore Deuflhard and Weber 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Deuflhard2005,Weber2006"
+
+\end_inset
+
+ develop...
+\end_layout
+
+\begin_layout Standard
+...showing that both are convex over 
 \begin_inset Formula $F_{A}$
 \end_inset
 
@@ -1139,88 +1426,10 @@ A_{1,j} & = & -\min_{l=1,...,N}\sum_{i=2}^{n}X_{li}A_{ij},\, j=1,....,n
 \end_inset
 
  unknowns.
- 
 \end_layout
 
-\begin_layout Minisec
-Linearization of 
-\begin_inset Formula $I_{1}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Assuming that the 
-\emph on
-maximality assumption
-\emph default
- 
-\begin_inset Formula $\forall j\in\left\{ 0,...,n\right\} \exists i\in\left\{ 0,...,N\right\} :\,\chi_{ij}=1$
-\end_inset
-
- nearly holds (i.e.
- 
-\begin_inset Formula $\chi_{ij}\approx1$
-\end_inset
-
-), he argues how to express 
-\begin_inset Formula $I_{1}$
-\end_inset
-
- as the linear function 
-\begin_inset Formula $I_{1}\left(A\right)=\sum_{i,j=1}^{n}X_{ind(j),i}A_{ij}$
-\end_inset
-
-, where the 
-\emph on
-index map
-\emph default
- 
-\begin_inset Formula $ind:\left\{ 1,...,N\right\} \rightarrow\left\{ 0,...,n\right\} $
-\end_inset
-
- is calculated from 
-\begin_inset Formula $X$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-Due to the possible high number of constraints the global maximization of
- the linear/convex functions 
-\begin_inset Formula $I_{1}$
-\end_inset
-
-/
-\begin_inset Formula $I_{2}$
-\end_inset
-
- may still be a time consuming process.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula $I_{1}$
-\end_inset
-
- can be interpr
-\end_layout
-
-\begin_layout Standard
-assuring a high correspondance of each state to some cluster, thus leading
- to a almost crisp clustering.
-\end_layout
-
-\begin_layout Standard
-However, as these in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Roeblitz2013"
-
-\end_inset
-
- it is argued that this metastability is 
+\begin_layout Subsubsection
+The PCCA+ Algorithm
 \end_layout
 
 \begin_layout Subsection
@@ -1447,11 +1656,7 @@ Optimization
 \end_layout
 
 \begin_layout Standard
-Röblitz reinterpretation of crispness obj.
-\end_layout
-
-\begin_layout Standard
-new metastability objective
+Not only metastable, but also cyclic dynamics.
 \end_layout
 
 \begin_layout Subsection
@@ -1470,6 +1675,10 @@ This algorithm was applied to eyetracking data.
 
 \begin_layout Subsection
 The experiment
+\end_layout
+
+\begin_layout Standard
+Universität Potsdam
 \end_layout
 
 \begin_layout Standard
