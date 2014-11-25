@@ -135,10 +135,14 @@ Introduction to Markov chains
 
 \begin_layout Standard
 Let 
-\begin_inset Formula $S$
+\begin_inset Formula $S:=\left\{ 1,...,N\right\} $
 \end_inset
 
- be a finite set.
+ for 
+\begin_inset Formula $N\in\mathbb{N}$
+\end_inset
+
+.
  A Markov chain on 
 \begin_inset Formula $S$
 \end_inset
@@ -363,7 +367,7 @@ As the goal of PCCA+ is to reduce the complexity of analysis of the markov
  chain by a dimension reduction we will now introduce the concept of clustering,
  that is subsuming different states of the state space to a smaller set
  of 
-\begin_inset Formula $n$
+\begin_inset Formula $n\in\mathbb{N}$
 \end_inset
 
  clusters 
@@ -375,11 +379,11 @@ As the goal of PCCA+ is to reduce the complexity of analysis of the markov
 
 \begin_layout Standard
 The simplest possibility is assigning each state 
-\begin_inset Formula $k=1,...,N$
+\begin_inset Formula $k\in S$
 \end_inset
 
  to a cluster 
-\begin_inset Formula $i=1,...,n$
+\begin_inset Formula $i\in C$
 \end_inset
 
 , which can be encoded by means of the 
@@ -484,15 +488,15 @@ membership vectors
 \end_layout
 
 \begin_layout Standard
-We will call the matrix 
+We will refer to the matrix collection 
 \begin_inset Formula $\chi:=\left(\chi_{i}\right)_{i=1}^{n}\in\mathbb{R}^{N\times n}$
 \end_inset
 
- composed of the 
+ of the 
 \emph on
 membership vectors
 \emph default
- a 
+ as a 
 \emph on
 clustering
 \emph default
@@ -537,7 +541,7 @@ coupling matrix
 
 \begin_inset Formula 
 \[
-W_{ij}:=\frac{\left\langle \chi_{j},P\chi_{i}\right\rangle _{\pi}}{\left\langle \chi_{i},\chi_{i}\right\rangle _{\pi}}=\frac{\chi_{j}^{T}D_{\pi}P\chi_{i}}{\chi_{i}^{T}D_{\pi}\chi_{i}}.
+W_{ij}:=\frac{\left\langle \chi_{j},P\chi_{i}\right\rangle _{\pi}}{\left\langle \chi_{i},1\right\rangle _{\pi}}=\frac{\chi_{j}^{T}D_{\pi}P\chi_{i}}{\pi^{T}\chi_{i}}.
 \]
 
 \end_inset
@@ -566,6 +570,14 @@ The entries
 .
 \end_layout
 
+\begin_layout Standard
+However this interpratation does not hold in the general 
+\emph on
+fuzzy clustering
+\emph default
+ setting.
+\end_layout
+
 \begin_layout Subsubsection
 The propagator matrix
 \end_layout
@@ -575,8 +587,8 @@ Unfortunately the projection via the
 \emph on
 coupling matrix 
 \emph default
-does not commute with time propagation, which is desired for long term analysis
- of the markov chain which plays a role in (bio/med...).
+does not commute with time propagation, necessary for time-scale preservation,
+ which is desired for long term analysis of the markov chain (as in bio/med...).
 \end_layout
 
 \begin_layout Standard
@@ -611,8 +623,12 @@ coupling matrix
 
  
 \emph default
-in the crisp clustering setting, but has the advantage of representing the
- right dynamics of the underlying markov chain on 
+in the 
+\emph on
+crisp clustering
+\emph default
+ setting, but has the advantage of representing the right dynamics of the
+ underlying markov chain on 
 \begin_inset Formula $S$
 \end_inset
 
@@ -1119,7 +1135,11 @@ Assuming (
 \emph on
 maximality assumption) 
 \emph default
-that the convex hull of the rows of 
+that the convex hull 
+\begin_inset Formula $\text{co}\left(X\right)$
+\end_inset
+
+ of the rows of 
 \begin_inset Formula $X$
 \end_inset
 
@@ -1307,7 +1327,7 @@ reference "eq:conj"
  Defining 
 \begin_inset Formula 
 \[
-\mathcal{S}=...
+\mathcal{S}=\chi^{T}D_{\pi}\chi
 \]
 
 \end_inset
@@ -1417,7 +1437,7 @@ feasabilization
 algorithm
 \emph default
  
-\begin_inset Formula $F:\mathbb{R}^{\left(n-1\right)\times\left(n-1\right)}\rightarrow F_{A}^{'}$
+\begin_inset Formula $F:\mathbb{R}^{\left(n-1\right)\times\left(n-1\right)}\twoheadrightarrow F_{A}^{'}$
 \end_inset
 
 , mapping any arbitrary matrix 
@@ -1428,7 +1448,18 @@ algorithm
 \begin_inset Formula $A$
 \end_inset
 
-, defined via: 
+.
+\end_layout
+
+\begin_layout Paragraph
+Feasabilization algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "par:algfeas"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Enumerate
@@ -1568,20 +1599,105 @@ Next we will develop an initial guess to this global optimization problem,
 \end_layout
 
 \begin_layout Subsubsection
-Index mapping algorithm
+Inner simplex algorithm
 \end_layout
 
 \begin_layout Standard
-When the 
-\emph on
-maximality assumption 
-\emph default
-holds, A is the (up to permutation) unique map mapping the vertices of the
- simplex spanned by 
-\begin_inset Formula $X$
+Based on Weber and Galliat 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Weber2002"
+
 \end_inset
 
- to the vertices of 
+ we outline the
+\emph on
+ inner simplex algorithm
+\emph default
+, determining an initial guess for the matrix 
+\begin_inset Formula $A$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The first step
+\emph on
+, 
+\emph default
+the 
+\emph on
+index mapping algorithm, 
+\emph default
+looks for the indices 
+\begin_inset Formula $i_{j}$
+\end_inset
+
+ of the succesively farthest linear independent rows.
+ It starts by choosing the largest row vector as starting point, and then
+ iteratively adds the points with the largest distance to the hyperplane
+ spanned by the chosen points so far:
+\end_layout
+
+\begin_layout Paragraph
+Index mapping algorithm
+\end_layout
+
+\begin_layout Enumerate
+Find starting point: 
+\begin_inset Formula $i_{1}:=\text{argmax}_{j\in C}\left\Vert X_{\cdot,j}\right\Vert _{^{2}}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Translate to origin: For 
+\begin_inset Formula $i\in S$
+\end_inset
+
+ set 
+\begin_inset Formula $X_{i,\cdot}\mapsfrom X_{i,\cdot}-X_{i_{1},\cdot}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+For 
+\begin_inset Formula $j=2,...,n$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Find next index: 
+\begin_inset Formula $i_{j}:=\text{argmax}_{j\in C}\left\Vert X_{\cdot,j}\right\Vert _{^{2}}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Projection to hyperplane via Gram-Schmidt process: 
+\begin_inset Formula $X\mapsfrom X-\frac{\text{XX_{i_{j},\cdot}^{T}\otimes X_{i_{j},\cdot}}}{\left\Vert X_{i_{j},\cdot}\right\Vert _{2}}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Once having determined the indices of the 
+\begin_inset Formula $n$
+\end_inset
+
+ extremal points, we now construct the matrix 
+\begin_inset Formula $A$
+\end_inset
+
+ mapping these to 
 \begin_inset Formula $\Delta$
 \end_inset
 
@@ -1589,38 +1705,227 @@ holds, A is the (up to permutation) unique map mapping the vertices of the
 \end_layout
 
 \begin_layout Standard
-Assuming that the 
+\begin_inset Formula 
+\[
+A\left(X\right):=\left(X_{ij}\right)_{i=i_{1},...,i_{n},\, j=1,...,n}^{-1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the case of the 
+\emph on
+maximality assumption
+\emph default
+, 
+\begin_inset Formula $X$
+\end_inset
+
+ spans a 
+\begin_inset Formula $\left(n-1\right)$
+\end_inset
+
+-simplex, and the 
+\emph on
+index mapping algorithm 
+\emph default
+determines its vertices, thus 
+\begin_inset Formula $X\cdot\text{co}\left(x\right)=\Delta$
+\end_inset
+
+ and 
+\begin_inset Formula $X\in v\left(F_{A}\right)$
+\end_inset
+
+ maximizes 
+\begin_inset Formula $I_{1}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+For the general case though Weber 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Weber2006"
+
+\end_inset
+
+ (Lemma 3.13, Theorem 3.14) has shown that the following statements are equivalent
+:
+\end_layout
+
+\begin_layout Enumerate
+The convex hull 
+\begin_inset Formula $\text{co}\left(X\right)$
+\end_inset
+
+ of 
+\begin_inset Formula $X$
+\end_inset
+
+ is a simplex.
+\end_layout
+
+\begin_layout Enumerate
+The result of the 
+\emph on
+inner simplex algorithm
+\emph default
+ is feasible, i.e.
+ 
+\begin_inset Formula $A\in F_{A}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $A\in v\left(F_{A}\right)$
+\end_inset
+
+ and therefore maximizes 
+\begin_inset Formula $I_{1}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Therefore the result is not feasible in the generic case.
+\end_layout
+
+\begin_layout Standard
+If however the 
 \emph on
 maximality assumption 
 \emph default
 almost holds, i.e.
- the convex hull of 
-\begin_inset Formula $X$
+ the convex hull of X is a small pertubation of a simplex, which according
+ to Weber 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Weber2006"
+
 \end_inset
 
- almost spans an 
-\begin_inset Formula $\left(n-1\right)$
-\end_inset
-
--simplex, we can construct an initial guess by choosing the outermost point,
- and then succesively the points with the largest distance to the hyperplane
- to get mapped to 
-\begin_inset Formula $\Delta.$
-\end_inset
-
-
+ (3.4.4) is satisfied in most of the applications, the algorithm still gives
+ a solution near the unperturbed solution.
 \end_layout
 
 \begin_layout Standard
-This is done by the following algorithm:
-\end_layout
+Therefore that 
+\begin_inset Formula $A$
+\end_inset
 
-\begin_layout Standard
-stability near maximality assumption.
+ is near a vertex of the set 
+\begin_inset Formula $F_{A}$
+\end_inset
+
+ and thus a good initial guess for a local optimization of the unconstraint
+ optimization.
 \end_layout
 
 \begin_layout Subsubsection
 The PCCA+ Algorithm
+\end_layout
+
+\begin_layout Enumerate
+Compute 
+\begin_inset Formula $X,\,\Lambda$
+\end_inset
+
+ as in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:constrXL"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Determine the, in general infeasible, initial guess 
+\begin_inset Formula $A_{0}:=A\left(X\right)$
+\end_inset
+
+ using the 
+\emph on
+inner simplex algorithm
+\emph default
+.
+\end_layout
+
+\begin_layout Enumerate
+Perform an iterative local optimization 
+\begin_inset Formula $A_{0},\, A_{1},...$
+\end_inset
+
+ of the objective function 
+\begin_inset Formula $I_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $I_{2}$
+\end_inset
+
+ or 
+\begin_inset Formula $I_{3}$
+\end_inset
+
+.
+ In each step 
+\begin_inset Formula $A_{k}\rightarrow A_{k+1}$
+\end_inset
+
+ only update the elements 
+\begin_inset Formula $A_{k,ij},\, i,j\not=1$
+\end_inset
+
+ without constraints.
+ Then use algorithm
+\emph on
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "par:algfeas"
+
+\end_inset
+
+ 
+\emph default
+to get a feasible matrix 
+\begin_inset Formula $A_{k}$
+\end_inset
+
+ before evaluating the corresponding objective function.
+\end_layout
+
+\begin_layout Standard
+As the 
+\emph on
+feasibalization algorithm 
+\emph default
+is not differentiable, Deuflhard and Weber 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Deuflhard2005"
+
+\end_inset
+
+ propose the use of the nonlinear simplex method of Nelder and Mead 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nelder1965"
+
+\end_inset
+
+ as local optimization routine.
 \end_layout
 
 \begin_layout Subsubsection
