@@ -130,7 +130,7 @@ Theoretical background
 \end_layout
 
 \begin_layout Subsection
-Introduction to Markov Chains
+Introduction to Markov chains
 \end_layout
 
 \begin_layout Standard
@@ -292,18 +292,6 @@ reversible
 
 \end_inset
 
-
-\begin_inset Formula 
-\[
-D_{\pi}P=P^{T}D_{\pi}
-\]
-
-\end_inset
-
-D_pi?
-\end_layout
-
-\begin_layout Standard
 which assures that the back and forth transitions between any two states
  
 \begin_inset Formula $\pi_{i}$
@@ -316,8 +304,24 @@ which assures that the back and forth transitions between any two states
  equalize.
 \end_layout
 
-\begin_layout Subsection
-Examples to metastability
+\begin_layout Standard
+Introducing the diagonal matrix 
+\begin_inset Formula 
+\[
+D_{\pi}:=\text{diag}\left(\pi\right)
+\]
+
+\end_inset
+
+this can also be written in matrix notation as 
+\begin_inset Formula 
+\[
+D_{\pi}P=P^{T}D_{\pi}.
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -351,34 +355,14 @@ key "Weber2006"
 \end_layout
 
 \begin_layout Subsection
-Clustering and Metastability
+Clustering of the state space
 \end_layout
 
 \begin_layout Standard
-Abstract explanation of clustering as reduction of state space / coupling
- matrix
-\end_layout
-
-\begin_layout Standard
-Commutativity
-\end_layout
-
-\begin_layout Standard
-Introduction of the concept of metastability
-\end_layout
-
-\begin_layout Section
-
-\shape up
-Spectral Clustering
-\end_layout
-
-\begin_layout Subsection
-Membership vectors
-\end_layout
-
-\begin_layout Standard
-We now look for a way to represent the clustering into 
+As the goal of PCCA+ is to reduce the complexity of analysis of the markov
+ chain by a dimension reduction we will now introduce the concept of clustering,
+ that is subsuming different states of the state space to a smaller set
+ of 
 \begin_inset Formula $n$
 \end_inset
 
@@ -386,16 +370,20 @@ We now look for a way to represent the clustering into
 \end_layout
 
 \begin_layout Standard
-One possibility of assigning states to a cluster 
-\begin_inset Formula $i$
+The simplest possibility is assigning each state 
+\begin_inset Formula $k=1,...,N$
 \end_inset
 
- is by means of a 
+ to a cluster 
+\begin_inset Formula $i=1,...,n$
+\end_inset
+
+, which can be encoded by means of the 
 \emph on
 characteristic vector
 \emph default
  
-\begin_inset Formula $\chi_{i}\in\left\{ 0,1\right\} ^{n}$
+\begin_inset Formula $\chi_{i}\in\left\{ 0,1\right\} ^{N}$
 \end_inset
 
 :
@@ -496,7 +484,11 @@ We will call the matrix
 \begin_inset Formula $\chi:=\left(\chi_{i}\right)_{i=1}^{n}\in\mathbb{R}^{N\times n}$
 \end_inset
 
- composed of the characteristic vectors a 
+ composed of the 
+\emph on
+membership vectors
+\emph default
+ a 
 \emph on
 clustering
 \emph default
@@ -506,31 +498,7 @@ conformations.
 \end_layout
 
 \begin_layout Subsection
-Galerkin projection
-\end_layout
-
-\begin_layout Subsubsection
-Motivation for the spectral decomposition
-\end_layout
-
-\begin_layout Standard
-PCCA+ will construct the clusters, described by the 
-\emph on
-membership vectors
-\emph default
-, as a linear combination of eigenvectors.
- By choosing the 
-\begin_inset Formula $n<N$
-\end_inset
-
- eigenvectors with the largest eigenvalues, one hopes to preserve the principal
- dynamics of 
-\begin_inset Formula $P$
-\end_inset
-
-.
- The eigenvectors are good data for this goal, as an eigenvector with high
- eigenvalue 
+Galerkin projection of the transition matrix
 \end_layout
 
 \begin_layout Subsubsection
@@ -591,40 +559,7 @@ The entries
 
 
 \emph on
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-
-\emph on
-\begin_inset Formula $\pi$
-\end_inset
-
-, 
-\begin_inset Formula $D_{\pi}$
-\end_inset
-
-, here 
-\begin_inset Formula $\eta$
-\end_inset
-
- is enough?
-\end_layout
-
-\end_inset
-
 .
-\end_layout
-
-\begin_layout Standard
-Unfortunately the stochastic interpretation of 
-\begin_inset Formula $W$
-\end_inset
-
- fails for a fuzzy clustering, not least due to the fact that it's entries
- may become negative.
- TRUE?!
 \end_layout
 
 \begin_layout Subsubsection
@@ -632,40 +567,16 @@ The propagator matrix
 \end_layout
 
 \begin_layout Standard
-Assuming a 
+Unfortunately the projection via the 
 \emph on
-starting distribution 
+coupling matrix 
 \emph default
-
-\begin_inset Formula $\eta\in\left[0,1\right]^{N}$
-\end_inset
-
-, we define the diagonal matrix 
-\begin_inset Formula $D_{\eta}:=diag\left(\eta_{1},...,\eta_{N}\right)\in\left[0,1\right]^{NxN}$
-\end_inset
-
- .
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-\begin_inset Formula $\eta$
-\end_inset
-
- vs 
-\begin_inset Formula $\pi$
-\end_inset
-
-?
-\end_layout
-
-\end_inset
-
-
+does not commute with time propagation, which is desired for long term analysis
+ of the markov chain which plays a role in (bio/med...).
 \end_layout
 
 \begin_layout Standard
-Kube and Weber 
+Therefore Kube and Weber 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Kube2007"
@@ -681,7 +592,7 @@ coarse propagator matrix
 
 \begin_inset Formula 
 \[
-P_{C}:=\left(\chi^{T}D_{\eta}\chi\right)^{-1}\chi^{T}D_{\eta}P\chi,
+P_{C}:=\left(\chi^{T}D_{\pi}\chi\right)^{-1}\chi^{T}D_{\pi}P\chi,
 \]
 
 \end_inset
@@ -728,7 +639,17 @@ represents the right dynamics even for iterative application, i.e.
 \begin_inset Formula $P^{n}\chi=\chi P_{C}^{n}$
 \end_inset
 
-, which is in general not possible using a crisp clustering as in PCCA.
+, which is not possible in general 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+reihenfolge?
+\end_layout
+
+\end_inset
+
+using a crisp clustering as in PCCA.
 \end_layout
 
 \begin_layout Standard
@@ -778,7 +699,7 @@ for some
  and the orthonormality condition
 \begin_inset Formula 
 \begin{equation}
-X^{T}D_{\eta}X=I.\label{eq:on}
+X^{T}D_{\pi}X=I.\label{eq:on}
 \end{equation}
 
 \end_inset
@@ -809,8 +730,8 @@ reference "eq:com"
 We calculate
 \begin_inset Formula 
 \begin{eqnarray}
-P_{C} & = & \left(\chi^{T}D_{\eta}\chi\right)^{-1}\chi^{T}D_{\eta}P\chi\nonumber \\
- & = & \left(A^{T}X^{T}D_{\eta}XA\right)^{-1}A^{T}X^{T}D_{\eta}X\Lambda A\nonumber \\
+P_{C} & = & \left(\chi^{T}D_{\pi}\chi\right)^{-1}\chi^{T}D_{\pi}P\chi\nonumber \\
+ & = & \left(A^{T}X^{T}D_{\pi}XA\right)^{-1}A^{T}X^{T}D_{\pi}X\Lambda A\nonumber \\
  & = & \left(A^{T}A\right)^{-1}\left(A^{T}\Lambda A\right)\nonumber \\
  & = & A^{-1}\Lambda A,\label{eq:conj}
 \end{eqnarray}
@@ -828,8 +749,34 @@ P\chi=PXA=X\Lambda A=XAA^{-1}\Lambda A=\chi P_{C}.
 
 \end_layout
 
+\begin_layout Section
+
+\shape up
+PCCA+
+\end_layout
+
 \begin_layout Subsection
-PCCA+ and metastability
+Motivation for the spectral decomposition
+\end_layout
+
+\begin_layout Standard
+PCCA+ will construct the clusters, described by the 
+\emph on
+membership vectors
+\emph default
+, as a linear combination of eigenvectors.
+ By choosing the 
+\begin_inset Formula $n<N$
+\end_inset
+
+ eigenvectors with the largest eigenvalues, one hopes to preserve the principal
+ dynamics of 
+\begin_inset Formula $P$
+\end_inset
+
+.
+ The eigenvectors are good data for this goal, as an eigenvector with high
+ eigenvalue ....
 \end_layout
 
 \begin_layout Standard
@@ -859,6 +806,10 @@ good
  function.
 \end_layout
 
+\begin_layout Subsection
+Reversible processes
+\end_layout
+
 \begin_layout Subsubsection
 Construction of 
 \begin_inset Formula $X$
@@ -886,7 +837,17 @@ reference "eq:on"
 
 \end_inset
 
- we define the matrix 
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+symmetric structure
+\end_layout
+
+\end_inset
+
+we define the matrix 
 \begin_inset Formula $\tilde{P}:=D_{\pi}^{\frac{1}{2}}PD_{\pi}^{-\frac{1}{2}}$
 \end_inset
 
@@ -949,12 +910,12 @@ We then select the
 \begin_inset Formula $n$
 \end_inset
 
- largest eigenvalues and eigenvectors 
-\begin_inset Formula $\tilde{X}\in\mathbb{R}^{n\times n},$
+ largest eigenvalues 
+\begin_inset Formula $\Lambda\in\mathbb{R}^{n\times n}$
 \end_inset
 
- 
-\begin_inset Formula $\Lambda\in\mathbb{R}^{n\times n}$
+ and the corresponding eigenvectors 
+\begin_inset Formula $\tilde{X}\in\mathbb{R}^{N\times n},$
 \end_inset
 
  and define 
@@ -1210,10 +1171,6 @@ maximality assumption
 \end_layout
 
 \begin_layout Subsubsection
-Index mapping algorithm
-\end_layout
-
-\begin_layout Subsubsection
 Maximal scaling condition
 \end_layout
 
@@ -1299,8 +1256,18 @@ I_{2}\left(A\right):=\text{trace}\left(W\right)=\sum_{i=1}^{n}\lambda_{i}\sum_{j
 
 \end_inset
 
-where they establish the latter equation by...
- 
+where they establish the latter equation making use of 
+\begin_inset Formula $\pi_{i}=A_{1,i}$
+\end_inset
+
+ (
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Weber2006"
+
+\end_inset
+
+, Lemma 3.6).
 \end_layout
 
 \begin_layout Subsubsection
@@ -1395,20 +1362,25 @@ key "Deuflhard2005,Weber2006"
 
 \end_inset
 
- develop...
+ have shown how to turn this constrained into an unconstrained optimization
+ problem.
 \end_layout
 
 \begin_layout Standard
-...showing that both are convex over 
+Assuming that the objective function is convex over 
 \begin_inset Formula $F_{A}$
 \end_inset
 
-.
- This means that their respective maxima are attained at the vertices 
+, which is the case for the here given objective functions, is attains its
+ maximum at one of the vertices 
 \begin_inset Formula $v\left(F_{A}\right)$
 \end_inset
 
-, which allows the determination of the 
+.
+\end_layout
+
+\begin_layout Standard
+This allows the determination of the 
 \begin_inset Formula $2n$
 \end_inset
 
@@ -1421,15 +1393,52 @@ A_{1,j} & = & -\min_{l=1,...,N}\sum_{i=2}^{n}X_{li}A_{ij},\, j=1,....,n
 
 \end_inset
 
- reducing the search space to 
+which define a subspace 
+\begin_inset Formula $F_{A}^{'}\subset F_{A}$
+\end_inset
+
+ still containing all vertices 
+\begin_inset Formula $v\left(F_{A}\right)\subset F_{A}^{'}$
+\end_inset
+
+ and thus containing the maximizin matrix 
+\begin_inset Formula $A$
+\end_inset
+
+.
+ These equations furthermore reduce the search space to 
 \begin_inset Formula $\left(n-1\right)^{2}$
 \end_inset
 
  unknowns.
 \end_layout
 
+\begin_layout Standard
+Side condition...
+\end_layout
+
+\begin_layout Subsubsection
+Index mapping algorithm
+\end_layout
+
 \begin_layout Subsubsection
 The PCCA+ Algorithm
+\end_layout
+
+\begin_layout Subsubsection
+Determination of the number of clusters 
+\begin_inset Formula $n$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+So far we have imposed a desired number of clusters 
+\begin_inset Formula $n$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -1643,14 +1652,6 @@ reference "sub:constrXL"
  ).
 \end_layout
 
-\begin_layout Standard
-Note that we made no use of 
-\begin_inset Formula $\eta$
-\end_inset
-
- beeing a stationary distribution so far.
-\end_layout
-
 \begin_layout Subsubsection
 Optimization
 \end_layout
@@ -1751,7 +1752,7 @@ P_{ij} & = & \frac{\sum_{f_{a}\rightarrow f_{b}}M_{ai}M_{bj}}{\sum_{k,l}\sum_{f_
 \end_layout
 
 \begin_layout Standard
-We compute the stationary distrubution as:
+We compute the stationary distrubution (why) as:
 \begin_inset Formula 
 \[
 this.pi=sum(this.C,2)/sum(sum(this.C));
