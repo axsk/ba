@@ -366,7 +366,11 @@ As the goal of PCCA+ is to reduce the complexity of analysis of the markov
 \begin_inset Formula $n$
 \end_inset
 
- clusters.
+ clusters 
+\begin_inset Formula $C:=\left\{ 1,...,n\right\} $
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -1111,15 +1115,11 @@ reference "eq:pu"
 \end_layout
 
 \begin_layout Standard
-Assuming that for every 
-\begin_inset Formula $j=1,...,N$
-\end_inset
-
- there exists an 
-\begin_inset Formula $i=1,...,n$
-\end_inset
-
- the convex hull of the rows of 
+Assuming (
+\emph on
+maximality assumption) 
+\emph default
+that the convex hull of the rows of 
 \begin_inset Formula $X$
 \end_inset
 
@@ -1144,22 +1144,19 @@ Assuming that for every
 \end_inset
 
  gives us the highest distinguishability between the resulting clusters.
- It is easy to check that this assumption is equivalent to
+ This assumption is equivalent to the situation that for each corner there
+ exists a row getting mapped into that corner, i.e.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\max_{i=1..N}\chi_{ij}=1,\, j=1,...,n
+\max_{i=1..N}\chi_{ij}=1,\, j=1,...,n,
 \]
 
 \end_inset
 
-and therefore also called the 
-\emph on
-maximality assumption
-\emph default
-.
+justifying its name.
 \end_layout
 
 \begin_layout Standard
@@ -1355,70 +1352,271 @@ reference "eq:fa"
 \end_inset
 
  solving these linear or convex problems may still be very time consuming.
- Therefore Deuflhard and Weber 
+ Following Deuflhard and Weber 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Deuflhard2005,Weber2006"
 
 \end_inset
 
- have shown how to turn this constrained into an unconstrained optimization
- problem.
+ we will now show how to turn this constrained into an unconstrained optimizatio
+n problem.
 \end_layout
 
 \begin_layout Standard
-Assuming that the objective function is convex over 
+Define the set 
+\begin_inset Formula $F_{A}^{'}$
+\end_inset
+
+ via the equality constraints 
+\begin_inset Formula 
+\begin{eqnarray}
+A_{i,1} & = & \delta_{i,1}-\sum_{j=2}^{n}A_{ij},\, i=1,...,n\nonumber \\
+A_{1,j} & = & -\min_{l=1,...,N}\sum_{i=2}^{n}X_{li}A_{ij},\, j=1,....,n.\label{eq:fap}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Comparing these equalities to 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:fa"
+
+\end_inset
+
+ one easily checks that 
+\begin_inset Formula $F_{A}^{'}\subset F_{A}$
+\end_inset
+
+.
+ Furthermore, as Weber shows in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Weber2006"
+
+\end_inset
+
+ (Lemma 3.5) that the vertex set 
+\begin_inset Formula $v\left(F_{A}\right)\subset F_{A}^{'}$
+\end_inset
+
+ is still contained in this restriced set.
+\end_layout
+
+\begin_layout Standard
+Now consider the 
+\emph on
+feasabilization
+\emph default
+ 
+\emph on
+algorithm
+\emph default
+ 
+\begin_inset Formula $F:\mathbb{R}^{\left(n-1\right)\times\left(n-1\right)}\rightarrow F_{A}^{'}$
+\end_inset
+
+, mapping any arbitrary matrix 
+\begin_inset Formula $\left(\tilde{A}_{ij}\right)_{i,j=2,...,n}$
+\end_inset
+
+ to a feasable transformation matrix 
+\begin_inset Formula $A$
+\end_inset
+
+, defined via: 
+\end_layout
+
+\begin_layout Enumerate
+For 
+\begin_inset Formula $i=2,....,n$
+\end_inset
+
+ define 
+\begin_inset Formula $\tilde{A}_{i,1}:=-\sum_{j=2}^{n}\tilde{A}_{ij}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+For 
+\begin_inset Formula $j=1,...,n$
+\end_inset
+
+ define 
+\begin_inset Formula $\tilde{A}_{1,j}:=-\min_{l=1,...,N}\sum_{i=2}^{n}X_{li}\tilde{A}_{ij}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+For 
+\begin_inset Formula $i,j=1,...,n$
+\end_inset
+
+ define 
+\begin_inset Formula $A_{ij}:=\frac{\tilde{A}_{ij}}{\sum_{j=1}^{k}\tilde{A}_{1,j}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Steps 1 and 2 guarantee feasability of 
+\begin_inset Formula $\tilde{A}$
+\end_inset
+
+ with respect to 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:fap"
+
+\end_inset
+
+ for 
+\begin_inset Formula $i=2,...,n$
+\end_inset
+
+ respectively 
+\begin_inset Formula $j=1,...,n$
+\end_inset
+
+.
+ As these equalities are linear in 
+\begin_inset Formula $A$
+\end_inset
+
+ they are invariant under scalar multiplication and step 3 now furthermore
+ assures the equality 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:fap"
+
+\end_inset
+
+ for 
+\begin_inset Formula $i=1$
+\end_inset
+
+.
+ Thus F indeed maps to 
+\begin_inset Formula $F_{A}^{'}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Furthermore, taking any matrix 
+\begin_inset Formula $A\in F_{A}^{'}$
+\end_inset
+
+, dropping the first row and column to get 
+\begin_inset Formula $\tilde{A}$
+\end_inset
+
+ and computing 
+\begin_inset Formula $F\left(\tilde{A}\right)=A$
+\end_inset
+
+ we see that F is surjective.
+\end_layout
+
+\begin_layout Standard
+As any objective function 
+\begin_inset Formula $I_{i},\, i=1,2,3$
+\end_inset
+
+ is convex over 
 \begin_inset Formula $F_{A}$
 \end_inset
 
-, which is the case for the here given objective functions, is attains its
- maximum at one of the vertices 
+ it attains its maximum at one of the vertices 
 \begin_inset Formula $v\left(F_{A}\right)$
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-This allows the determination of the 
-\begin_inset Formula $2n$
+ We thus can also optimize the function 
+\begin_inset Formula $F\circ I_{i}$
 \end_inset
 
- active constraints
-\begin_inset Formula 
-\begin{eqnarray*}
-A_{i,1} & = & \delta_{i,1}-\sum_{j=2}^{n}A_{ij},\, i=1,...,n\\
-A_{1,j} & = & -\min_{l=1,...,N}\sum_{i=2}^{n}X_{li}A_{ij},\, j=1,....,n
-\end{eqnarray*}
-
+ over 
+\begin_inset Formula $\mathbb{R}^{\left(n-1\right)\times\left(n-1\right)}$
 \end_inset
 
-which define a subspace 
-\begin_inset Formula $F_{A}^{'}\subset F_{A}$
+ and so have transformed the constrained optimization problem in 
+\begin_inset Formula $n^{2}$
 \end_inset
 
- still containing all vertices 
-\begin_inset Formula $v\left(F_{A}\right)\subset F_{A}^{'}$
-\end_inset
-
- and thus containing the maximizin matrix 
-\begin_inset Formula $A$
-\end_inset
-
-.
- These equations furthermore reduce the search space to 
+ unknows to an unconstrained in 
 \begin_inset Formula $\left(n-1\right)^{2}$
 \end_inset
 
- unknowns.
+ unknows.
 \end_layout
 
 \begin_layout Standard
-Side condition...
+Next we will develop an initial guess to this global optimization problem,
+ turning it into a local one.
 \end_layout
 
 \begin_layout Subsubsection
 Index mapping algorithm
+\end_layout
+
+\begin_layout Standard
+When the 
+\emph on
+maximality assumption 
+\emph default
+holds, A is the (up to permutation) unique map mapping the vertices of the
+ simplex spanned by 
+\begin_inset Formula $X$
+\end_inset
+
+ to the vertices of 
+\begin_inset Formula $\Delta$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Assuming that the 
+\emph on
+maximality assumption 
+\emph default
+almost holds, i.e.
+ the convex hull of 
+\begin_inset Formula $X$
+\end_inset
+
+ almost spans an 
+\begin_inset Formula $\left(n-1\right)$
+\end_inset
+
+-simplex, we can construct an initial guess by choosing the outermost point,
+ and then succesively the points with the largest distance to the hyperplane
+ to get mapped to 
+\begin_inset Formula $\Delta.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This is done by the following algorithm:
+\end_layout
+
+\begin_layout Standard
+stability near maximality assumption.
 \end_layout
 
 \begin_layout Subsubsection
