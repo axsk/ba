@@ -14,11 +14,11 @@ figs-within-sections
 \language_package default
 \inputencoding auto
 \fontencoding global
-\font_roman default
+\font_roman charter
 \font_sans default
 \font_typewriter default
 \font_math auto
-\font_default_family default
+\font_default_family rmdefault
 \use_non_tex_fonts false
 \font_sc false
 \font_osf false
@@ -115,12 +115,8 @@ key "Weber2006"
 \begin_layout Standard
 I will furthermore include newest results on extending this to the setting
  of non-reversible chains, propose a new stochastic interpretation for fuzzy-set
- clustering and showcase an application to human eye-tracking data used
+ clustering and showcase an application to human eye tracking data used
  for object recognition.
-\end_layout
-
-\begin_layout Standard
-Mainly self-contained up to linear algebra knowledge.
 \end_layout
 
 \begin_layout Section
@@ -578,6 +574,15 @@ fuzzy clustering
  setting.
 \end_layout
 
+\begin_layout Standard
+// No markovianity due to dependence of random variables on previous resulting
+ (3-pot example?)
+\end_layout
+
+\begin_layout Standard
+// Classical interpretation extended to micro states
+\end_layout
+
 \begin_layout Subsubsection
 The propagator matrix
 \end_layout
@@ -607,9 +612,9 @@ coarse propagator matrix
 \emph on
 
 \begin_inset Formula 
-\[
-P_{C}:=\left(\chi^{T}D_{\pi}\chi\right)^{-1}\chi^{T}D_{\pi}P\chi,
-\]
+\begin{equation}
+P_{C}:=\left(\chi^{T}D_{\pi}\chi\right)^{-1}\chi^{T}D_{\pi}P\chi,\label{eq:pc}
+\end{equation}
 
 \end_inset
 
@@ -659,17 +664,15 @@ represents the right dynamics even for iterative application, i.e.
 \begin_inset Formula $P^{n}\chi=\chi P_{C}^{n}$
 \end_inset
 
-, which is not possible in general 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-reihenfolge?
+, which is in general not possible using a crisp clustering as in PCCA.
 \end_layout
 
+\begin_layout Standard
+Note however, that in general the entries of 
+\begin_inset Formula $P_{C}$
 \end_inset
 
-using a crisp clustering as in PCCA.
+ may become negative, prohibiting a stochastic interpretation of the matrix.
 \end_layout
 
 \begin_layout Standard
@@ -762,6 +765,225 @@ which implies
 \begin_inset Formula 
 \[
 P\chi=PXA=X\Lambda A=XAA^{-1}\Lambda A=\chi P_{C}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Compatibility
+\end_layout
+
+\begin_layout Standard
+As noted, the 
+\emph on
+propagator matrix
+\emph default
+ can have negative entries, thus prohibiting a stochastic interpretation.
+ But I think the following consideration might help.
+ Consider the inverted part of the 
+\emph on
+propagator matrix
+\emph default
+,
+\emph on
+ 
+\begin_inset Formula $\chi^{T}D_{\pi}\chi$
+\end_inset
+
+
+\emph default
+.
+ It computes the overlap of all clusters with each other, weighted with
+ the distribution 
+\begin_inset Formula $\pi$
+\end_inset
+
+.
+ If we have overlap between different clusters, we also count 
+\begin_inset Quotes eld
+\end_inset
+
+transitions
+\begin_inset Quotes erd
+\end_inset
+
+ in the denominator 
+\begin_inset Formula $\chi^{T}D_{\pi}P\chi$
+\end_inset
+
+ just due to the effect of the cluster mixing without any underlying dynamics.
+ 
+\begin_inset Formula $\chi^{T}D_{\pi}\chi$
+\end_inset
+
+ computes the amount of transitions which are just due to the overlap (
+\begin_inset Formula $P=\text{Id}$
+\end_inset
+
+), and therfore applying 
+\begin_inset Formula $\left(\chi^{T}D_{\pi}\chi\right)^{-1}$
+\end_inset
+
+ reverts this amount.
+ 
+\end_layout
+
+\begin_layout Standard
+Maybe we can even consider these as P processes.
+ Interpret this term as P matrix
+\end_layout
+
+\begin_layout Standard
+Also consider Figure 1.
+\end_layout
+
+\begin_layout Subsection
+Example Processes
+\end_layout
+
+\begin_layout Standard
+To demonstrate the connections between the different projections we now
+ will show some example systems.
+\end_layout
+
+\begin_layout Standard
+Consider 
+\begin_inset Formula $P=\left(\begin{array}{ccc}
+\frac{1}{2} & \frac{1}{2} & 0\\
+\frac{1}{2} & \frac{1}{2} & 0\\
+0 & 0 & 1
+\end{array}\right)$
+\end_inset
+
+.
+ In this ideal decoupled system we have two invariant subspaces spanned
+ by the so called 
+\emph on
+Perron eigenvectors 
+\emph default
+with eigenvalue 1, the vectors 
+\begin_inset Formula $\left(\begin{array}{c}
+1\\
+1\\
+0
+\end{array}\right)$
+\end_inset
+
+
+\shape up
+ and 
+\shape default
+
+\begin_inset Formula $\left(\begin{array}{c}
+0\\
+0\\
+1
+\end{array}\right)$
+\end_inset
+
+.
+
+\shape up
+ These can be interpreted as a discrete a 
+\shape default
+\emph on
+crisp clustering
+\emph default
+, and assuming an equidistributed starting distribution we can compute the,
+ in this case coinciding, matrices 
+\begin_inset Formula $W=P_{C}=\left(\begin{array}{cc}
+1 & 0\\
+0 & 1
+\end{array}\right).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(3 pot) Next we will consider the simpler process given by 
+\begin_inset Formula $P:=\left(\begin{array}{ccc}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{array}\right)$
+\end_inset
+
+, i.e.
+ the stationary markov chain on three states, but with the 
+\emph on
+fuzzy clustering 
+\begin_inset Formula $\chi=\left(\begin{array}{cc}
+1 & 0\\
+\frac{1}{2} & \frac{1}{2}\\
+0 & 1
+\end{array}\right)$
+\end_inset
+
+.
+ 
+\emph default
+According to our definitions we now compute 
+\begin_inset Formula $P_{C}:=\left(\begin{array}{cc}
+1 & 0\\
+0 & 1
+\end{array}\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $W=\frac{1}{6}\left(\begin{array}{cc}
+5 & 1\\
+1 & 5
+\end{array}\right)$
+\end_inset
+
+.
+
+\emph on
+ 
+\emph default
+We see that 
+\begin_inset Formula $P_{C}$
+\end_inset
+
+ contains the expected dynamics on the reduced state space, while 
+\begin_inset Formula $W$
+\end_inset
+
+ still explains the probabilities on a micro scale.
+\end_layout
+
+\begin_layout Standard
+The following exampe will illustrate the occurence of negative entries in
+ 
+\begin_inset Formula $P_{C}$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+P=\frac{1}{4}\left(\begin{array}{cc}
+1 & 3\\
+3 & 1
+\end{array}\right),\,\chi=\left(\begin{array}{cc}
+1 & 0\\
+0.5 & 0.5
+\end{array}\right),\,\pi=\frac{1}{2}\left(\begin{array}{cc}
+1 & 1\end{array}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+P_{C}=\frac{1}{8}\left(\begin{array}{cc}
+5 & 3\\
+9 & -1
+\end{array}\right)
 \]
 
 \end_inset
@@ -1327,7 +1549,7 @@ reference "eq:conj"
  Defining 
 \begin_inset Formula 
 \[
-\mathcal{S}=\chi^{T}D_{\pi}\chi
+\mathcal{S}=..\chi^{T}D_{\pi}\chi
 \]
 
 \end_inset
@@ -1335,7 +1557,7 @@ reference "eq:conj"
 she therefore suggests maximization of 
 \begin_inset Formula 
 \[
-I_{3}:=\text{trace}\left(\mathcal{S}\right)=\sum_{i,j=1}^{n}\frac{\left(A_{ij}\right)^{2}}{A_{1,j}}
+I_{3}:=\text{trace}\left(\mathcal{S}\right)=\sum_{i,j=1}^{n}\frac{\left(A_{ij}\right)^{2}}{A_{1,j}}.
 \]
 
 \end_inset
@@ -1388,7 +1610,7 @@ Define the set
 \begin_inset Formula $F_{A}^{'}$
 \end_inset
 
- via the equality constraints 
+ by the equality constraints 
 \begin_inset Formula 
 \begin{eqnarray}
 A_{i,1} & = & \delta_{i,1}-\sum_{j=2}^{n}A_{ij},\, i=1,...,n\nonumber \\
@@ -1420,7 +1642,7 @@ key "Weber2006"
 
 \end_inset
 
- (Lemma 3.5) that the vertex set 
+ (Lemma 3.5), the vertex set 
 \begin_inset Formula $v\left(F_{A}\right)\subset F_{A}^{'}$
 \end_inset
 
@@ -1681,7 +1903,7 @@ Find next index:
 \begin_inset Newline newline
 \end_inset
 
-Projection to hyperplane via Gram-Schmidt process: 
+Projection to hyperplane by Gram-Schmidt process: 
 \begin_inset Formula $X\mapsfrom X-\frac{\text{XX_{i_{j},\cdot}^{T}\otimes X_{i_{j},\cdot}}}{\left\Vert X_{i_{j},\cdot}\right\Vert _{2}}$
 \end_inset
 
@@ -1697,7 +1919,7 @@ Once having determined the indices of the
 \begin_inset Formula $A$
 \end_inset
 
- mapping these to 
+ mapping these to the vertices of 
 \begin_inset Formula $\Delta$
 \end_inset
 
@@ -2408,81 +2630,6 @@ We then turn this unconditional transitions into conditinal by dividing
 
  and have to make up the fact that we do not count all transitions...
  Baustelle
-\end_layout
-
-\begin_layout Subsection
-Junk2
-\end_layout
-
-\begin_layout Standard
-The key idea of extracting metastable behaviour via PCCA+ is transforming
- the eigenvectors 
-\begin_inset Formula $X$
-\end_inset
-
- of 
-\begin_inset Formula $P$
-\end_inset
-
- to membership vectors representing the clusters of 
-\begin_inset Formula $S$
-\end_inset
-
-.
- Taking linear combinations 
-\begin_inset Formula $A$
-\end_inset
-
- of 
-\begin_inset Formula $n$
-\end_inset
-
- eigenvectors 
-\begin_inset Formula $X=\left(x_{1},...,x_{n}\right)$
-\end_inset
-
- with eigenvalues 
-\begin_inset Formula $\lambda_{1},...,\lambda_{n}\approx1$
-\end_inset
-
- guarantees 
-\begin_inset Quotes eld
-\end_inset
-
-metastable
-\begin_inset Quotes erd
-\end_inset
-
- (in some way) properties of the cluster 
-\begin_inset Formula $\chi_{j}=XA_{:,j}$
-\end_inset
-
-:
-\begin_inset Formula 
-\begin{align*}
-\left\langle P\chi_{j},\chi_{j}\right\rangle  & =\left\langle \sum_{k}PX_{ik}A_{kj},\sum_{k}X_{ik}A_{kj}\right\rangle \\
- & =\left\langle \sum_{k}\lambda_{k}X_{ik}A_{kj},\sum_{k}X_{ik}A_{kj}\right\rangle \\
- & =\sum_{i,k}\lambda_{k}\left(X_{ik}A_{kj}\right)^{2}\\
- & \ge\min_{k}\lambda_{k}\sum\left(X_{ik}A_{kj}\right)_{i,k}^{2}\\
- & =\min_{k}\lambda_{k}\left\langle \chi_{j},\chi_{j}\right\rangle \\
-\Rightarrow\frac{\left\langle P\chi_{j},\chi_{j}\right\rangle }{\left\langle \chi_{j},\chi_{j}\right\rangle } & \approx1
-\end{align*}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Also these so called perron vectors only exist when the matrix is diagonalizable
- (the process is reversible), this approach can be extended to non-reversible
- processes by using a Schur decomposition instead of a diagonalization.
- Reordering the Schur decomposition and selecting only the highest eigenvalue
- eigenvectors then leads to a similar 
-\begin_inset Formula $P$
-\end_inset
-
--invariant subspace.
 \end_layout
 
 \begin_layout Standard
