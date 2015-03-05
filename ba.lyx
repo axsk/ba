@@ -854,10 +854,10 @@ for some
 \begin_inset Formula $\Lambda\in\mathbb{R}^{n\times n}$
 \end_inset
 
- and the orthonormality condition
+ and the orthonormality condition (invertibilty enough?!)
 \begin_inset Formula 
 \begin{equation}
-X^{T}D_{\pi}X=I.\label{eq:on}
+X^{T}D_{\pi}X=Id.\label{eq:on}
 \end{equation}
 
 \end_inset
@@ -905,6 +905,10 @@ P\chi=PXA=X\Lambda A=XAA^{-1}\Lambda A=\chi P_{C}.
 \end_inset
 
 
+\end_layout
+
+\begin_layout Proof
+Still need to show for iterations?!
 \end_layout
 
 \begin_layout Subsubsection
@@ -981,12 +985,26 @@ ding to
 \end_layout
 
 \begin_layout Standard
-We can furthermore consider 
-\begin_inset Formula $\chi:\left[0,1\right]^{n}\rightarrow A:=\chi\left[0,1\right]^{n}\subset\left[0,1\right]^{N}$
+Let 
+\begin_inset Formula $U:=\chi\left(\left[0,1\right]^{n}\right)\subset\left[0,1\right]^{N}$
 \end_inset
 
- as a change of basis between the state space and the cluster space.
- From 
+ denote the subset of the configuration space which is exactly approximated
+ by our clustering.
+ 
+\end_layout
+
+\begin_layout Standard
+Then 
+\begin_inset Formula $\chi:\left[0,1\right]\rightarrow U$
+\end_inset
+
+ can be considered as a change of basis between the configuration space
+ and the cluster space.
+\end_layout
+
+\begin_layout Standard
+Restricted to this subset according to 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:com"
@@ -994,7 +1012,7 @@ reference "eq:com"
 \end_inset
 
  follows 
-\begin_inset Formula $P_{C}=\chi^{-1}P\chi$
+\begin_inset Formula $P_{C}=\chi|_{U}^{-1}P|_{U}\chi$
 \end_inset
 
 , i.e.
@@ -1003,14 +1021,112 @@ reference "eq:com"
 \end_inset
 
  is just 
-\begin_inset Formula $P$
+\begin_inset Formula $P|_{U}$
 \end_inset
 
- restricted to the smaller set 
-\begin_inset Formula $A$
+ given to the basis of clusters.
+\end_layout
+
+\begin_layout Standard
+In particular we loose no information by discretizing via 
+\begin_inset Formula $\chi$
 \end_inset
 
-, given to the basis of clusters.
+ on 
+\begin_inset Formula $U$
+\end_inset
+
+, as 
+\begin_inset Formula $\chi|_{U}^{-1}$
+\end_inset
+
+ is well definded.
+\end_layout
+
+\begin_layout Standard
+This raises the question how we can interpolate the inversion to the whole
+ configuration space.
+\end_layout
+
+\begin_layout Standard
+Kube and Weber introduced the (right-application!) restriction and interpolation
+ operators
+\begin_inset Formula 
+\begin{eqnarray*}
+R:\mathbb{R}^{N} & \rightarrow & \mathbb{R}^{n},\, x\mapsto x\chi\\
+I:\mathbb{R}^{n} & \rightarrow & \mathbb{R}^{N},\, x\mapsto\tilde{D_{\pi}}^{-1}\chi^{T}D_{\pi}
+\end{eqnarray*}
+
+\end_inset
+
+with 
+\begin_inset Formula $D_{\tilde{\pi}}=\text{diag}\left(\tilde{\pi}\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{\pi}=\pi R$
+\end_inset
+
+, which provide the transformations between the (fine-grained) configuration
+ space and the (coarse-grained) cluster space.
+ These are natural in the sense that 
+\begin_inset Formula $IRw=w$
+\end_inset
+
+, i.e.
+ 
+\begin_inset Formula $I$
+\end_inset
+
+ reconstructs the fine-grained density, lost by the restriction, by the
+ fine-grained stationary density.
+\end_layout
+
+\begin_layout Standard
+The application of these operators allows us to reconstruct the stochastic
+ 
+\emph on
+coupling matrix 
+\emph default
+
+\begin_inset Formula $W=IPR$
+\end_inset
+
+
+\emph on
+ 
+\emph default
+from the 
+\emph on
+propagator matrix 
+\begin_inset Formula $P_{C}=\left(IR\right)^{-1}IPR$
+\end_inset
+
+
+\emph default
+.
+ It also allows us to compute correspondig 
+\emph on
+
+\begin_inset Quotes eld
+\end_inset
+
+coupling matrices
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\emph default
+for iterations of 
+\begin_inset Formula $P_{C}$
+\end_inset
+
+ by simply multiplying with 
+\begin_inset Formula $IR$
+\end_inset
+
+, thus allowing for a stochastic interpretation of the evolution on the
+ clusters for arbitrary large times.
 \end_layout
 
 \begin_layout Standard
