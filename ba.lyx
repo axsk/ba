@@ -96,8 +96,8 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-In this thesis I will try to give an overview over the PCCA+ algorithm,
- as well as it's application.
+In this thesis I will give an overview over the PCCA+ algorithm, as well
+ as it's application.
 \end_layout
 
 \begin_layout Standard
@@ -113,17 +113,17 @@ key "Weber2006"
 \end_layout
 
 \begin_layout Standard
-After an introduction to the theoretical setting I will explain the PCCA+
+After an introduction to the theoretical background I will explain the PCCA+
  algorithm and discuss some of its developments.
- Finally I will showcase an application to spatial timeseries human eye
- tracking data used for object recognition.
+ Finally I will showcase an application to spatial timeseries of human eye-track
+ing data used for object recognition.
 \end_layout
 
 \begin_layout Standard
 The PCCA+ algorithm leads to a fuzzy clustering of the state space of a
  Markov process, or in other words it reduces the dimension of the state
  space, such that the resulting process on the reduced state space still
- represents the main dynamics on arbitrary large time scales exactly.
+ represents the main dynamics exaclty on arbitrary large time scales.
 \end_layout
 
 \begin_layout Section
@@ -242,7 +242,9 @@ As
 \begin_inset Formula $S$
 \end_inset
 
-, encode the whole process in the transition matrix
+, encode the whole process in the right stochastic 
+\emph on
+transition matrix
 \end_layout
 
 \begin_layout Standard
@@ -601,7 +603,7 @@ fuzzy clustering
 \emph default
 setting the problem arises, that it is no more clear which state belongs
  to which cluster.
- I therefore propose to interpret the membershipership of state 
+ It is therefore convenient to interpret the membershipership of state 
 \begin_inset Formula $j$
 \end_inset
 
@@ -613,11 +615,11 @@ setting the problem arises, that it is no more clear which state belongs
 \begin_inset Formula $\chi_{ij}$
 \end_inset
 
-, as probability of measuring/counting state 
+, as probability of measuring state 
 \begin_inset Formula $j$
 \end_inset
 
- as cluster 
+ belonging to cluster 
 \begin_inset Formula $\chi_{i}$
 \end_inset
 
@@ -637,17 +639,14 @@ Then
 \begin_inset Formula $\chi_{i}$
 \end_inset
 
- weighted by 
-\begin_inset Formula $\pi$
-\end_inset
-
 .
 \end_layout
 
 \begin_layout Standard
 Note however that even if no real transitions are actually happening in
- the state space, we still may count transitions between clusters, as shown
- in example 3.
+ the state space, we still may count transitions between clusters, as we
+ once measure the same state belonging to one and then to another cluster,
+ as demonstrated in example 3.
 \end_layout
 
 \begin_layout Subsubsection
@@ -737,8 +736,17 @@ Unfortunately the projection via the
 \emph on
 coupling matrix 
 \emph default
-does not commute with time propagation, necessary for time-scale preservation,
- which is desired for long term analysis of the markov chain (as in bio/med...).
+does not commute with time propagation, and therefore cannot be used for
+ long term analysis of the underlying markov chain, as desired in many applicati
+ons (cf.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Jan-HendrikPrinz2011"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Standard
@@ -907,10 +915,6 @@ P\chi=PXA=X\Lambda A=XAA^{-1}\Lambda A=\chi P_{C}.
 
 \end_layout
 
-\begin_layout Proof
-Still need to show for iterations?!
-\end_layout
-
 \begin_layout Subsubsection
 Stochastic interpretation
 \end_layout
@@ -922,135 +926,33 @@ propagator matrix
 \emph default
  can have negative entries, as shown in example 3 below, thus prohibiting
  a natural stochastic interpretation.
- 
 \end_layout
 
 \begin_layout Standard
-But I think the following considerations, based on the work of Kube and
- Weber 
+We will therefore shed some light into the connection between the 
+\emph on
+coupling- 
+\emph default
+and the 
+\emph on
+propagator matrix
+\emph default
+, making use of the notation of the Kube 
+\emph on
+restriction
+\emph default
+- and 
+\emph on
+interpolation operators
+\emph default
+, introduced by Kube and Weber 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Kube2007"
 
 \end_inset
 
-, might help in understanding.
- Consider the inverted part of the 
-\emph on
-propagator matrix
-\emph default
-,
-\emph on
- 
-\begin_inset Formula $\chi^{T}D_{\pi}\chi$
-\end_inset
-
-
-\emph default
-.
- It computes the overlap of all clusters with each other, weighted with
- the distribution 
-\begin_inset Formula $\pi$
-\end_inset
-
-.
- If we have overlap between different clusters, we also count 
-\begin_inset Quotes eld
-\end_inset
-
-transitions
-\begin_inset Quotes erd
-\end_inset
-
- in the denominator 
-\begin_inset Formula $\chi^{T}D_{\pi}P\chi$
-\end_inset
-
- just due to the effect of the cluster mixing without any underlying dynamics.
- 
-\begin_inset Formula $\chi^{T}D_{\pi}\chi$
-\end_inset
-
- computes the amount of transitions which are just due to the overlap (correspon
-ding to 
-\begin_inset Formula $P=\text{Id}$
-\end_inset
-
-), and therfore applying 
-\begin_inset Formula $\left(\chi^{T}D_{\pi}\chi\right)^{-1}$
-\end_inset
-
- reverts this amount, removing the cluster induced transitions, leaving
- just the underlying dynamics.
-\end_layout
-
-\begin_layout Standard
-Let 
-\begin_inset Formula $U:=\chi\left(\left[0,1\right]^{n}\right)\subset\left[0,1\right]^{N}$
-\end_inset
-
- denote the subset of the configuration space which is exactly approximated
- by our clustering.
- 
-\end_layout
-
-\begin_layout Standard
-Then 
-\begin_inset Formula $\chi:\left[0,1\right]\rightarrow U$
-\end_inset
-
- can be considered as a change of basis between the configuration space
- and the cluster space.
-\end_layout
-
-\begin_layout Standard
-Restricted to this subset according to 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:com"
-
-\end_inset
-
- follows 
-\begin_inset Formula $P_{C}=\chi|_{U}^{-1}P|_{U}\chi$
-\end_inset
-
-, i.e.
- 
-\begin_inset Formula $P_{C}$
-\end_inset
-
- is just 
-\begin_inset Formula $P|_{U}$
-\end_inset
-
- given to the basis of clusters.
-\end_layout
-
-\begin_layout Standard
-In particular we loose no information by discretizing via 
-\begin_inset Formula $\chi$
-\end_inset
-
- on 
-\begin_inset Formula $U$
-\end_inset
-
-, as 
-\begin_inset Formula $\chi|_{U}^{-1}$
-\end_inset
-
- is well definded.
-\end_layout
-
-\begin_layout Standard
-This raises the question how we can interpolate the inversion to the whole
- configuration space.
-\end_layout
-
-\begin_layout Standard
-Kube and Weber introduced the (right-application!) restriction and interpolation
- operators
+: 
 \begin_inset Formula 
 \begin{eqnarray*}
 R:\mathbb{R}^{N} & \rightarrow & \mathbb{R}^{n},\, x\mapsto x\chi\\
@@ -1067,9 +969,14 @@ with
 \begin_inset Formula $\tilde{\pi}=\pi R$
 \end_inset
 
-, which provide the transformations between the (fine-grained) configuration
- space and the (coarse-grained) cluster space.
- These are natural in the sense that 
+, where we apply them from the right in order to fit the used notation of
+ right-stochastic matrices.
+\end_layout
+
+\begin_layout Standard
+These provide the transformations between the (fine-grained) configuration
+ space and the (coarse-grained) cluster space, beeing natural in the sense
+ that that 
 \begin_inset Formula $IRw=w$
 \end_inset
 
@@ -1078,113 +985,91 @@ with
 \begin_inset Formula $I$
 \end_inset
 
- reconstructs the fine-grained density, lost by the restriction, by the
- fine-grained stationary density.
+ reconstructs the fine-grained density, lost by the restriction 
+\begin_inset Formula $R$
+\end_inset
+
+, using the fine-grained stationary density.
 \end_layout
 
 \begin_layout Standard
-The application of these operators allows us to reconstruct the stochastic
+This allows to reformulate the 
+\emph on
+coupling- 
+\emph default
+and 
+\emph on
+propagator matrix as
+\begin_inset Formula 
+\begin{eqnarray*}
+W & = & IPR\\
+P_{C} & = & \left(IR\right)^{-1}IPR.
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now consider the situation when setting 
+\begin_inset Formula $P=\text{Id }$
+\end_inset
+
+ with a fuzzy clustering.
+ Then 
+\begin_inset Formula $W=IR=\tilde{D_{\pi}}^{-1}\chi^{T}D_{\pi}\chi\ne\text{Id}$
+\end_inset
+
+ as different clusters overlap.
+ The result corresponds to the transitions which are introduced to the coarser
+ system due to the overlap.
+\end_layout
+
+\begin_layout Standard
+As this overlap would be applied on every iteration of 
+\begin_inset Formula $W$
+\end_inset
+
+ it would lead to increased mixing of the states, leading to wrong long-term
+ results.
  
-\emph on
-coupling matrix 
-\emph default
-
-\begin_inset Formula $W=IPR$
-\end_inset
-
-
-\emph on
- 
-\emph default
-from the 
-\emph on
-propagator matrix 
-\begin_inset Formula $P_{C}=\left(IR\right)^{-1}IPR$
-\end_inset
-
-
-\emph default
-.
- It also allows us to compute correspondig 
-\emph on
-
-\begin_inset Quotes eld
-\end_inset
-
-coupling matrices
-\begin_inset Quotes erd
-\end_inset
-
- 
-\emph default
-for iterations of 
 \begin_inset Formula $P_{C}$
 \end_inset
 
- by simply multiplying with 
-\begin_inset Formula $IR$
+ grants the desired commutativity 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:com"
+
 \end_inset
 
-, thus allowing for a stochastic interpretation of the evolution on the
- clusters for arbitrary large times.
+ by factoring out these transitions.
 \end_layout
 
 \begin_layout Standard
-To interpret this stochastically we need to interpolate back to the basis
- of all states, locally approximated by the stationary distribution 
-\begin_inset Formula $\pi$
+But this also shows us how we can compute a corresponding stochastically
+ interpretable 
+\emph on
+coupling matrix 
+\emph default
+for larger times with 
+\begin_inset Formula $n$
 \end_inset
 
-, measure the overlap with the other clusters and normalize with the stationary
- distribution on the clusters to obtain the conditional probability.
- Denoting this operation as the 
-\series bold
-\emph on
-Sikorski-Transformation
-\series default
-\emph default
- 
-\begin_inset Formula $T=diag(\pi^{T}\chi)^{-1}\chi^{T}D_{\pi}\chi$
+ iterations of the smaller matrix 
+\begin_inset Formula $P_{c}$
 \end_inset
 
-, we now see that this is exactly the relation between the 
-\emph on
-propagator- 
-\emph default
-and the 
-\emph on
-coupling matrix
-\emph default
- 
-\begin_inset Formula $W=TP_{C}$
-\end_inset
+:
+\begin_inset Formula 
+\[
+W_{n}:=IP^{n}R=IRP_{C}^{n}.
+\]
 
-.
-\end_layout
-
-\begin_layout Standard
-Furthermore the same argument holds for iterates of the 
-\emph on
-propagator matrix
-\emph default
-,
-\emph on
- 
-\begin_inset Formula $P_{C}^{n}$
 \end_inset
 
 
-\emph default
-,
-\emph on
- 
-\emph default
-thus giving us a way of a stochastic interpreting the evolution on the clusters
- even for longer times by 
-\begin_inset Formula $TP_{C}^{n}$
-\end_inset
-
-.
 \end_layout
 
 \begin_layout Subsection
@@ -1244,7 +1129,11 @@ with eigenvalue 1, the vectors
 crisp clustering
 \emph default
 , and assuming an equidistributed starting distribution we can compute the,
- in this case coinciding, matrices 
+ in the 
+\emph on
+crisp 
+\emph default
+case coinciding, matrices 
 \begin_inset Formula $W=P_{C}=\left(\begin{array}{cc}
 1 & 0\\
 0 & 1
@@ -1536,14 +1425,6 @@ we define the matrix
 \begin_inset Formula $\tilde{P}:=D_{\pi}^{\frac{1}{2}}PD_{\pi}^{-\frac{1}{2}}$
 \end_inset
 
-, where 
-\begin_inset Formula $D_{\pi}$
-\end_inset
-
- denotes the diagonal matrix with the stationary distribution 
-\begin_inset Formula $\pi$
-\end_inset
-
 .
 \end_layout
 
@@ -1650,11 +1531,11 @@ Given a fixed eigenvector matrix
 \begin_inset Formula $X$
 \end_inset
 
-, we will now examine the set of feasible solutions 
+, we will now examine the set of feasible matrices 
 \begin_inset Formula $F_{A}\subset\mathbb{R}^{n\times n}$
 \end_inset
 
- for the transformation matrix 
+ for the transformation 
 \begin_inset Formula $A$
 \end_inset
 
@@ -1686,7 +1567,7 @@ As
 \end{array}\right)$
 \end_inset
 
- and thus forms an eigenvector to eigenvalue 1, i.e.
+, and thus forms an eigenvector to eigenvalue 1, i.e.
  
 \begin_inset Formula $X_{i,1}=1,\, i=1,...,N$
 \end_inset
@@ -1920,7 +1801,7 @@ key "Weber2006"
 
 \end_inset
 
- argues that the maximizing indices can be determined by the 
+ proposes to determine the maximizing indices by the 
 \emph on
 index mapping algortithm
 \emph default
@@ -1966,8 +1847,8 @@ Maximal metastability condition
 \end_layout
 
 \begin_layout Standard
-Another choice might be optimizing towards a maximal metastability, as done
- by Deuflhard and Weber 
+Another choice might be optimizing directly towards a maximal metastability,
+ as done by Deuflhard and Weber 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Deuflhard2005,Weber2006"
@@ -2015,11 +1896,11 @@ key "Roeblitz2013"
 
 \end_inset
 
- argues that the use of 
+ argues that the stochastic interpretation of 
 \begin_inset Formula $W$
 \end_inset
 
- has no stochastic interpretation in the fuzzy setting.
+ is no more valid in the fuzzy setting.
  Optimization of the trace of 
 \begin_inset Formula $P_{C}$
 \end_inset
@@ -2043,7 +1924,7 @@ reference "eq:conj"
  Defining 
 \begin_inset Formula 
 \[
-\mathcal{S}=..\chi^{T}D_{\pi}\chi
+\mathcal{S}=IR=\tilde{D_{\pi}}^{-1}\chi^{T}D_{\pi}\chi
 \]
 
 \end_inset
@@ -2056,11 +1937,11 @@ I_{3}:=\text{trace}\left(\mathcal{S}\right)=\sum_{i,j=1}^{n}\frac{\left(A_{ij}\r
 
 \end_inset
 
-which is similar to 
-\begin_inset Formula $I_{2}$
+which is similar to maximal metastability condition, with 
+\begin_inset Formula $P$
 \end_inset
 
- ....
+ replaced by the identity.
 \end_layout
 
 \begin_layout Standard
@@ -2068,11 +1949,8 @@ Maximizing the trace minimizes the off-diagonal entries of
 \begin_inset Formula $\mathcal{S}$
 \end_inset
 
- which means that the corresponding clustering 
-\begin_inset Formula $\chi$
-\end_inset
-
- is as crisp as possible.
+ leading to the least amount of clustering-induced transitions and therefore
+ to a as crisp as possible clustering.
 \end_layout
 
 \begin_layout Subsubsection
@@ -2129,19 +2007,6 @@ reference "eq:fa"
 \end_inset
 
 .
- Furthermore, as Weber shows in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Weber2006"
-
-\end_inset
-
- (Lemma 3.5), the vertex set 
-\begin_inset Formula $v\left(F_{A}\right)\subset F_{A}^{'}$
-\end_inset
-
-, #containg the optimal solutions, is still contained in this restriced
- set.
 \end_layout
 
 \begin_layout Standard
@@ -2165,7 +2030,7 @@ algorithm
 \begin_inset Formula $A$
 \end_inset
 
-.
+ and thus enforcing the desired constraints.
 \end_layout
 
 \begin_layout Paragraph
@@ -2258,11 +2123,7 @@ reference "eq:fap"
 \end_inset
 
 .
- 
-\end_layout
-
-\begin_layout Standard
-Furthermore, taking any matrix 
+ Furthermore, taking any matrix 
 \begin_inset Formula $A\in F_{A}^{'}$
 \end_inset
 
@@ -2290,7 +2151,18 @@ As any objective function
 \begin_inset Formula $v\left(F_{A}\right)$
 \end_inset
 
-.
+, which are contained in 
+\begin_inset Formula $F'_{A}$
+\end_inset
+
+ (for a proof see 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Weber2006"
+
+\end_inset
+
+, Lemma 3.5).
  We thus can also optimize the function 
 \begin_inset Formula $F\circ I_{i}$
 \end_inset
@@ -2299,7 +2171,7 @@ As any objective function
 \begin_inset Formula $\mathbb{R}^{\left(n-1\right)\times\left(n-1\right)}$
 \end_inset
 
- and so have transformed the constrained optimization problem in 
+ and have thereby transformed the constrained optimization problem in 
 \begin_inset Formula $n^{2}$
 \end_inset
 
@@ -2335,7 +2207,8 @@ key "Weber2002"
 \begin_inset Formula $A$
 \end_inset
 
-.
+ by constructing a simplex surrounding all row-points and then computing
+ the transformation to the standard simplex.
 \end_layout
 
 \begin_layout Standard
@@ -2456,11 +2329,11 @@ maximality assumption
 index mapping algorithm 
 \emph default
 determines its vertices, thus 
-\begin_inset Formula $X\cdot\text{co}\left(x\right)=\Delta$
+\begin_inset Formula $\text{co}\left(X\right)A\left(X\right)=\Delta$
 \end_inset
 
  and 
-\begin_inset Formula $X\in v\left(F_{A}\right)$
+\begin_inset Formula $A\in v\left(F_{A}\right)$
 \end_inset
 
  maximizes 
@@ -2536,8 +2409,8 @@ key "Weber2006"
 
 \end_inset
 
- (3.4.4) is satisfied in most of the applications, the algorithm still gives
- a solution near the unperturbed solution.
+ (3.4.4) is satisfied in many applications, the algorithm still gives a solution
+ near the unperturbed solution.
 \end_layout
 
 \begin_layout Standard
@@ -2667,42 +2540,11 @@ So far we have imposed a desired number of clusters
 .
 \end_layout
 
-\begin_layout Subsection
-
-\shape up
-Nonreversible processes
-\end_layout
-
-\begin_layout Standard
-The whole algorithm is also applicable to nonreversible processes, with
- some smaller adjustments concerning the construction of the invariant subspace
- and the stochastic interpretation, as well as a new optimization goal.
-\end_layout
-
 \begin_layout Subsubsection
-Stochastic interpretation of the coupling matrix
+Extension to nonreversible processes
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:stochintnr"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-Construction of 
-\begin_inset Formula $X$
-\end_inset
-
- and 
-\begin_inset Formula $\Lambda$
-\end_inset
-
-
-\begin_inset CommandInset label
-LatexCommand label
-name "sub:weightedss"
+name "sub:nonrev"
 
 \end_inset
 
@@ -2715,7 +2557,7 @@ When the underlying stochastic process is not reversible the matrix
 \end_inset
 
  is no more real diagonalizable.
- We therefore make use of the
+ But as we only need an invariant subspace we can make use of the
 \emph on
  real Schur decomposition
 \emph default
@@ -2763,7 +2605,6 @@ Schur form
 \end_inset
 
 , where complex conjugate eigenvalues correspond to the 2-by-2 blocks.
- 
 \end_layout
 
 \begin_layout Standard
@@ -2832,7 +2673,12 @@ of
 \end_inset
 
  eigenvalues with the highest absolute value by the reordering procedure.
- Let us denote the resulting 
+ Note that in the case of complex conjugate eigenvalues we have to select
+ or discard the whole 2-by-2 blocks.
+\end_layout
+
+\begin_layout Standard
+Let us denote the resulting 
 \emph on
 Schur vectors 
 \emph default
@@ -2878,14 +2724,6 @@ reference "sub:constrXL"
  ).
 \end_layout
 
-\begin_layout Subsubsection
-Optimization
-\end_layout
-
-\begin_layout Standard
-Not only metastable, but also cyclic dynamics of interest.
-\end_layout
-
 \begin_layout Section
 
 \shape up
@@ -2905,25 +2743,23 @@ The experiment
 \end_layout
 
 \begin_layout Standard
-A group of test persons was presented an image for the duration of ...
-\end_layout
-
-\begin_layout Standard
-The eye-tracker measures the fixations 
+A group of test persons was presented different pictures for about 10 seconds,
+ during which an eye-tracker measured their eye-fixations 
 \begin_inset Formula $f_{i}\in\mathbb{R}^{2}$
 \end_inset
 
- of the test persons eyes and their respective time 
+ and their respective durations 
 \begin_inset Formula $t_{i}\in\mathbb{R}$
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-This experiment was repeated with the same images mirrored horizontally,
- to test in how far our perception of images is influenced by its horizontal
- orientation.
+ For further analysis it was necessary to group different areas of the image
+ into 
+\emph on
+areas of interest (AOE) 
+\emph default
+which correspond to subjectively identified objects in the corresponding
+ picture.
 \end_layout
 
 \begin_layout Subsection
@@ -2931,12 +2767,36 @@ Implementation
 \end_layout
 
 \begin_layout Standard
-As state space we define the coordinates of each fixation 
-\begin_inset Formula $S:=\left\{ s_{i}\right\} ,\, s_{i}=f_{i}$
+Assuming that humans, when looking at the pictures, dont jump randomly between
+ all recognized objects but remain for some fixations inside one 
+\emph on
+AOE
+\emph default
+, this behaviour should recur as high metastability of a clustering, correspondi
+ng to the 
+\emph on
+AOEs,
+\emph default
+ of a suitable chosen markov process representing the fixations.
+\end_layout
+
+\begin_layout Standard
+As we are just given a spatial timeseries we first transform this into a
+ markov process.
+\end_layout
+
+\begin_layout Standard
+We therefore choose a spatial grid as the state space 
+\begin_inset Formula $S:=\left\{ s_{i}\right\} $
 \end_inset
 
-, though if one has too many fixations one can precluster the fixations
- for example with k-means.
+.
+ We can either choose to use all fixations as grid (
+\begin_inset Formula $s_{i}=f_{i}$
+\end_inset
+
+ ) or use some spatial clustering algorithm (i.e.
+ k-means) to reduce the computational effort of the following PCCA+ routine.
 \end_layout
 
 \begin_layout Standard
@@ -2948,7 +2808,7 @@ We then compute the membership of each fixation
 \begin_inset Formula $s_{j}$
 \end_inset
 
- based on the row-sum normalized gaussian of the distance:
+ based on the row-sum normalized gaussian of the squared distance:
 \end_layout
 
 \begin_layout Standard
@@ -2963,10 +2823,6 @@ M_{ij}:=\frac{e^{\frac{\left|f_{i}-s_{j}\right|^{2}}{2\sigma^{2}}}}{\sum_{j}e^{\
 \end_layout
 
 \begin_layout Standard
-// check the 2
-\end_layout
-
-\begin_layout Standard
 This assures that nearby fixations 
 \begin_inset Quotes eld
 \end_inset
@@ -2975,45 +2831,112 @@ overlap
 \begin_inset Quotes erd
 \end_inset
 
-, introducing the metric distance information contained in the fixation
- data to the markov process.
+, adopting the metric information contained in the fixation data to the
+ markov process.
+ Thus the free parameter 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ can be interpreted as a spatial coupling constant.
+ A higher 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ value leads to stronger spatial coupling of the data, resulting in a more
+ space-type clustering, while a smaller value discards more of the spatial
+ information and therefore emphasises on the dynamical dependencies.
 \end_layout
 
 \begin_layout Standard
-We then fix a step time 
-\begin_inset Formula $\tau=50\text{ms}$
+We then choose a fixed time step 
+\begin_inset Formula $\Delta\tau$
 \end_inset
 
- for the markov chain to compute the transitions along this time-grid.
-\end_layout
-
-\begin_layout Standard
-Then summing the state correspondances over all fixation transitions 
-\begin_inset Formula $f_{a}\rightarrow f_{b},$
-\end_inset
-
- and normalizing to row sum 
-\begin_inset Formula $1$
-\end_inset
-
- we define the 
+ as grid size for the time discretization, along which we count the transitions
+ between the states based on the corresponding fixation-transitions, to
+ generate a 
 \emph on
 transition matrix
 \emph default
- 
-\begin_inset Formula $P$
+.
+ In detail, for the transitions from state 
+\begin_inset Formula $i$
 \end_inset
 
-:
+ to 
+\begin_inset Formula $j$
+\end_inset
+
+, we have
 \begin_inset Formula 
 \begin{eqnarray*}
 \\
-P_{ij} & = & \frac{\sum_{f_{a}\rightarrow f_{b}}M_{ai}M_{bj}}{\sum_{k}\sum_{f_{a}\rightarrow f_{b}}M_{ai}M_{bk}}
+P_{ij} & = & \frac{\sum_{i=0}M_{f(i\Delta\tau),i}M_{f(\left(i+1\right)\Delta\tau),j}}{\sum_{k}\sum_{i=0}M_{f(i\Delta\tau),i}M_{f(\left(i+1\right)\Delta\tau),k}}
 \end{eqnarray*}
 
 \end_inset
 
+where 
+\begin_inset Formula $f\left(i\Delta\tau\right)$
+\end_inset
 
+ denotes the current fixation at time 
+\begin_inset Formula $i\Delta\tau$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Once we have constructed 
+\begin_inset Formula $P$
+\end_inset
+
+ this way we now compute the invariant eigenspace using the weighted Schur
+ decomposition as in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:nonrev"
+
+\end_inset
+
+ and pass is to PCCA+, which in return gives us the fuzzy clustering 
+\begin_inset Formula $\chi$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+As a final step we discretize this fuzzy clustering by assigning to each
+ state 
+\begin_inset Formula $s_{i}$
+\end_inset
+
+ the cluster 
+\begin_inset Formula $c_{i}$
+\end_inset
+
+ with the maximal share:
+\begin_inset Formula 
+\[
+c_{i}=\text{argmax}_{j}\chi_{ij}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Results
+\end_layout
+
+\begin_layout Section
+
+\shape up
+Junk
 \end_layout
 
 \begin_layout Standard
@@ -3030,30 +2953,6 @@ We define the stationary distrubution at the i-th state as the normalized
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-Once we have constructed 
-\begin_inset Formula $P$
-\end_inset
-
- this way we now compute the invariant eigenspace using the weighted Schur
- decomposition as in 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sub:weightedss"
-
-\end_inset
-
- and pass is to PCCA+, which in return gives us the clustering 
-\begin_inset Formula $\chi$
-\end_inset
-
-, with which we also can compute the 
-\emph on
-coupling matrix
-\emph default
- on our reduced state space.
 \end_layout
 
 \begin_layout Standard
@@ -3093,16 +2992,6 @@ Cluster average: Compute the average clustering and compare the corresponding
 coupling matrices 
 \emph default
 directly.
-\end_layout
-
-\begin_layout Subsection
-Results
-\end_layout
-
-\begin_layout Section
-
-\shape up
-Junk
 \end_layout
 
 \begin_layout Subsubsection
