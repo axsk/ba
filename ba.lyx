@@ -1321,7 +1321,11 @@ PCCA+
 \end_layout
 
 \begin_layout Standard
-We now first present the PCCA+ algorithm in the case of reversible processes.
+In this section we will construct the 
+\emph on
+Robust Perron Cluster Analyis 
+\emph default
+algorithm.
 \end_layout
 
 \begin_layout Standard
@@ -1348,9 +1352,20 @@ good
 \end_layout
 
 \begin_layout Standard
-We will first develop the theory for reversible processes and then show
- how it is extendable to non-reversible processes, as encountered in the
- application.
+Note that we impose a fixed cluster number 
+\begin_inset Formula $n$
+\end_inset
+
+.
+ An overview over methods for estimating the cluster number, based on different
+ criteria, is given by Röblitz, Weber
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Roeblitz2013"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -2627,22 +2642,6 @@ key "Nelder1965"
 \end_layout
 
 \begin_layout Subsubsection
-Determination of the number of clusters 
-\begin_inset Formula $n$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-So far we have imposed a desired number of clusters 
-\begin_inset Formula $n$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Subsubsection
 Extension to nonreversible processes
 \begin_inset CommandInset label
 LatexCommand label
@@ -2831,7 +2830,16 @@ Extension to time-continous markov chains
 \end_layout
 
 \begin_layout Standard
-PCCA+ is also applicable to the clustering of time-continious markov chains.
+PCCA+ is also applicable to the clustering of time-continious markov chains
+ (c.f.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kube2007"
+
+\end_inset
+
+).
  In that case the 
 \emph on
 transition matrix
@@ -2972,7 +2980,7 @@ AOEs.
 \end_layout
 
 \begin_layout Subsection
-Model and Implementation
+Implementation
 \end_layout
 
 \begin_layout Standard

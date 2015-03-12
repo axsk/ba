@@ -1,10 +1,10 @@
 zeitplan
 ========
 
-12. number of clusters
-13. results
+12. results
+13. 
 14. discussion, fazit, introduction
 15. layout, dominik schicken=
-16. 
+16. korrektur
 17. print
 18. abgabe
