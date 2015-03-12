@@ -2,7 +2,7 @@
 \lyxformat 474
 \begin_document
 \begin_header
-\textclass article
+\textclass scrartcl
 \use_default_options true
 \begin_modules
 theorems-ams
@@ -956,7 +956,7 @@ key "Kube2007"
 \begin_inset Formula 
 \begin{eqnarray*}
 R:\mathbb{R}^{N} & \rightarrow & \mathbb{R}^{n},\, x\mapsto x\chi\\
-I:\mathbb{R}^{n} & \rightarrow & \mathbb{R}^{N},\, x\mapsto\tilde{D_{\pi}}^{-1}\chi^{T}D_{\pi}
+I:\mathbb{R}^{n} & \rightarrow & \mathbb{R}^{N},\, x\mapsto x\tilde{D_{\pi}}^{-1}\chi^{T}D_{\pi}
 \end{eqnarray*}
 
 \end_inset
@@ -969,8 +969,8 @@ with
 \begin_inset Formula $\tilde{\pi}=\pi R$
 \end_inset
 
-, where we apply them from the right in order to fit the used notation of
- right-stochastic matrices.
+, where we apply them from the right in line with the used notation of right-sto
+chastic matrices.
 \end_layout
 
 \begin_layout Standard
@@ -1031,8 +1031,8 @@ As this overlap would be applied on every iteration of
 \begin_inset Formula $W$
 \end_inset
 
- it would lead to increased mixing of the states, leading to wrong long-term
- results.
+ it would lead to increased mixing between the states, leading to wrong
+ long-term results.
  
 \begin_inset Formula $P_{C}$
 \end_inset
@@ -1053,11 +1053,15 @@ But this also shows us how we can compute a corresponding stochastically
 \emph on
 coupling matrix 
 \emph default
-for larger times with 
+for larger times corresponding to 
 \begin_inset Formula $n$
 \end_inset
 
- iterations of the smaller matrix 
+ iterations, 
+\begin_inset Formula $W_{n}$
+\end_inset
+
+, from the smaller matrix 
 \begin_inset Formula $P_{c}$
 \end_inset
 
@@ -1087,16 +1091,19 @@ Example 1 - the decoupled system
 
 \begin_layout Standard
 Consider 
-\begin_inset Formula $P=\left(\begin{array}{ccc}
+\begin_inset Formula 
+\[
+P=\left(\begin{array}{ccc}
 \frac{1}{2} & \frac{1}{2} & 0\\
 \frac{1}{2} & \frac{1}{2} & 0\\
 0 & 0 & 1
-\end{array}\right)$
+\end{array}\right).
+\]
+
 \end_inset
 
-.
- In this ideal decoupled system we have two invariant subspaces spanned
- by the so called 
+In this ideal decoupled system we have two invariant subspaces spanned by
+ the so called 
 \emph on
 Perron eigenvectors 
 \emph default
@@ -1189,7 +1196,7 @@ According to our definitions we now compute
 \begin_inset Formula $P_{C}$
 \end_inset
 
- contains the expected (identity) dynamics on the reduced state space, while
+ contains the expected stationary dynamics on the reduced state space, while
  
 \begin_inset Formula $W$
 \end_inset
@@ -1207,17 +1214,15 @@ Example 3 - negative entries
 \end_layout
 
 \begin_layout Standard
-The following exampe will illustrate the occurence of negative entries in
- 
-\begin_inset Formula $P_{C}$
-\end_inset
+Let us consider
+\end_layout
 
-:
+\begin_layout Standard
 \begin_inset Formula 
 \[
-P=\frac{1}{4}\left(\begin{array}{cc}
-1 & 3\\
-3 & 1
+P=\left(\begin{array}{cc}
+0 & 1\\
+1 & 0
 \end{array}\right),\,\chi=\left(\begin{array}{cc}
 1 & 0\\
 \frac{1}{2} & \frac{1}{2}
@@ -1230,9 +1235,9 @@ P=\frac{1}{4}\left(\begin{array}{cc}
 
 \begin_inset Formula 
 \[
-P_{C}=\frac{1}{8}\left(\begin{array}{cc}
-5 & 3\\
-9 & -1
+P_{C}=\frac{1}{2}\left(\begin{array}{cc}
+1 & 1\\
+3 & -1
 \end{array}\right)
 \]
 
@@ -1242,50 +1247,71 @@ P_{C}=\frac{1}{8}\left(\begin{array}{cc}
 \end_layout
 
 \begin_layout Standard
-Now 
-\begin_inset Formula $\left(0,1\right)\cdot P_{C}=\frac{1}{8}\left(9,-1\right)$
+Let us first compute the propagation of the normalized density corresponding
+ to 
+\begin_inset Formula $\chi_{2}$
 \end_inset
 
- gives us a linear combination which represents the distribution after applying
- P to the distribution represented by 
-\begin_inset Formula $\left(0,1\right)$
-\end_inset
-
-.
- Projecting these back to the full state space we 
-\end_layout
-
-\begin_layout Standard
-So indeed even negative entries finally represent positive quantities in
- the measurement, one might think of 
-\begin_inset Formula $P_{C}$
-\end_inset
-
- as acting with the basis of the clusters.
-\end_layout
-
-\begin_layout Paragraph
-Example 4 - pert.
- of ex4
-\end_layout
-
-\begin_layout Standard
+:
 \begin_inset Formula 
 \[
-P=\frac{1}{4}\left(\begin{array}{ccc}
-1 & 3 & 0\\
-2 & 1 & 1\\
-0 & 3 & 1
-\end{array}\right),\,\chi=\left(\begin{array}{cc}
-1 & 0\\
-\frac{1}{2} & \frac{1}{2}\\
-0 & 1
-\end{array}\right),\,\pi=\left(\frac{1}{3},\,\frac{1}{3},\,\frac{1}{3}\right)
+\left(0,1\right)\cdot P=\left(1,0\right),
 \]
 
 \end_inset
 
+i.e.
+ 
+\begin_inset Formula $s_{2}$
+\end_inset
 
+ is propagated to 
+\begin_inset Formula $s_{1}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The corresponding computation on the cluster space is
+\begin_inset Formula 
+\[
+\left(0,1\right)\cdot P_{C}=\frac{1}{2}\left(3,-1\right).
+\]
+
+\end_inset
+
+Here the negative entry amounts for the overlap of the clusters and is necessary
+ to encode state 
+\begin_inset Formula $s_{1}$
+\end_inset
+
+: As both clusters hold an amount of 
+\begin_inset Formula $s_{2}$
+\end_inset
+
+ we use a linear combination to eliminate this.
+ We thus may interpret 
+\begin_inset Formula $P_{C}$
+\end_inset
+
+ acting to the basis of clusters, eliminating the overlap.
+\end_layout
+
+\begin_layout Standard
+We can approximate the corresponding density on the state space by applying
+ the interpolation operator
+\begin_inset Formula 
+\[
+I=\left(\begin{array}{cc}
+\frac{2}{3} & \frac{1}{3}\\
+0 & 1
+\end{array}\right),\,\frac{1}{2}\left(3,-1\right)\cdot I=\left(1,0\right),
+\]
+
+\end_inset
+
+ which is even exact in this case.
 \end_layout
 
 \begin_layout Section
@@ -1634,6 +1660,43 @@ key "Deuflhard2005"
  the geometry of the clustering problem.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename simplex.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+Schematic illustration of the linear transformation mapping the row vectors
+ of the eigenvectors (points on the 
+\begin_inset Formula $z=1$
+\end_inset
+
+ hyperplane) onto the standard 2-simplex.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection
 Geometric interpretation
 \end_layout
@@ -1842,6 +1905,16 @@ key "Weber2006"
  is an upper bound for the metastability, which thus should be large.
 \end_layout
 
+\begin_layout Standard
+Note that this objective, ignoring the datapoints not beeing the maxima,
+ cannot distinguish between differences in the interior of the convex hull,
+ leading to possibly non-optimal transformation matrices 
+\begin_inset Formula $A$
+\end_inset
+
+, as illustrated in Figure Fig.
+\end_layout
+
 \begin_layout Subsubsection
 Maximal metastability condition
 \end_layout
@@ -1880,10 +1953,6 @@ key "Weber2006"
 , Lemma 3.6).
 \end_layout
 
-\begin_layout Standard
-# interpretation in fuzzy setting, what happens with complex eigenvalues?
-\end_layout
-
 \begin_layout Subsubsection
 Crispness objective
 \end_layout
@@ -1900,7 +1969,7 @@ key "Roeblitz2013"
 \begin_inset Formula $W$
 \end_inset
 
- is no more valid in the fuzzy setting.
+ is no more valid in the fuzzy setting due to the overlap.
  Optimization of the trace of 
 \begin_inset Formula $P_{C}$
 \end_inset
@@ -1921,18 +1990,10 @@ reference "eq:conj"
 \end_inset
 
 .
- Defining 
+ She therefore suggests maximization of 
 \begin_inset Formula 
 \[
-\mathcal{S}=IR=\tilde{D_{\pi}}^{-1}\chi^{T}D_{\pi}\chi
-\]
-
-\end_inset
-
-she therefore suggests maximization of 
-\begin_inset Formula 
-\[
-I_{3}:=\text{trace}\left(\mathcal{S}\right)=\sum_{i,j=1}^{n}\frac{\left(A_{ij}\right)^{2}}{A_{1,j}}.
+I_{3}:=\text{trace}\left(IR\right)=\sum_{i,j=1}^{n}\frac{\left(A_{ij}\right)^{2}}{A_{1,j}}.
 \]
 
 \end_inset
@@ -1946,11 +2007,52 @@ which is similar to maximal metastability condition, with
 
 \begin_layout Standard
 Maximizing the trace minimizes the off-diagonal entries of 
-\begin_inset Formula $\mathcal{S}$
+\begin_inset Formula $IP$
 \end_inset
 
  leading to the least amount of clustering-induced transitions and therefore
  to a as crisp as possible clustering.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename path4220-7.png
+	width 11cm
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Mapping of 7 rows of the eigenvectors (affine hexagon with an interior point)
+ to a 2-simplex.
+ While 
+\begin_inset Formula $I_{1}$
+\end_inset
+
+ cannot differentiate between the two mappings, 
+\begin_inset Formula $I_{2}$
+\end_inset
+
+ will choose the second as it provides a crisper assignment of the interior
+ point.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -2724,6 +2826,84 @@ reference "sub:constrXL"
  ).
 \end_layout
 
+\begin_layout Subsubsection
+Extension to time-continous markov chains
+\end_layout
+
+\begin_layout Standard
+PCCA+ is also applicable to the clustering of time-continious markov chains.
+ In that case the 
+\emph on
+transition matrix
+\emph default
+ 
+\begin_inset Formula $P$
+\end_inset
+
+ gets replaced by a 
+\emph on
+transition rate matrix 
+\begin_inset Formula $Q$
+\end_inset
+
+
+\emph default
+, having row-sum zero and nonnegative off-diagonal entries.
+ 
+\begin_inset Formula $Q$
+\end_inset
+
+ then is the generator of the time-discrete markov chains
+\begin_inset Formula 
+\[
+P(t)=e^{tQ}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In that case the eigenvectors of 
+\begin_inset Formula $P$
+\end_inset
+
+ and 
+\begin_inset Formula $Q$
+\end_inset
+
+ are the same and the eigenvalues of 
+\begin_inset Formula $P$
+\end_inset
+
+ are the exponential of the corresponding eigenvalues of 
+\begin_inset Formula $Q$
+\end_inset
+
+.
+ As the exponential is monotone the eigenvectors with highest absolute eigenvalu
+e, near 1, of 
+\begin_inset Formula $P$
+\end_inset
+
+ correspond to the eigenvectors with smallest absolute value, near 0, of
+ 
+\begin_inset Formula $Q$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+So by selecting the eigenvectors with smallest eigenvalue of 
+\begin_inset Formula $Q$
+\end_inset
+
+ we can compute the corresponding clustering for time-continious markov
+ cains.
+\end_layout
+
 \begin_layout Section
 
 \shape up
@@ -2735,11 +2915,12 @@ This algorithm was applied to experimental eye-tracking data obtained by
  the department of psychology of the Universität Potsdam, with the goal
  to detect objects as metastable clusters using just the dynamics of the
  human eye, i.e.
- without any data of the image itself.
+ without any data of the image itself, and thus provides a way of interpreting
+ the humans object recognition expressed through the eye movements.
 \end_layout
 
 \begin_layout Subsection
-The experiment
+The experiment and model
 \end_layout
 
 \begin_layout Standard
@@ -2762,53 +2943,63 @@ which correspond to subjectively identified objects in the corresponding
  picture.
 \end_layout
 
-\begin_layout Subsection
-Implementation
+\begin_layout Standard
+To apply PCCA+ we need to turn this spatial timeseries into a markov chain.
 \end_layout
 
 \begin_layout Standard
-Assuming that humans, when looking at the pictures, dont jump randomly between
- all recognized objects but remain for some fixations inside one 
+We model each fixation as a 
+\emph on
+random choice
+\emph default
+ on some grid weighted by a gaussian of the distance, and then construct
+ a 
+\emph on
+markov chain
+\emph default
+ by counting the induced transitions on the grid points.
+ To apply PCCA+ we need to turn this spatial timeseries into a markov chain.
+ Assuming that humans, when looking at the pictures, dont jump randomly
+ between all recognized objects but remain for some fixations inside one
+ 
 \emph on
 AOE
 \emph default
 , this behaviour should recur as high metastability of a clustering, correspondi
 ng to the 
 \emph on
-AOEs,
-\emph default
- of a suitable chosen markov process representing the fixations.
+AOEs.
+\end_layout
+
+\begin_layout Subsection
+Model and Implementation
 \end_layout
 
 \begin_layout Standard
-As we are just given a spatial timeseries we first transform this into a
- markov process.
-\end_layout
-
-\begin_layout Standard
-We therefore choose a spatial grid as the state space 
+As state space we choose a spatial grid 
 \begin_inset Formula $S:=\left\{ s_{i}\right\} $
 \end_inset
 
-.
- We can either choose to use all fixations as grid (
+, where the natural choice is using all fixation coordinates as grid (
 \begin_inset Formula $s_{i}=f_{i}$
 \end_inset
 
- ) or use some spatial clustering algorithm (i.e.
+ ) or alternatively use some spatial clustering algorithm (e.g.
  k-means) to reduce the computational effort of the following PCCA+ routine.
 \end_layout
 
 \begin_layout Standard
-We then compute the membership of each fixation 
+First we assign each fixation to each grid point weighted by a gaussian
+ of the distance between them, i.e.
+ for each fixation 
 \begin_inset Formula $f_{i}$
 \end_inset
 
- to each state 
+ and each state 
 \begin_inset Formula $s_{j}$
 \end_inset
 
- based on the row-sum normalized gaussian of the squared distance:
+:
 \end_layout
 
 \begin_layout Standard
@@ -2819,10 +3010,6 @@ M_{ij}:=\frac{e^{\frac{\left|f_{i}-s_{j}\right|^{2}}{2\sigma^{2}}}}{\sum_{j}e^{\
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
 This assures that nearby fixations 
 \begin_inset Quotes eld
 \end_inset
@@ -2833,7 +3020,7 @@ overlap
 
 , adopting the metric information contained in the fixation data to the
  markov process.
- Thus the free parameter 
+ Thus the parameter 
 \begin_inset Formula $\sigma$
 \end_inset
 
@@ -2853,7 +3040,7 @@ We then choose a fixed time step
 \end_inset
 
  as grid size for the time discretization, along which we count the transitions
- between the states based on the corresponding fixation-transitions, to
+ between the states based on the corresponding fixations transitions, to
  generate a 
 \emph on
 transition matrix
@@ -2871,7 +3058,7 @@ transition matrix
 \begin_inset Formula 
 \begin{eqnarray*}
 \\
-P_{ij} & = & \frac{\sum_{i=0}M_{f(i\Delta\tau),i}M_{f(\left(i+1\right)\Delta\tau),j}}{\sum_{k}\sum_{i=0}M_{f(i\Delta\tau),i}M_{f(\left(i+1\right)\Delta\tau),k}}
+P_{ij} & = & \frac{\sum_{s=0}M_{f(s\Delta\tau),i}M_{f(\left(s+1\right)\Delta\tau),j}}{\sum_{k}\sum_{s=0}M_{f(s\Delta\tau),i}M_{f(\left(s+1\right)\Delta\tau),k}}
 \end{eqnarray*}
 
 \end_inset
@@ -2905,7 +3092,6 @@ reference "sub:nonrev"
 \end_inset
 
 .
- 
 \end_layout
 
 \begin_layout Standard
@@ -2931,165 +3117,6 @@ c_{i}=\text{argmax}_{j}\chi_{ij}.
 
 \begin_layout Subsection
 Results
-\end_layout
-
-\begin_layout Section
-
-\shape up
-Junk
-\end_layout
-
-\begin_layout Standard
-We define the stationary distrubution at the i-th state as the normalized
- amount of counted transitions from that state:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\pi_{i}=\frac{\sum_{f_{a}\rightarrow f_{b}}M_{ai}}{\sum_{i}\sum_{f_{a}\rightarrow f_{b}}M_{ai}}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-To allow for comparison of two different experiments we reorder the clusters
- such that their respective correlation is maximized:
-\end_layout
-
-\begin_layout Standard
-We define the correlation of two clusters as sum over all products of the
- gaussians of the states weighted with their cluster share.
- We now use the Hungarian algorithm to reorder the matrix to maximize the
- diagonal.
-\end_layout
-
-\begin_layout Standard
-For the comparison of two experiments, A and B, different methods were implement
-ed:
-\end_layout
-
-\begin_layout Itemize
-Direct: One can either compare the different 
-\emph on
-coupling matrices 
-\emph default
-directly which each other, using their respective clustering.
-\end_layout
-
-\begin_layout Itemize
-Coupling average: Apply each resulting clustering to each experiment and
- compute the average of the difference of the coupling matrices.
-\end_layout
-
-\begin_layout Itemize
-Cluster average: Compute the average clustering and compare the corresponding
- 
-\emph on
-coupling matrices 
-\emph default
-directly.
-\end_layout
-
-\begin_layout Subsubsection
-Stochastic interpretation
-\end_layout
-
-\begin_layout Standard
-By multiplying the conditional transitions of 
-\begin_inset Formula $P$
-\end_inset
-
- with the actual starting distribution we get the unconditional transitions
- matrix 
-\begin_inset Formula $D_{\eta}P$
-\end_inset
-
-, which we can interpret as amount of actual transitions between the states.
- Now multiplying with a membership vector 
-\begin_inset Formula $\chi_{i}^{T}$
-\end_inset
-
- from the left gives the numbers of transitions starting in 
-\begin_inset Formula $\chi_{i}$
-\end_inset
-
- and finally multiplying with 
-\begin_inset Formula $\chi_{j}$
-\end_inset
-
- from the right measures the amount of these transitions landing in 
-\begin_inset Formula $\chi_{j}$
-\end_inset
-
-, i.e.
- 
-\begin_inset Formula $\chi_{i}^{T}D_{\eta}P\chi_{j}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-gives the unconditional number of transitions from cluster 
-\begin_inset Formula $i$
-\end_inset
-
- to cluster 
-\begin_inset Formula $j$
-\end_inset
-
-.
- Note that this interpretation is associative in the sense that we come
- to the same results by for example first interpreting 
-\begin_inset Formula $\chi_{i}^{T}D_{\eta}$
-\end_inset
-
- as actual amount of states in the cluster 
-\begin_inset Formula $\chi_{i}$
-\end_inset
-
- and measure the overlap with where the transitions to 
-\begin_inset Formula $\chi_{j}$
-\end_inset
-
-, come from: 
-\begin_inset Formula $\left(\chi_{i}^{T}D_{\eta}\right)(P\chi_{j})$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-We can vectorize this equation to compute the unconditional transitions
- by means of the 
-\emph on
-membership matrix 
-\begin_inset Formula $\chi=\left(\chi_{1},...,\chi_{n}\right)$
-\end_inset
-
-:
-\begin_inset Formula 
-\[
-\chi^{T}D_{\eta}P\chi
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-We then turn this unconditional transitions into conditinal by dividing
- by the number of states belonging to 
-\begin_inset Formula $\chi_{i}$
-\end_inset
-
- and have to make up the fact that we do not count all transitions...
- Baustelle
 \end_layout
 
 \begin_layout Standard
