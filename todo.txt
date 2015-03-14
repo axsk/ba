@@ -1,10 +1,10 @@
 zeitplan
 ========
 
-12. results
-13. 
+13. results
 14. discussion, fazit, introduction
-15. layout, dominik schicken=
+15. layout, dominik schicken
 16. korrektur
 17. print
 18. abgabe
+
