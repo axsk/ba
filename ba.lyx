@@ -2,7 +2,7 @@
 \lyxformat 474
 \begin_document
 \begin_header
-\textclass scrartcl
+\textclass scrreprt
 \use_default_options true
 \begin_modules
 theorems-ams
@@ -77,7 +77,45 @@ figs-within-sections
 \begin_layout Title
 
 \shape up
-PCCA+ and its application to spatial timeseries clustering
+PCCA+ and its application 
+\begin_inset Newline newline
+\end_inset
+
+to spatial timeseries clustering
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename logo.png
+	lyxscale 10
+	width 8cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+Alexander Sikorski
+\end_layout
+
+\begin_layout Date
+18.04.2015
+\end_layout
+
+\begin_layout Lowertitleback
+With many thanks to my parents, Prof.
+ Dr.
+ Kliegl, PD Marcus Weber.
 \end_layout
 
 \begin_layout Standard
@@ -102,21 +140,25 @@ In this thesis we will develop an algorithm for clustering spatial timeseries
 \end_layout
 
 \begin_layout Standard
-After an introduction to the abstract theory we will review known results
- about the Perron Cluster Cluster Analysis (PCCA+), which forms the basis
- for our application.
- PCCA+ will allow us to identify metastable clusters, that is a configuration
- of the system which is likely to persist for a longer time.
- In the course we will develop a new stochastic interpretation for the resulting
- reduced system.
+After an introduction to the underlying theoretical background we will review
+ known results about the Perron Cluster Cluster Analysis (PCCA+), which
+ forms the basis for our application.
+ PCCA+ will allow us to identify metastable clusters in Markov Chains, that
+ is a configuration of the system which is likely to persist for a longer
+ time.
+ In the course we will extend the known results by a stochastic interpretation
+ for the propagator matrix, which encodes the time evolution on the clusters.
 \end_layout
 
 \begin_layout Standard
-We will then show a method to turn spatial timeseries data into a Markov
- Chain to obtain a spatial clustering by further application of PCCA+, respectin
-g the dynamic information.
- We will then apply that method to eye-tracking data obtained from humans
- looking at pictures.
+We will then show a method to turn spatial timeseries into a Markov Chain
+ to obtain a spatial clustering by further application of PCCA+, respecting
+ the dynamic information.
+ Finally we will apply that method to data obtained by tracking human eye
+ fixations while these look at different paintings.
+ This can be seen as a form of object recognition which does not rely on
+ the image data itself but identifies the objects based on the humans recognitio
+n reflected in their eye movement.
 \end_layout
 
 \begin_layout Section
@@ -3086,16 +3128,18 @@ Results
 \begin_layout Standard
 The following pictures were computed from about 2000 fixations, with an
  average duration of about 250ms, per picture.
- According to the above considerations 
-\begin_inset Formula $\Delta\tau$
-\end_inset
+\end_layout
 
- was chosen near 150ms, avoinding most of the transitions to be skipped,
- and 
-\begin_inset Formula $\sigma$
-\end_inset
+\begin_layout Standard
+Figure 1 - Sistine Madonna - Raphael
+\end_layout
 
- was increased until a desired regularity was reached.
+\begin_layout Standard
+Figure 2 - Landschaft mit den drei Bäumen - Rembrandt
+\end_layout
+
+\begin_layout Standard
+Figure 3 - The Fuji from the mountains of Totomi - Hokusai
 \end_layout
 
 \begin_layout Section
@@ -3146,6 +3190,10 @@ denoting by
  the corresponding transition time, lead to worse results.
  It is not yet clear to the author how to construct the Maximal Likelihood
  estimator for the corresponding process.
+\end_layout
+
+\begin_layout Standard
+The last fixation poses another problem leading to a ..
 \end_layout
 
 \begin_layout Standard
