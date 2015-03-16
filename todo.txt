@@ -8,3 +8,13 @@ zeitplan
 17. print
 18. abgabe
 
+
+todo
+====
+
+emphasise termini
+figure captions
+figure/algo positioning
+header/pages
+
+
