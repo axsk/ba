@@ -2,12 +2,13 @@
 \lyxformat 474
 \begin_document
 \begin_header
-\textclass scrreprt
+\textclass scrartcl
 \use_default_options true
 \begin_modules
 theorems-ams
 eqs-within-sections
 figs-within-sections
+algorithm2e
 \end_modules
 \maintain_unincluded_children false
 \language english
@@ -86,14 +87,6 @@ to spatial timeseries clustering
 \end_inset
 
 
-\begin_inset Newline newline
-\end_inset
-
-
-\begin_inset Newline newline
-\end_inset
-
-
 \begin_inset Graphics
 	filename logo.png
 	lyxscale 10
@@ -119,9 +112,21 @@ With many thanks to my parents, Prof.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
 \begin_inset CommandInset toc
 LatexCommand tableofcontents
 
+\end_inset
+
+
+\begin_inset Newpage newpage
 \end_inset
 
 
@@ -134,7 +139,7 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-In this thesis we will develop an algorithm for clustering spatial timeseries
+In this thesis we develop an algorithm for clustering spatial timeseries
  into a prescribed number of clusters, based on their spatial and dynamical
  properties.
 \end_layout
@@ -155,7 +160,8 @@ We will then show a method to turn spatial timeseries into a Markov Chain
  to obtain a spatial clustering by further application of PCCA+, respecting
  the dynamic information.
  Finally we will apply that method to data obtained by tracking human eye
- fixations while these look at different paintings.
+ fixations while these look at different paintings to detect the depicted
+ objects.
  This can be seen as a form of object recognition which does not rely on
  the image data itself but identifies the objects based on the humans recognitio
 n reflected in their eye movement.
@@ -178,11 +184,11 @@ Let
 
  be any finite set, i.e.
  
-\begin_inset Formula $S=:\left\{ 1,...,N\right\} $
+\begin_inset Formula $S=:\left\{ s_{1},...,s_{N}\right\} $
 \end_inset
 
 .
- Then a Markov chain on 
+ A Markov chain on 
 \begin_inset Formula $S$
 \end_inset
 
@@ -197,13 +203,16 @@ Let
  satisfying the Markov property: 
 \begin_inset Formula 
 \[
-P(X_{t+1}=x|X_{1}=x_{1},X_{2}=X_{2},...,X_{t}=x_{t})=P(X_{t+1}=x|X_{t}=x_{t})\,\forall t\in\mathbb{N}.
+P(X_{t+1}=x|X_{1}=x_{1},X_{2}=x_{2},...,X_{t}=x_{t})=P(X_{t+1}=x|X_{t}=x_{t})\,\forall t\in\mathbb{N}.
 \]
 
 \end_inset
 
-It is common to interpret S as the state space of possible outcomes of measureme
-nts at the time 
+It is common to interpret 
+\begin_inset Formula $S$
+\end_inset
+
+ as the state space of possible outcomes of measurements at timestep 
 \begin_inset Formula $t$
 \end_inset
 
@@ -212,9 +221,9 @@ nts at the time
 \end_inset
 
 .
- The Markov property assures, that the transitions to the next timestep
- 
-\begin_inset Formula $t+1$
+ The Markov property assures, that the transition probabilities to the next
+ timestep 
+\begin_inset Formula $x{}_{t+1}$
 \end_inset
 
  only depend on the current state 
@@ -230,7 +239,7 @@ nts at the time
 \begin_inset Formula $(x_{1},...,x_{t-1})$
 \end_inset
 
-, thus this also sometimes called the memoryless property.
+, this is also sometimes called the memoryless property.
 \end_layout
 
 \begin_layout Standard
@@ -243,13 +252,13 @@ P(X_{t+1}=x|X_{t}=y)=P(X_{t}=x|X_{t-1}=y)\forall t\in\mathbb{N}.
 
 \end_inset
 
-This does not realy impose a restriction as any non-autonomous process can
- be turned into an autonomous one: By adding all possible times to the state
- space 
+This does not really impose a restriction since any non-autonomous process
+ can be turned into an autonomous one: By adding all possible times to the
+ state space 
 \begin_inset Formula $S$
 \end_inset
 
- taking the cartesian product 
+ using the cartesian product 
 \begin_inset Formula $S':=\mathbb{N}\times S$
 \end_inset
 
@@ -265,7 +274,7 @@ This does not realy impose a restriction as any non-autonomous process can
 \end_layout
 
 \begin_layout Standard
-As 
+Since 
 \begin_inset Formula $S$
 \end_inset
 
@@ -281,11 +290,16 @@ transition matrix
 \begin_layout Standard
 \begin_inset Formula 
 \[
-P_{ij}:=P\left(X_{t+1}=j|X_{t}=i\right).
+P_{ij}:=P\left(X_{t+1}=j|X_{t}=i\right),
 \]
 
 \end_inset
 
+where row stochastic means that each row has rowsum one and propagation
+ of states is realised by right application of P.
+\end_layout
+
+\begin_layout Standard
 A 
 \emph on
 stationary distribution
@@ -294,55 +308,10 @@ stationary distribution
 \begin_inset Formula $\pi$
 \end_inset
 
- satisfying
+, satisfying
 \begin_inset Formula 
 \[
 \pi P=\pi.
-\]
-
-\end_inset
-
-A markov chain is called 
-\emph on
-reversible
-\emph default
- if there exists a 
-\emph on
-stationary distribution
-\emph default
- 
-\begin_inset Formula $\pi$
-\end_inset
-
- satisfying the detailed balance equation
-\begin_inset Formula 
-\begin{equation}
-\pi_{i}P_{ij}=\pi_{j}P_{ji},\label{eq:db}
-\end{equation}
-
-\end_inset
-
-which assures equal back and forth transitions between any two states 
-\begin_inset Formula $i,\, j$
-\end_inset
-
-, weighted by the
-\emph on
- 
-\emph default
-stationary distribution.
- Introducing the diagonal matrix 
-\begin_inset Formula 
-\[
-D_{\pi}:=\text{diag}\left(\pi\right)
-\]
-
-\end_inset
-
-this can also be written in matrix notation as 
-\begin_inset Formula 
-\[
-D_{\pi}P=P^{T}D_{\pi}.
 \]
 
 \end_inset
@@ -358,15 +327,15 @@ Although we only consider a discrete state space in this thesis, the results
  For high dimensional state spaces, as for example met in molecular dynamics,
  this approach exhibits the curse of dimensionality, as the size of the
  mesh grows exponentially with the dimensions.
- As solution to this problem Weber developed a meshless version of PCCA+
- using a global Galerkin discretization
+ Weber developed a meshless version of PCCA+ using a global Galerkin discretizat
+ion
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Weber2006"
 
 \end_inset
 
-.
+ as solution to this problem .
 \end_layout
 
 \begin_layout Subsection
@@ -432,8 +401,8 @@ key "Deuflhard2000"
 
 \end_inset
 
-, has the disadvantage of not beeing robust against small pertubations,
- as continious changes in 
+, has the disadvantage of not being robust against small pertubations, as
+ continuous changes in 
 \begin_inset Formula $P$
 \end_inset
 
@@ -560,7 +529,7 @@ The entries
 \begin_inset Formula $W_{ij}$
 \end_inset
 
- can thus be interpreted as conditional transition probability from cluster
+ can thus be interpreted as conditional transition probabilities from cluster
  
 \begin_inset Formula $i$
 \end_inset
@@ -583,7 +552,7 @@ In the
 \emph on
 fuzzy clustering 
 \emph default
-setting the problem arises, that it is no more clear which state belongs
+setting the problem arises, that it is not clear anymore which state belongs
  to which cluster.
  It is therefore convenient to interpret the membershipership of state 
 \begin_inset Formula $j$
@@ -622,9 +591,9 @@ setting the problem arises, that it is no more clear which state belongs
 \end_layout
 
 \begin_layout Standard
-Note however that even if no real transitions are actually happening in
- the state space, we still may count transitions between clusters, as we
- once measure the same state belonging to one and then to another cluster,
+Note, however, that even if no real transitions are actually happening in
+ the state space, we still may count transitions between clusters, since
+ we once measure the same state belonging to one and then to another cluster,
  as demonstrated in example 3.
 \end_layout
 
@@ -693,8 +662,8 @@ coupling matrix
 \begin_inset Formula $\text{tr}\left(W\right).$
 \end_inset
 
- Note that this does not need to correspond with a high probability of the
- cluster.
+ Note, that this does not need to correspond with a high probability of
+ the cluster.
 \end_layout
 
 \begin_layout Subsubsection*
@@ -702,16 +671,16 @@ The propagator matrix
 \end_layout
 
 \begin_layout Standard
-Unfortunately the projection via the 
+Unfortunately, the projection via the 
 \emph on
 coupling matrix 
 \emph default
 does not commute with time propagation, and therefore cannot be used for
- long term analysis of the underlying markov chain.
+ long term analyses of the underlying markov chain.
 \end_layout
 
 \begin_layout Standard
-Therefore Kube and Weber 
+As remedy Kube and Weber 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Kube2007"
@@ -751,12 +720,12 @@ crisp clustering
 \begin_inset Formula $\chi$
 \end_inset
 
- is a linear combination of vectors spanning an 
+ is a linear combination of vectors spanning a 
 \begin_inset Formula $P$
 \end_inset
 
--invariant subspace satisfying an orthonormality condition, as will be satisfied
- in the PCCA+ approach, it has the advantage that discretization via 
+-invariant subspace satisfying an invertibilty condition it has the advantage
+ that discretization via 
 \begin_inset Formula $\chi$
 \end_inset
 
@@ -769,7 +738,7 @@ P\chi=\chi P_{C}.\label{eq:com}
 
 \end_inset
 
-This property ensures of that the 
+This property ensures that the 
 \emph on
 coupling matrix 
 \emph default
@@ -862,9 +831,9 @@ P\chi=PXA=X\Lambda A=XAA^{-1}\Lambda A=\chi P_{C}.
 
 \end_layout
 
-\begin_layout Proof
-This theorem generalizes the so far considered version where instead of
- invertibility 
+\begin_layout Standard
+This form of the theorem constitutes a small generalization towards its
+ so far published versions, where instead of invertibility 
 \begin_inset Formula $C=Id$
 \end_inset
 
@@ -931,8 +900,8 @@ chastic matrices.
 
 \begin_layout Standard
 These provide the transformations between the (fine-grained) configuration
- space and the (coarse-grained) cluster space, beeing natural in the sense
- that that 
+ space and the (coarse-grained) cluster space, being natural in the sense
+ that 
 \begin_inset Formula $IRw=w$
 \end_inset
 
@@ -968,7 +937,7 @@ P_{C} & = & \left(IR\right)^{-1}IPR.
 \end_layout
 
 \begin_layout Standard
-Now consider the situation when setting 
+Now, consider the situation when setting 
 \begin_inset Formula $P=\text{Id }$
 \end_inset
 
@@ -987,7 +956,7 @@ As this overlap would be applied on every iteration of
 \begin_inset Formula $W$
 \end_inset
 
- it would lead to increased mixing between the states, leading to wrong
+ it would lead to increased mixing between the states, resulting in wrong
  long-term results.
  
 \begin_inset Formula $P_{C}$
@@ -1041,7 +1010,7 @@ To demonstrate the connections between the different projections we now
  will show some example systems.
 \end_layout
 
-\begin_layout Paragraph
+\begin_layout Subsubsection*
 Example 1: The decoupled system
 \end_layout
 
@@ -1081,7 +1050,7 @@ with eigenvalue 1, the vectors
 
 
 \shape up
- These can be interpreted as a discrete a 
+ These can be interpreted as a 
 \shape default
 \emph on
 crisp clustering
@@ -1105,13 +1074,13 @@ W=P_{C}=\left(\begin{array}{cc}
 
 \end_layout
 
-\begin_layout Paragraph
+\begin_layout Subsubsection*
 Example 2: The 3-pot
 \end_layout
 
 \begin_layout Standard
-Next we will consider the stationary markov chain on three states with a
- 
+Next, we will consider the stationary markov chain on three states with
+ a 
 \emph on
 fuzzy clustering
 \emph default
@@ -1126,7 +1095,7 @@ P:=\left(\begin{array}{ccc}
 1 & 0\\
 \frac{1}{2} & \frac{1}{2}\\
 0 & 1
-\end{array}\right).\,\pi=\frac{1}{3}\left(\begin{array}{c}
+\end{array}\right),\,\pi=\frac{1}{3}\left(\begin{array}{c}
 1\\
 1\\
 1
@@ -1149,7 +1118,7 @@ P_{C}:=\left(\begin{array}{cc}
 
 \end_inset
 
- We thus observe that 
+ We thus observe, that 
 \begin_inset Formula $P_{C}$
 \end_inset
 
@@ -1166,7 +1135,7 @@ clustering
 .
 \end_layout
 
-\begin_layout Paragraph
+\begin_layout Subsubsection*
 Example 3: Negative entries
 \end_layout
 
@@ -1231,8 +1200,8 @@ i.e.
 
 \end_inset
 
-Here the negative entry amounts for the overlap of the clusters and is necessary
- to encode state 
+Here, the negative entry amounts for the overlap of the clusters and is
+ necessary to encode state 
 \begin_inset Formula $s_{1}$
 \end_inset
 
@@ -1275,7 +1244,7 @@ In this section we will construct the
 \emph on
 Robust Perron Cluster Analyis 
 \emph default
-algorithm, introduced by Deuflhard and Weber in 
+algorithm, introduced in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Deuflhard2005"
@@ -1287,13 +1256,14 @@ key "Deuflhard2005"
 \begin_inset Formula $X$
 \end_inset
 
- spanning the required invariant subspace, then examine the possible linear
+ spanning the required invariant subspace and examine the possible linear
  transformations 
 \begin_inset Formula $A$
 \end_inset
 
- mapping these to a set of membership vectors and finally propose an optimizatio
-n problem to specify a 
+ mapping these to a set of membership vectors.
+ Finally we propose different objectives to an optimization problem to specify
+ a 
 \begin_inset Quotes eld
 \end_inset
 
@@ -1301,12 +1271,19 @@ good
 \begin_inset Quotes erd
 \end_inset
 
- solution, representing the goal of metastability in the form of a objective
- function.
+ solution.
 \end_layout
 
 \begin_layout Standard
-Note that we impose a fixed cluster number 
+Unlike previous treatises we will not restrict ourselves to reversible processes
+ and provide a more general version of PCCA+ using the Schur decomposition
+ thus reflecting the newest developments (c.f.
+ TODO PAPER).
+ 
+\end_layout
+
+\begin_layout Standard
+Note, that we impose a fixed cluster number 
 \begin_inset Formula $n$
 \end_inset
 
@@ -1332,8 +1309,8 @@ membership vectors
 \begin_inset Formula $\chi$
 \end_inset
 
- spans an invariant subspace, whose dynamics is governed by the corresponding
- eigenvalues, thus leading to preservation of the slow time-scales.
+ spans an invariant subspace, thus leading to preservation of the slow time-scal
+es.
  By choosing the 
 \begin_inset Formula $n<N$
 \end_inset
@@ -1344,13 +1321,9 @@ membership vectors
 \end_inset
 
 .
- The eigenvectors are good data for this goal, as an eigenvector with a
- high eigenvalue represents a high degree of self-mapping and thus expresses
- similar behaviour of the corresponding states.
-\end_layout
-
-\begin_layout Standard
-Deuflhard et al.
+ A good indicator towards this goal is that eigenvectors with high eigenvalues
+ represent conformations with a high degree of self-mapping.
+ Deuflhard et al.
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1372,19 +1345,7 @@ key "Deuflhard2000"
 \end_layout
 
 \begin_layout Subsection
-Reversible processes
-\end_layout
-
-\begin_layout Subsubsection
-Construction of 
-\begin_inset Formula $X$
-\end_inset
-
- and 
-\begin_inset Formula $\Lambda$
-\end_inset
-
-
+Subspace construction
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:constrXL"
@@ -1395,185 +1356,133 @@ name "sub:constrXL"
 \end_layout
 
 \begin_layout Standard
-As we assume a reversible process the detailed balance condition 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:db"
-
+For the construction of the invariant subspace we make use of the
+\emph on
+ real Schur decomposition
+\emph default
+, decomposing a matrix 
+\begin_inset Formula $P=QTQ^{-1}$
 \end_inset
 
- holds, assuring that 
+ into a orthonormal
+\emph on
+ 
+\emph default
+matrix 
+\begin_inset Formula $Q$
+\end_inset
+
+, whose columns are called the 
+\emph on
+Schur vectors,
+\emph default
+ and an upper quasi-triangular (1-by-1 and 2-by-2 blocks on its diagonal)
+ matrix 
+\begin_inset Formula $T$
+\end_inset
+
+, called the 
+\emph on
+Schur form
+\emph default
+.
+ The columns of 
+\begin_inset Formula $Q$
+\end_inset
+
+ are called the Schur vectors of 
 \begin_inset Formula $P$
 \end_inset
 
- is generelized symmetric:
-\begin_inset Formula 
-\[
-D_{\pi}^{-\frac{1}{2}}P^{T}D_{\pi}^{\frac{1}{2}}=D_{\pi}^{-\frac{1}{2}}D_{\pi}PD_{\pi}^{-1}D_{\eta}^{\frac{1}{2}}=\left(D_{\pi}^{-\frac{1}{2}}P^{T}D_{\pi}^{\frac{1}{2}}\right)^{T}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-We therefore can diagonalize 
+.
+ The eigenvalues of 
 \begin_inset Formula $P$
 \end_inset
 
- such that 
-\begin_inset Formula $PX'=X'\Lambda'$
+ appear on the diagonal of 
+\begin_inset Formula $T$
 \end_inset
 
- with 
-\begin_inset Formula $X'\in\mathbb{R}^{N\times N}$
+, where complex conjugate eigenvalues correspond to the 2-by-2 blocks.
+ We then reorder the 
+\emph on
+Schur form 
+\emph default
+and recompute the corresponding 
+\emph on
+Schur vectors
+\emph default
+ such that the upper left 
+\begin_inset Formula $n\times n$
 \end_inset
 
- beeing regular and 
-\begin_inset Formula $\Lambda'\in\mathbb{R}^{N\times N}$
+ block of 
+\begin_inset Formula $T$
 \end_inset
 
- beeing diagonal.
-\end_layout
-
-\begin_layout Standard
-We then select the 
+ contains the 
 \begin_inset Formula $n$
 \end_inset
 
- largest eigenvalues 
-\begin_inset Formula $\Lambda\in\mathbb{R}^{n\times n}$
-\end_inset
+ largest eigenvalues by a reordering algorithm 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kressner2006"
 
- and the corresponding eigenvectors 
-\begin_inset Formula $X\in\mathbb{R}^{N\times n}$
-\end_inset
-
-, which by regularity satisfy invertibility of 
-\begin_inset Formula $X^{T}D_{\pi}X$
 \end_inset
 
 .
-\end_layout
+ Note, that in the case of complex conjugate eigenvalues we have to select
+ or discard the whole 2-by-2 blocks.
+ Define 
+\begin_inset Formula $\Lambda$
+\end_inset
 
-\begin_layout Subsubsection
-Feasible Set
-\end_layout
+ as the upper left 
+\begin_inset Formula $n\times n$
+\end_inset
 
-\begin_layout Standard
-Given a fixed eigenvector matrix 
+ block of 
+\begin_inset Formula $T$
+\end_inset
+
+ and 
 \begin_inset Formula $X$
 \end_inset
 
-, we will now examine the set of feasible matrices 
-\begin_inset Formula $F_{A}\subset\mathbb{R}^{n\times n}$
+ as the 
+\begin_inset Formula $n$
 \end_inset
 
- for the transformation 
-\begin_inset Formula $A$
+ first columns of 
+\begin_inset Formula $Q$
 \end_inset
 
- leading to actual 
+.
+ These now satisfy the 
 \emph on
-membership vectors
+subspace condition
 \emph default
- 
-\begin_inset Formula $\chi:=XA$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-As 
-\begin_inset Formula $P$
-\end_inset
-
- is stochastic the constant one vector is mapped to itself, 
-\begin_inset Formula $P\left(\begin{array}{c}
-1\\
-\vdots\\
-1
-\end{array}\right)=\left(\begin{array}{c}
-1\\
-\vdots\\
-1
-\end{array}\right)$
-\end_inset
-
-, and thus forms an eigenvector to eigenvalue 1, i.e.
- 
-\begin_inset Formula $X_{i,1}=1,\, i=1,...,N$
-\end_inset
-
-.
- Thus one can reformulate the positivity 
+ for 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:pos"
+reference "thm:comm"
 
 \end_inset
 
- and partition of unity 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:pu"
-
-\end_inset
-
- conditions in terms of the matrices X and A, leading to the following constrain
-ts for A:
+ by definition.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Formula 
-\begin{eqnarray}
-A_{1,j} & \ge & -\sum_{k=2}^{n}X_{ik}A_{kj},\, i=1,...,N,\, j=1,...,n\,\left(\text{positivity}\right),\label{eq:fa}\\
-A_{i,1} & = & \delta_{i,1}-\sum_{j=2}^{n}A_{ij},\, i=1,...,n\,\left(\text{partition of unity}\right)
-\end{eqnarray}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Since these constraints are linear in A the set 
-\begin_inset Formula $F_{A}$
-\end_inset
-
- is a convex polytope, and it is not empty as the matrix 
-\begin_inset Formula $A_{ij}^{*}:=\frac{\delta_{i,1}}{n}$
-\end_inset
-
- satisfies these conditions.
-\end_layout
-
-\begin_layout Standard
-As Deuflhard and Weber 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Deuflhard2005"
-
-\end_inset
-
- have shown, the set 
-\begin_inset Formula $F_{A}$
-\end_inset
-
- is indeed uncountable.
- We therefore look for some criterion to choose a specific solution by means
- of choosing an objective function for an optimization problem.
- To motivate the specific choices we first try to gain some insight into
- the geometry of the clustering problem.
+\begin_layout Subsection
+The feasible transformation set
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
+placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1606,12 +1515,86 @@ Schematic illustration of the linear transformation mapping the row vectors
 
 \end_layout
 
-\begin_layout Subsubsection
-Geometric interpretation
+\begin_layout Standard
+Given the invariant subspace 
+\begin_inset Formula $X$
+\end_inset
+
+, we will now examine the set of feasible matrices 
+\begin_inset Formula $F_{A}\subset\mathbb{R}^{n\times n}$
+\end_inset
+
+ for the transformation 
+\begin_inset Formula $A$
+\end_inset
+
+, leading to actual 
+\emph on
+membership vectors
+\emph default
+ 
+\begin_inset Formula $\chi:=XA$
+\end_inset
+
+.
+ As 
+\begin_inset Formula $P$
+\end_inset
+
+ is stochastic the constant one vector is mapped to itself, 
+\begin_inset Formula $P\left(\begin{array}{c}
+1\\
+\vdots\\
+1
+\end{array}\right)=\left(\begin{array}{c}
+1\\
+\vdots\\
+1
+\end{array}\right)$
+\end_inset
+
+, and thus forms an eigenvector to eigenvalue 1, therefore 
+\begin_inset Formula $X_{i,1}=1,\, i=1,...,N$
+\end_inset
+
+.
+ Thus, one can reformulate the positivity 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:pos"
+
+\end_inset
+
+ and partition of unity 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:pu"
+
+\end_inset
+
+ conditions in terms of the matrices X and A, leading to the following constrain
+ts for A:
+\begin_inset Formula 
+\begin{eqnarray}
+A_{1,j} & \ge & -\sum_{k=2}^{n}X_{ik}A_{kj},\, i=1,...,N,\, j=1,...,n\,\left(\text{positivity}\right),\label{eq:fa}\\
+A_{i,1} & = & \delta_{i,1}-\sum_{j=2}^{n}A_{ij},\, i=1,...,n\,\left(\text{partition of unity}\right)
+\end{eqnarray}
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-If one considers the 
+Since these constraints are linear in A the set 
+\begin_inset Formula $F_{A}$
+\end_inset
+
+ is a convex polytope.
+\end_layout
+
+\begin_layout Standard
+Geometrically one might think of the 
 \begin_inset Formula $N$
 \end_inset
 
@@ -1623,7 +1606,8 @@ If one considers the
 \begin_inset Formula $\mathbb{R}^{n}$
 \end_inset
 
-, the positivity and 
+.
+ The positivity and 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:pos"
@@ -1650,7 +1634,7 @@ reference "eq:pu"
 \begin_inset Formula $\chi=XA$
 \end_inset
 
- this means the that the matrix 
+ this means that the matrix 
 \begin_inset Formula $A$
 \end_inset
 
@@ -1663,18 +1647,45 @@ reference "eq:pu"
 \end_inset
 
  to that simplex.
- 
-\end_layout
-
-\begin_layout Standard
-As we have seen the first component of each row is 1, thus all rows lie
+ As we have seen the first component of each row is 1, thus all rows lie
  on the hyperplane with first component 1.
  They furthermore are contained in a bounded region, and thus we can map
  them linearly onto 
 \begin_inset Formula $\Delta$
 \end_inset
 
- via A.
+ via a linear map A.
+\end_layout
+
+\begin_layout Standard
+Thus we directly see that the set 
+\begin_inset Formula $F_{A}$
+\end_inset
+
+ is not empty.
+ It furthermore is infinite, as we can always shrink the image further and
+ it will still fit into 
+\begin_inset Formula $\Delta.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Optimization
+\end_layout
+
+\begin_layout Standard
+As we have the choice between infinitely many possible solutions for 
+\begin_inset Formula $A\subset F_{A}$
+\end_inset
+
+ we will now specify and motivate different optimization objectives, to
+ specify a specific solution by the optimization problem.
+\end_layout
+
+\begin_layout Subsubsection*
+Maximal scaling condition
 \end_layout
 
 \begin_layout Standard
@@ -1710,12 +1721,9 @@ that the convex hull
 \begin_inset Formula $\Delta$
 \end_inset
 
- gives us the highest distinguishability between the resulting clusters.
+ gives us the highest distinctiveness between the resulting clusters.
  This assumption is equivalent to the situation that for each corner there
  exists a row getting mapped into that corner, i.e.
-\end_layout
-
-\begin_layout Standard
 \begin_inset Formula 
 \[
 \max_{i=1..N}\chi_{ij}=1,\, j=1,...,n,
@@ -1726,12 +1734,8 @@ that the convex hull
 justifying its name.
 \end_layout
 
-\begin_layout Subsubsection
-Maximal scaling condition
-\end_layout
-
 \begin_layout Standard
-As in the general the 
+As in general the 
 \emph on
 maximality assumption
 \emph default
@@ -1775,12 +1779,12 @@ key "Weber2006"
 
  proposes to determine the maximizing indices by the 
 \emph on
-index mapping algortithm
+index mapping algorithm
 \emph default
 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "par:indexmappingtheorem"
+reference "alg:ima"
 
 \end_inset
 
@@ -1815,16 +1819,71 @@ key "Weber2006"
 \end_layout
 
 \begin_layout Standard
-Note that this objective, ignoring the datapoints not beeing the maxima,
+Note, that this objective, ignoring the datapoints not beeing the maxima,
  cannot distinguish between differences in the interior of the convex hull,
  leading to possibly non-optimal transformation matrices 
 \begin_inset Formula $A$
 \end_inset
 
-, as illustrated in Figure Fig.
+, as illustrated in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:hexagon"
+
+\end_inset
+
+.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename hexagon.png
+	width 11cm
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Mapping of 7 rows of the eigenvectors (affine hexagon with an interior point)
+ to a 2-simplex.
+ While 
+\begin_inset Formula $I_{1}$
+\end_inset
+
+ cannot differentiate between the two mappings, 
+\begin_inset Formula $I_{2}$
+\end_inset
+
+ will choose the second as it provides a crisper assignment of the interior
+ point.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:hexagon"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
 Maximal metastability condition
 \end_layout
 
@@ -1862,7 +1921,7 @@ key "Weber2006"
 , Lemma 3.6).
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsubsection*
 Crispness objective
 \end_layout
 
@@ -1878,7 +1937,7 @@ key "Roeblitz2013"
 \begin_inset Formula $W$
 \end_inset
 
- is no more valid in the fuzzy setting due to the overlap.
+ is not valid in the fuzzy setting, due to the overlap.
  Optimization of the trace of 
 \begin_inset Formula $P_{C}$
 \end_inset
@@ -1907,7 +1966,11 @@ I_{3}:=\text{trace}\left(IR\right)=\sum_{i,j=1}^{n}\frac{\left(A_{ij}\right)^{2}
 
 \end_inset
 
-which is similar to maximal metastability condition, with 
+which is similar to the 
+\emph on
+maximal metastability condition
+\emph default
+, with 
 \begin_inset Formula $P$
 \end_inset
 
@@ -1923,48 +1986,7 @@ Maximizing the trace minimizes the off-diagonal entries of
  to a as crisp as possible clustering.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename hexagon.png
-	width 11cm
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Mapping of 7 rows of the eigenvectors (affine hexagon with an interior point)
- to a 2-simplex.
- While 
-\begin_inset Formula $I_{1}$
-\end_inset
-
- cannot differentiate between the two mappings, 
-\begin_inset Formula $I_{2}$
-\end_inset
-
- will choose the second as it provides a crisper assignment of the interior
- point.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
+\begin_layout Subsubsection*
 Unconstrained Optimization
 \end_layout
 
@@ -1985,7 +2007,7 @@ key "Deuflhard2005,Weber2006"
 \end_inset
 
  we will now show how to turn this constrained into an unconstrained optimizatio
-n problem, basically by enforcing the constraints after each iteration.
+n problem by enforcing the constraints after each iteration.
 \end_layout
 
 \begin_layout Standard
@@ -2002,10 +2024,6 @@ A_{1,j} & = & -\min_{l=1,...,N}\sum_{i=2}^{n}X_{li}A_{ij},\, j=1,....,n.\label{e
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
 Comparing these equalities to 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2021,9 +2039,9 @@ reference "eq:fa"
 \end_layout
 
 \begin_layout Standard
-Now consider the 
+Now consider the following 
 \emph on
-feasabilization
+feasibilization
 \emph default
  
 \emph on
@@ -2041,14 +2059,40 @@ algorithm
 \begin_inset Formula $A$
 \end_inset
 
- and thus enforcing the desired constraints.
+ and thus enforcing the desired constraints:
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+RestyleAlgo{algoruled}
 \end_layout
 
-\begin_layout Paragraph
-Feasabilization algorithm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Above
+
+\begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "par:algfeas"
+name "alg:feas"
+
+\end_inset
+
+Feasibilization algorithm
+\end_layout
 
 \end_inset
 
@@ -2091,8 +2135,13 @@ For
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
-Steps 1 and 2 guarantee feasability of 
+Steps 1 and 2 guarantee feasibility of 
 \begin_inset Formula $\tilde{A}$
 \end_inset
 
@@ -2174,7 +2223,7 @@ key "Weber2006"
 \end_inset
 
 , Lemma 3.5).
- We thus can also optimize the function 
+ Thus, we can also optimize the function 
 \begin_inset Formula $F\circ I_{i}$
 \end_inset
 
@@ -2194,12 +2243,29 @@ key "Weber2006"
 \end_layout
 
 \begin_layout Standard
-Next we will develop an initial guess to this global optimization problem,
- turning it into a local one.
+As the 
+\emph on
+feasibilization algorithm 
+\emph default
+is not differentiable, Deuflhard and Weber 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Deuflhard2005"
+
+\end_inset
+
+ propose the use of the nonlinear simplex method of Nelder and Mead 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nelder1965"
+
+\end_inset
+
+ as local optimization routine.
 \end_layout
 
-\begin_layout Subsubsection
-Inner simplex algorithm
+\begin_layout Subsubsection*
+Initial guess
 \end_layout
 
 \begin_layout Standard
@@ -2219,7 +2285,8 @@ key "Weber2002"
 \end_inset
 
  by constructing a simplex surrounding all row-points and then computing
- the transformation to the standard simplex.
+ the transformation to the standard simplex, thus turning the global into
+ a local optimization problem.
 \end_layout
 
 \begin_layout Standard
@@ -2241,14 +2308,29 @@ looks for the indices
  spanned by the chosen points so far:
 \end_layout
 
-\begin_layout Paragraph
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Index mapping algorithm
 \begin_inset CommandInset label
 LatexCommand label
-name "par:indexmappingtheorem"
+name "alg:ima"
 
 \end_inset
 
-Index mapping algorithm
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Enumerate
@@ -2257,9 +2339,9 @@ Find starting point:
 \end_inset
 
 
-\begin_inset Newline newline
-\end_inset
+\end_layout
 
+\begin_layout Enumerate
 Translate to origin: For 
 \begin_inset Formula $i\in S$
 \end_inset
@@ -2277,17 +2359,18 @@ For
 \end_inset
 
 
-\begin_inset Newline newline
-\end_inset
+\end_layout
 
-Find next index: 
+\begin_deeper
+\begin_layout Enumerate
+Find index of the farthest point: 
 \begin_inset Formula $i_{j}:=\text{argmax}_{j\in C}\left\Vert X_{\cdot,j}\right\Vert _{^{2}}$
 \end_inset
 
 
-\begin_inset Newline newline
-\end_inset
+\end_layout
 
+\begin_layout Enumerate
 Projection to hyperplane by Gram-Schmidt process: 
 \begin_inset Formula $X\mapsfrom X-\frac{\text{XX_{i_{j},\cdot}^{T}\otimes X_{i_{j},\cdot}}}{\left\Vert X_{i_{j},\cdot}\right\Vert _{2}}$
 \end_inset
@@ -2295,12 +2378,22 @@ Projection to hyperplane by Gram-Schmidt process:
  
 \end_layout
 
+\end_deeper
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
-Once having determined the indices of the 
+The 
+\emph on
+inner simplex algorithm
+\emph default
+ uses these indices to construct of the 
 \begin_inset Formula $n$
 \end_inset
 
- extremal points, we now construct the matrix 
+ extremal points to construct the matrix 
 \begin_inset Formula $A$
 \end_inset
 
@@ -2312,10 +2405,37 @@ Once having determined the indices of the
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula 
-\[
-A\left(X\right):=\left(X_{ij}\right)_{i=i_{1},...,i_{n},\, j=1,...,n}^{-1}
-\]
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Inner simplex algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:isa"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Define 
+\begin_inset Formula $A\left(X\right):=\left(X_{ij}\right)_{i=i_{1},...,i_{n},\, j=1,...,n}^{-1}$
+\end_inset
+
+ with 
+\begin_inset Formula $i_{1},...,i_{n}$
+\end_inset
+
+ as above
+\end_layout
 
 \end_inset
 
@@ -2340,7 +2460,7 @@ maximality assumption
 index mapping algorithm 
 \emph default
 determines its vertices, thus 
-\begin_inset Formula $\text{co}\left(X\right)A\left(X\right)=\Delta$
+\begin_inset Formula $\text{co}\left(AX\right)=\Delta$
 \end_inset
 
  and 
@@ -2403,11 +2523,8 @@ inner simplex algorithm
 \end_layout
 
 \begin_layout Standard
-Therefore the result is not feasible in the generic case.
-\end_layout
-
-\begin_layout Standard
-If however the 
+Therefore, the result is not feasible in the generic case.
+ If however the 
 \emph on
 maximality assumption 
 \emph default
@@ -2422,10 +2539,7 @@ key "Weber2006"
 
  (3.4.4) is satisfied in many applications, the algorithm still gives a solution
  near the unperturbed solution.
-\end_layout
-
-\begin_layout Standard
-Therefore that 
+ Thus 
 \begin_inset Formula $A$
 \end_inset
 
@@ -2437,12 +2551,35 @@ Therefore that
  optimization.
 \end_layout
 
-\begin_layout Subsubsection
-The PCCA+ Algorithm
+\begin_layout Subsection
+The PCCA+ algorithm
+\end_layout
+
+\begin_layout Standard
+Once we have decided on an objective function we can now put together all
+ steps:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+PCCA+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Enumerate
-Compute 
+Given P, compute 
 \begin_inset Formula $X,\,\Lambda$
 \end_inset
 
@@ -2461,10 +2598,13 @@ Determine the, in general infeasible, initial guess
 \begin_inset Formula $A_{0}:=A\left(X\right)$
 \end_inset
 
- using the 
-\emph on
-inner simplex algorithm
-\emph default
+ by 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:isa"
+
+\end_inset
+
 .
 \end_layout
 
@@ -2494,13 +2634,12 @@ Perform an iterative local optimization
 \begin_inset Formula $A_{k,ij},\, i,j\not=1$
 \end_inset
 
- without constraints.
- Then use algorithm
+ without constraints, then use algorithm
 \emph on
  
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "par:algfeas"
+reference "alg:feas"
 
 \end_inset
 
@@ -2513,218 +2652,21 @@ to get a feasible matrix
  before evaluating the corresponding objective function.
 \end_layout
 
-\begin_layout Standard
-As the 
-\emph on
-feasibalization algorithm 
-\emph default
-is not differentiable, Deuflhard and Weber 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Deuflhard2005"
-
-\end_inset
-
- propose the use of the nonlinear simplex method of Nelder and Mead 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Nelder1965"
-
-\end_inset
-
- as local optimization routine.
+\begin_layout Enumerate
+Return the optimal transformation A
 \end_layout
-
-\begin_layout Subsubsection
-Extension to nonreversible processes
-\begin_inset CommandInset label
-LatexCommand label
-name "sub:nonrev"
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
-When the underlying stochastic process is not reversible the matrix 
-\begin_inset Formula $P$
-\end_inset
-
- is no more real diagonalizable.
- But as we only need an invariant subspace we can make use of the
-\emph on
- real Schur decomposition
-\emph default
-, decomposing a matrix 
-\begin_inset Formula $A=QTQ^{-1}$
-\end_inset
-
- into a orthonormal
-\emph on
- 
-\emph default
-matrix 
-\begin_inset Formula $Q$
-\end_inset
-
-, called the 
-\emph on
-Schur vectors,
-\emph default
- and an upper quasi-triangular (1-by-1 and 2-by-2 blocks on its diagonal)
- matrix 
-\begin_inset Formula $T$
-\end_inset
-
-, called the 
-\emph on
-Schur form
-\emph default
-.
- The columns of 
-\begin_inset Formula $Q$
-\end_inset
-
- are called the Schur vectors of 
-\begin_inset Formula $P$
-\end_inset
-
-.
- The eigenvalues of 
-\begin_inset Formula $P$
-\end_inset
-
- appear on the diagonal of 
-\begin_inset Formula $T$
-\end_inset
-
-, where complex conjugate eigenvalues correspond to the 2-by-2 blocks.
-\end_layout
-
-\begin_layout Standard
-To compute an orthonormal basis for an invariant subspace belonging to 
-\begin_inset Formula $n$
-\end_inset
-
- eigenvalues one can reorder the diagonal blocks of 
-\begin_inset Formula $T$
-\end_inset
-
- such that the upper left 
-\begin_inset Formula $n\times n$
-\end_inset
-
- block contains these 
-\begin_inset Formula $n$
-\end_inset
-
- eigenvalues.
- Then the first 
-\begin_inset Formula $n$
-\end_inset
-
- columns of the updated transformation matrix 
-\begin_inset Formula $Q$
-\end_inset
-
- form a basis for the desired subspace 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schur"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-So we define, analogously to 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sub:constrXL"
-
-\end_inset
-
- 
-\begin_inset Formula $\tilde{P}:=D_{\eta}^{\frac{1}{2}}PD_{\eta}^{-\frac{1}{2}}$
-\end_inset
-
- and compute the 
-\emph on
-real Schur decomposition 
-\emph default
-of 
-\begin_inset Formula $\tilde{P}$
-\end_inset
-
-.
- We then select the 
-\begin_inset Formula $n\times n$
-\end_inset
-
- blocks corresponding to the 
-\begin_inset Formula $n$
-\end_inset
-
- eigenvalues with the highest absolute value by the reordering procedure.
- Note that in the case of complex conjugate eigenvalues we have to select
- or discard the whole 2-by-2 blocks.
-\end_layout
-
-\begin_layout Standard
-Let us denote the resulting 
-\emph on
-Schur vectors 
-\emph default
-by 
-\begin_inset Formula $\tilde{X}$
-\end_inset
-
- and the 
-\emph on
-Schur form 
-\emph default
-by 
-\begin_inset Formula $\Lambda$
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Standard
-Now 
-\begin_inset Formula $X:=D_{\pi}^{-\frac{1}{2}}\tilde{X}$
-\end_inset
-
- and 
-\begin_inset Formula $\Lambda$
-\end_inset
-
- satisfy the conditions for 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "thm:comm"
-
-\end_inset
-
- (same calculations as in
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sub:constrXL"
-
-\end_inset
-
- ).
-\end_layout
-
-\begin_layout Subsubsection
+\begin_layout Subsubsection*
 Extension to time-continous markov chains
 \end_layout
 
 \begin_layout Standard
-PCCA+ is also applicable to the clustering of time-continious markov chains
+PCCA+ is also applicable to the clustering of time-continuous markov chains
  (c.f.
  
 \begin_inset CommandInset citation
@@ -2751,11 +2693,7 @@ transition rate matrix
 
 \emph default
 , having row-sum zero and nonnegative off-diagonal entries.
- 
-\begin_inset Formula $Q$
-\end_inset
-
- then is the generator of the time-discrete markov chains
+ The transitions after a fixed time can then be computed by
 \begin_inset Formula 
 \[
 P(t)=e^{tQ}.
@@ -2789,8 +2727,8 @@ e, near 1, of
 \begin_inset Formula $P$
 \end_inset
 
- correspond to the eigenvectors with smallest absolute value, near 0, of
- 
+ correspond to the eigenvectors with smallest absolute value, near zero,
+ of 
 \begin_inset Formula $Q$
 \end_inset
 
@@ -2802,7 +2740,7 @@ So by selecting the eigenvectors with smallest eigenvalue of
 \begin_inset Formula $Q$
 \end_inset
 
- we can compute the corresponding clustering for time-continious markov
+ we can compute the corresponding clustering for time-continuous markov
  cains.
 \end_layout
 
@@ -2854,7 +2792,7 @@ We model each fixation as a
 \emph on
 random choice
 \emph default
- on some grid weighted by a gaussian of the distance to the grid points,
+ on a spatial grid weighted by a gaussian of the distance to the grid points,
  and then construct a 
 \emph on
 markov chain
@@ -2978,7 +2916,7 @@ Alternatively we can also generate a
 \emph on
 rate matrix
 \emph default
- corresponding to a time-continious markov model.
+ corresponding to a time-continuous markov model.
  In that case we estimate the transition rate from state 
 \begin_inset Formula $i$
 \end_inset
@@ -2987,9 +2925,9 @@ rate matrix
 \begin_inset Formula $j$
 \end_inset
 
- by the most likelyhood estimator of the exponential distribution, the inverse
- of the expected transition time, which scales inversely to the membership,
- i.e.:
+ using the most likelihood estimator of the exponential distribution, the
+ inverse of the expected transition time, which scales inversely to the
+ membership, i.e.:
 \begin_inset Formula 
 \[
 W_{ij}=\left(\frac{\sum_{a\rightarrow b}\frac{\tau_{a\rightarrow b}}{M_{ai}M_{bj}}}{\sum_{a\rightarrow b}1}\right)^{-1},
@@ -3022,14 +2960,8 @@ Once we have constructed
 \end_inset
 
  this way we now compute the invariant eigenspace using the weighted Schur
- decomposition as in 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sub:nonrev"
-
-\end_inset
-
- and pass is to PCCA+, which in return gives us the fuzzy clustering 
+ decomposition as in [todo] and pass is to PCCA+, which in return gives
+ us the fuzzy clustering 
 \begin_inset Formula $\chi$
 \end_inset
 
@@ -3058,7 +2990,7 @@ c_{i}=\text{argmax}_{j}\chi_{ij}.\label{eq:clmax}
 \end_layout
 
 \begin_layout Standard
-Note that choosing this discretization of the fuzzy clustering some clusters
+Note, that choosing this discretization of the fuzzy clustering, some clusters
  may never be assigned, when beeing dominated by other clusters on every
  grid point.
  
@@ -3078,7 +3010,7 @@ The desired number of clusters,
 \begin_inset Formula $n$
 \end_inset
 
-, was chosen near the number of object recognized by the experimentator.
+, was chosen near the number of objects recognized by the experimentator.
  This, of course, is a subjective choice, but the number of clusters in
  general depends on the desired resolution of the clustering and thus on
  the further application.
@@ -3091,11 +3023,11 @@ The time step size
 \begin_inset Formula $\Delta\tau$
 \end_inset
 
- should be chosen as large as possible without skipping to many transitions.
+ should be chosen as large as possible without skipping too many transitions.
  If it is chosen too large some fixations will be skipped resulting in loss
  of information and thus leading to a worse clustering.
  If on the other hand chosen too small we count one fixation as multiple
- self-transitions, thus weaking the effect of the real transitions, favouring
+ self-transitions, thus weakening the effect of the real transitions, favouring
  the spatial over the dynamic information.
  
 \end_layout
@@ -3126,8 +3058,13 @@ Results
 \end_layout
 
 \begin_layout Standard
-The following pictures were computed from about 2000 fixations, with an
- average duration of about 250ms, per picture.
+The following pictures were computed from about 2000 fixations.
+ 
+\begin_inset Formula $\Delta\tau$
+\end_inset
+
+ was chosen small enough for most fixations to be counted (~95%), then sigma
+ was raised from low values to reach the desired regularity.
 \end_layout
 
 \begin_layout Standard
@@ -3148,10 +3085,9 @@ Discussion
 
 \begin_layout Standard
 Given a good choice of parameters the algorithm showed to be able to cluster
- the points to the subjectively identified objects in the picture quite
- well.
- This also confirms the hypothesis that humans sight exhibits the metastable
- behaviour on recognized objects.
+ the points to the subjectively identified objects in the picture, backing
+ up the hypothesis that human sight exhibits the metastable behaviour on
+ recognized objects.
 \end_layout
 
 \begin_layout Standard
@@ -3161,7 +3097,7 @@ This conclusion already implies the current problem of the approach, the
 \begin_inset Formula $\Delta\tau$
 \end_inset
 
- could be completely eliminated by using a time-continious markov chain
+ could be completely eliminated by using a time-continuous markov chain
  as underlying transition model, leading to a transition rate matrix.
  Unfortunately the ad-hoc approach using 
 \begin_inset Formula 
@@ -3188,7 +3124,7 @@ denoting by
 \end_inset
 
  the corresponding transition time, lead to worse results.
- It is not yet clear to the author how to construct the Maximal Likelihood
+ It is not yet clear to the author how to construct the most likelihood
  estimator for the corresponding process.
 \end_layout
 
