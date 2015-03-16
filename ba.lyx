@@ -3,6 +3,11 @@
 \begin_document
 \begin_header
 \textclass scrartcl
+\begin_preamble
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\fancyhf{}
+\end_preamble
 \use_default_options true
 \begin_modules
 theorems-ams
@@ -45,7 +50,7 @@ algorithm2e
 \pdf_colorlinks false
 \pdf_backref false
 \pdf_pdfusetitle true
-\papersize default
+\papersize a4paper
 \use_geometry false
 \use_package amsmath 1
 \use_package amssymb 1
@@ -57,8 +62,8 @@ algorithm2e
 \use_package stackrel 1
 \use_package stmaryrd 1
 \use_package undertilde 1
-\cite_engine basic
-\cite_engine_type default
+\cite_engine natbib
+\cite_engine_type numerical
 \biblio_style plain
 \use_bibtopic false
 \use_indices false
@@ -116,7 +121,7 @@ to spatial timeseries clustering
 \begin_layout Subtitle
 \begin_inset Graphics
 	filename siegel.svg
-	width 8cm
+	width 7.5cm
 
 \end_inset
 
@@ -149,14 +154,56 @@ Supervisor: PD Dr.
 \end_layout
 
 \begin_layout Date
-March 18, 2015
+March 18th, 2015
 \end_layout
 
 \begin_layout Standard
-\begin_inset Newpage clearpage
+\begin_inset Newpage newpage
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section*
+Declaration
+\end_layout
+
+\begin_layout Standard
+I hereby declare that this thesis is my own work and has not been submitted
+ in any form for another degree or diploma at any university or other institute.
+ Information derived from the published and unpublished work of others has
+ been acknowledged in the text and a list of references is given.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace 2cm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100col%"
+height "1pt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Alexander Sikorski
+\end_layout
+
+\begin_layout Standard
+Berlin, March 18th, 2015
+\end_layout
+
+\begin_layout Standard
 \begin_inset Newpage newpage
 \end_inset
 
@@ -168,6 +215,44 @@ LatexCommand tableofcontents
 
 
 \begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{page}{1}
+\backslash
+fancyhf[HRO,HLE]{
+\backslash
+thepage}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyhead[LO]{
+\backslash
+leftmark}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyhead[RE]{
+\backslash
+rightmark} 
+\end_layout
+
 \end_inset
 
 
@@ -1529,11 +1614,13 @@ The feasible transformation set
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename simplex.png
+	lyxscale 30
+	draft
 
 \end_inset
 
@@ -1544,17 +1631,17 @@ status collapsed
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
 Schematic illustration of the linear transformation mapping the row vectors
  of the eigenvectors (points on the 
 \begin_inset Formula $z=1$
 \end_inset
 
  hyperplane) onto the standard 2-simplex.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1890,11 +1977,12 @@ reference "fig:hexagon"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename hexagon.png
+	lyxscale 20
 	width 11cm
 
 \end_inset
@@ -3144,10 +3232,55 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset Graphics
+	filename 1.jpg
+	lyxscale 15
+	width 20page%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename img1 n5 tau20 sigma35 methodscaling precl0.png
+	lyxscale 30
+	width 20page%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename img1 n6 tau50 sigma60 methodscaling precl0.png
+	lyxscale 30
+	width 20page%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename img1 n10 tau60 sigma50 methodscaling precl0.png
+	lyxscale 30
+	width 20page%
+	draft
+
+\end_inset
+
+
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Raphael - Sistine Madonna
+From left to right: Raphael - Sistine Madonna; 
+\begin_inset Formula $n=5,\,\tau=20,\,\sigma=35$
+\end_inset
+
+; 
+\begin_inset Formula $n=6,\,\tau=50,\,\sigma=60$
+\end_inset
+
+; 
+\begin_inset Formula $n=10,\,\tau=60,\,\sigma=50$
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -3167,6 +3300,42 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset Graphics
+	filename 5.jpg
+	lyxscale 20
+	width 45line%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename img5 n6 tau100 sigma250 methodscaling precl0.png
+	lyxscale 40
+	width 45line%
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename img5 n7 tau80 sigma120 methodscaling precl0.png
+	lyxscale 40
+	width 45text%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename img5 n9 tau80 sigma120 methodscaling precl0.png
+	lyxscale 40
+	width 45col%
+
+\end_inset
+
+
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -3190,6 +3359,42 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset Graphics
+	filename 7.jpg
+	lyxscale 20
+	width 45line%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename img7 n6 tau80 sigma80 methodscaling precl0.png
+	lyxscale 40
+	width 45line%
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename img7 n8 tau80 sigma80 methodscaling precl0.png
+	lyxscale 40
+	width 45line%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename img7 n10 tau80 sigma100 methodscaling precl0.png
+	lyxscale 40
+	width 45line%
+
+\end_inset
+
+
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
