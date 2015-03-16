@@ -62,8 +62,8 @@ algorithm2e
 \use_package stackrel 1
 \use_package stmaryrd 1
 \use_package undertilde 1
-\cite_engine natbib
-\cite_engine_type numerical
+\cite_engine basic
+\cite_engine_type default
 \biblio_style plain
 \use_bibtopic false
 \use_indices false
@@ -3217,6 +3217,8 @@ Results
 
 \begin_layout Standard
 The following pictures were computed from about 2000 fixations.
+ Each fixation is marked as a dot, with the color representing the corresponding
+ cluster.
  
 \begin_inset Formula $\Delta\tau$
 \end_inset
@@ -3226,74 +3228,23 @@ The following pictures were computed from about 2000 fixations.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename 1.jpg
-	lyxscale 15
-	width 20page%
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:madonna"
 
 \end_inset
 
-
-\begin_inset Graphics
-	filename img1 n5 tau20 sigma35 methodscaling precl0.png
-	lyxscale 30
-	width 20page%
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename img1 n6 tau50 sigma60 methodscaling precl0.png
-	lyxscale 30
-	width 20page%
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename img1 n10 tau60 sigma50 methodscaling precl0.png
-	lyxscale 30
-	width 20page%
-	draft
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-From left to right: Raphael - Sistine Madonna; 
-\begin_inset Formula $n=5,\,\tau=20,\,\sigma=35$
-\end_inset
-
-; 
-\begin_inset Formula $n=6,\,\tau=50,\,\sigma=60$
-\end_inset
-
-; 
-\begin_inset Formula $n=10,\,\tau=60,\,\sigma=50$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+ shows 
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -3303,15 +3254,55 @@ status open
 \begin_inset Graphics
 	filename 5.jpg
 	lyxscale 20
-	width 45line%
+	width 50col%
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename img5 n6 tau100 sigma250 methodscaling precl0.png
 	lyxscale 40
-	width 45line%
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -3320,18 +3311,64 @@ status open
 \end_inset
 
 
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename img5 n7 tau80 sigma120 methodscaling precl0.png
 	lyxscale 40
-	width 45text%
+	width 50col%
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename img5 n9 tau80 sigma120 methodscaling precl0.png
 	lyxscale 40
-	width 45col%
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -3339,7 +3376,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Rembrandt - Landschaft mit den drei Bäumen
+The Three Trees (1643) by Rembrandt
 \end_layout
 
 \end_inset
@@ -3357,6 +3394,177 @@ Rembrandt - Landschaft mit den drei Bäumen
 placement H
 wide false
 sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename 1.jpg
+	lyxscale 15
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+original painting
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img1 n5 tau20 sigma35 methodscaling precl0.png
+	lyxscale 30
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $n=5,\,\tau=20,\,\sigma=35$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img1 n6 tau50 sigma60 methodscaling precl0.png
+	lyxscale 30
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $n=6,\,\tau=50,\,\sigma=60$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img1 n10 tau60 sigma50 methodscaling precl0.png
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $n=10,\,\tau=60,\,\sigma=50$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:madonna"
+
+\end_inset
+
+The Sistine Madonna (1514) by Raphael 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
@@ -3368,10 +3576,51 @@ status open
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename img7 n6 tau80 sigma80 methodscaling precl0.png
 	lyxscale 40
 	width 50col%
+	clip
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -3380,6 +3629,12 @@ status open
 \end_inset
 
 
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename img7 n8 tau80 sigma80 methodscaling precl0.png
 	lyxscale 40
@@ -3388,6 +3643,29 @@ status open
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename img7 n10 tau80 sigma100 methodscaling precl0.png
 	lyxscale 40
@@ -3396,10 +3674,27 @@ status open
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Hokusai - The Fuji from the mountains of Totomi
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+In the Totomi Mountains (1830) by Hokusai 
 \end_layout
 
 \end_inset
