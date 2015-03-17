@@ -121,7 +121,7 @@ to spatial timeseries clustering
 \begin_layout Subtitle
 \begin_inset Graphics
 	filename siegel.svg
-	width 7.5cm
+	width 7cm
 
 \end_inset
 
@@ -314,7 +314,11 @@ Let
 \end_inset
 
 .
- A Markov chain on 
+ A 
+\emph on
+Markov chain
+\emph default
+ on 
 \begin_inset Formula $S$
 \end_inset
 
@@ -421,7 +425,7 @@ P_{ij}:=P\left(X_{t+1}=j|X_{t}=i\right),
 
 \end_inset
 
-where row stochastic means that each row has rowsum one and propagation
+where right stochastic means that each row has rowsum one and propagation
  of states is realised by right application of P.
 \end_layout
 
@@ -443,6 +447,22 @@ stationary distribution
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Given a stationary distribution 
+\begin_inset Formula $\pi$
+\end_inset
+
+ we denote by 
+\begin_inset Formula $D_{\pi}$
+\end_inset
+
+ the diagonal matrix with 
+\begin_inset Formula $\pi$
+\end_inset
+
+ on its diagonal.
 \end_layout
 
 \begin_layout Standard
@@ -515,19 +535,18 @@ Due to its discrete nature, this
 \emph on
 crisp clustering 
 \emph default
-approach, used by 
+approach, used by the 
 \emph on
-Perron Cluster Analysis
+Perron Cluster Cluster Analysis
 \emph default
- (PCCA) of Deuflhard et al.
- 
+ (PCCA) 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Deuflhard2000"
 
 \end_inset
 
-, has the disadvantage of not being robust against small pertubations, as
+, has the disadvantage of not being robust against small pertubations, since
  continuous changes in 
 \begin_inset Formula $P$
 \end_inset
@@ -536,12 +555,18 @@ key "Deuflhard2000"
 \end_layout
 
 \begin_layout Standard
-Weber and Galliat, Deuflhard and Weber therefore developed a robust version,
- 
+Deuflhard and Weber therefore developed a robust version, 
 \emph on
 Robust Perron Cluster Analyis
 \emph default
- (PCCA+), by making use of a 
+ (PCCA+) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Deuflhard2005"
+
+\end_inset
+
+, by making use of a 
 \emph on
 fuzzy clustering
 \emph default
@@ -1357,6 +1382,10 @@ I=\left(\begin{array}{cc}
 \end_inset
 
 
+\begin_inset Newpage newpage
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -1368,7 +1397,7 @@ PCCA+
 \begin_layout Standard
 In this section we will construct the 
 \emph on
-Robust Perron Cluster Analyis 
+Robust Perron Cluster Cluster Analysis 
 \emph default
 algorithm, introduced in 
 \begin_inset CommandInset citation
@@ -1602,7 +1631,15 @@ reference "thm:comm"
 
 \end_inset
 
- by definition.
+ by definition, and the invertibility of 
+\begin_inset Formula $X^{T}D_{\pi}X$
+\end_inset
+
+ follows from orthonormality of 
+\begin_inset Formula $Q$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -1611,7 +1648,6 @@ The feasible transformation set
 
 \begin_layout Standard
 \begin_inset Float figure
-placement h
 wide false
 sideways false
 status open
@@ -1619,8 +1655,6 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename simplex.png
-	lyxscale 30
-	draft
 
 \end_inset
 
@@ -1631,6 +1665,12 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:simplex"
+
+\end_inset
+
 Schematic illustration of the linear transformation mapping the row vectors
  of the eigenvectors (points on the 
 \begin_inset Formula $z=1$
@@ -1744,15 +1784,30 @@ Geometrically one might think of the
 \begin_inset Formula $\mathbb{R}^{n}$
 \end_inset
 
-.
- The positivity and 
+ (see Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:simplex"
+
+\end_inset
+
+).
+ The 
+\emph on
+positivity
+\emph default
+ and 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:pos"
 
 \end_inset
 
- and partition of unity 
+ and 
+\emph on
+partition of unity
+\emph default
+ 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:pu"
@@ -1819,7 +1874,7 @@ As we have the choice between infinitely many possible solutions for
 \end_inset
 
  we will now specify and motivate different optimization objectives, to
- specify a specific solution by the optimization problem.
+ choose a specific solution by the optimization problem.
 \end_layout
 
 \begin_layout Subsubsection*
@@ -1963,7 +2018,7 @@ Note, that this objective, ignoring the datapoints not beeing the maxima,
 \begin_inset Formula $A$
 \end_inset
 
-, as illustrated in 
+, as illustrated in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:hexagon"
@@ -2216,6 +2271,7 @@ RestyleAlgo{algoruled}
 
 \begin_layout Standard
 \begin_inset Float algorithm
+placement H
 wide false
 sideways false
 status open
@@ -2453,6 +2509,7 @@ looks for the indices
 
 \begin_layout Standard
 \begin_inset Float algorithm
+placement H
 wide false
 sideways false
 status open
@@ -2552,11 +2609,12 @@ inner simplex algorithm
 \begin_inset Formula $\Delta$
 \end_inset
 
-.
+:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float algorithm
+placement H
 wide false
 sideways false
 status open
@@ -2736,7 +2794,7 @@ Given P, compute
 \begin_inset Formula $X,\,\Lambda$
 \end_inset
 
- as in 
+ using the Schur decomposition as in 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sub:constrXL"
@@ -2751,13 +2809,10 @@ Determine the, in general infeasible, initial guess
 \begin_inset Formula $A_{0}:=A\left(X\right)$
 \end_inset
 
- by 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "alg:isa"
-
-\end_inset
-
+ by the 
+\emph on
+inner simplex algorithm
+\emph default
 .
 \end_layout
 
@@ -3146,7 +3201,6 @@ c_{i}=\text{argmax}_{j}\chi_{ij}.\label{eq:clmax}
 Note, that choosing this discretization of the fuzzy clustering, some clusters
  may never be assigned, when beeing dominated by other clusters on every
  grid point.
- 
 \end_layout
 
 \begin_layout Standard
@@ -3155,8 +3209,12 @@ In case of preclustering via k-means, the cluster assignment of the grid
 \end_layout
 
 \begin_layout Standard
-The program was implemented in Julia and the source will be published under
- https://github.com/kliegl/Hokusai.
+The program was implemented in Julia and its source will be published under
+ 
+\begin_inset Newline newline
+\end_inset
+
+https://github.com/kliegl/Hokusai.
 \end_layout
 
 \begin_layout Subsection
@@ -3209,6 +3267,10 @@ The parameter
 
  values will lead to more regular and convex clusterings by enforcing a
  stronger spatial coupling between nearby fixations.
+\begin_inset Newpage newpage
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -3216,7 +3278,7 @@ Results
 \end_layout
 
 \begin_layout Standard
-The following pictures were computed from about 2000 fixations.
+Each of the following clustering was computed based on about 2000 fixations.
  Each fixation is marked as a dot, with the color representing the corresponding
  cluster.
  
@@ -3225,16 +3287,6 @@ The following pictures were computed from about 2000 fixations.
 
  was chosen small enough for most fixations to be counted (~95%), then sigma
  was raised from low values to reach the desired regularity.
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:madonna"
-
-\end_inset
-
- shows 
 \end_layout
 
 \begin_layout Standard
@@ -3265,7 +3317,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
+Original
 \end_layout
 
 \end_inset
@@ -3296,6 +3348,9 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset Formula $n=6,\,\tau=100,\,\sigma=250$
+\end_inset
+
 
 \end_layout
 
@@ -3331,6 +3386,9 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset Formula $n=7,\,\tau=80,\,\sigma=120$
+\end_inset
+
 
 \end_layout
 
@@ -3362,6 +3420,9 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset Formula $n=9,\,\tau=80,\,\sigma=120$
+\end_inset
+
 
 \end_layout
 
@@ -3376,6 +3437,12 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:rembrandt"
+
+\end_inset
+
 The Three Trees (1643) by Rembrandt
 \end_layout
 
@@ -3387,6 +3454,39 @@ The Three Trees (1643) by Rembrandt
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+In Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:rembrandt"
+
+\end_inset
+
+(a) we see Rembrandt's 
+\begin_inset Quotes eld
+\end_inset
+
+Three Trees
+\begin_inset Quotes erd
+\end_inset
+
+, widely regarded as his greatest and most elaborate landscape etching.
+ It features a combination of many details: Of course there are the three
+ trees as most prominent feature in the foreground, complemented by a fisherman
+ accompanied by his wife in the lower left, a painter on the hill to the
+ right of the trees and a cloud formation resembling and upcoming storm
+ to their left.
+\end_layout
+
+\begin_layout Standard
+Already the coarse clustering (b) shows a good seperation of the trees,
+ also assigning clusters to the fisherman and the stormy clouds, additionally
+ the the three corners of the image.
+ A further refinement (c) now also seperates the fisherman and his wife
+ from the background, and even further refinement (d) even seperates the
+ treetops from the their trunks, also assigning an own cluster to the painter.
 \end_layout
 
 \begin_layout Standard
@@ -3417,7 +3517,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-original painting
+Original
 \end_layout
 
 \end_inset
@@ -3507,6 +3607,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename img1 n10 tau60 sigma50 methodscaling precl0.png
+	lyxscale 40
 	width 50col%
 
 \end_inset
@@ -3537,11 +3638,11 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:madonna"
+name "fig:raphael"
 
 \end_inset
 
-The Sistine Madonna (1514) by Raphael 
+The Sistine Madonna (1512) by Raphael 
 \end_layout
 
 \end_inset
@@ -3555,11 +3656,68 @@ The Sistine Madonna (1514) by Raphael
 \end_layout
 
 \begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:raphael"
+
+\end_inset
+
+(a) depicts Raphael's 
+\begin_inset Quotes eld
+\end_inset
+
+Sistine Madonna
+\begin_inset Quotes erd
+\end_inset
+
+ oil painting, one of the last of his many Madonnas, commisioned by Pope
+ Julius II for the Monastery of San Sisto in Piacenza, Italy.
+ In the middle we see the Madonna, holding her child, the Christ.
+ She is flanked by Saint Sixtus and and Saint Barbara.
+ To their feet we can see the two cherubim who became quite popular on their
+ own in the last centuries as motives for postcards, advertisements, gifts
+ and home décor.
+ In the bottom left we can see the Pope's crown, the Papal tiara.
+\end_layout
+
+\begin_layout Standard
+In (b) we chose a small 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ value to emphasisze the dynamic share of the clustering.
+ As a consequence Saint Sixtus and Saint Barbara are clustered into one
+ cluster, indicating back and forth movements of the observer, although
+ they are seperated by the Madonna.
+ This non-convex clustering is a feature specific to the analysis of the
+ dynamics which can not be reached by purely spatial clustering, e.g.
+ k-means.
+ Furthermorethe Madonna with her child and the papal tiara are seperated.
+ The noisy red cluster is typical for small sigma values, as small cycles
+ get uncoupled from the rest of the fixations due to the missing spatial
+ coupling.
+\end_layout
+
+\begin_layout Standard
+The more natural 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ choice and a higher cluster number in (c) allow for seperation between
+ the left and right saints, and instead of the red noise-cluster we now
+ get a further cluster for the right curtain.
+ Further refinement (d) leads to additional seperation of the left curtain,
+ the background behind Saint Sixtus and his and Madonnas feet respectively.
+ Unfortunately we were not able to seperate the Madonna from her child.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Float figure
@@ -3582,7 +3740,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
+Original
 \end_layout
 
 \end_inset
@@ -3614,6 +3772,9 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset Formula $n=6,\,\tau=80,\,\sigma=80$
+\end_inset
+
 
 \end_layout
 
@@ -3649,6 +3810,9 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset Formula $n=8,\,\tau=80,\,\sigma=80$
+\end_inset
+
 
 \end_layout
 
@@ -3680,6 +3844,9 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset Formula $n=10,\,\tau=80,\,\sigma=100$
+\end_inset
+
 
 \end_layout
 
@@ -3694,6 +3861,12 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:hokusai"
+
+\end_inset
+
 In the Totomi Mountains (1830) by Hokusai 
 \end_layout
 

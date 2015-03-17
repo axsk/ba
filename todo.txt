@@ -14,8 +14,4 @@ todo
 
 eq/alg references
 emphasise termini
-figure captions
 figure/algo positioning
-header/pages
-
-
