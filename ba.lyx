@@ -76,7 +76,7 @@ algorithm2e
 \color #008000
 \end_index
 \leftmargin 3cm
-\topmargin 3.5cm
+\topmargin 3cm
 \rightmargin 3cm
 \secnumdepth 3
 \tocdepth 3
@@ -277,23 +277,30 @@ In this thesis we develop an algorithm for clustering spatial time series
 After an introduction to the underlying theoretical background we will review
  known results about the Perron Cluster Cluster Analysis (PCCA+), which
  forms the basis for our application.
- PCCA+ will allow us to identify metastable clusters in Markov Chains, that
- is a configuration of the system which is likely to persist for a longer
- time.
+ PCCA+ allows to identify metastable clusters in Markov chains, which are
+ configurations of the system which are likely to persist for a longer time.
  In the course we will extend the known results by a stochastic interpretation
  for the propagator matrix, which encodes the time evolution on the clusters.
 \end_layout
 
 \begin_layout Standard
-We will then show a method to turn spatial time series into a Markov Chain
+We then explain a method to turn spatial time series into a Markov Chain
  to obtain a spatial clustering by further application of PCCA+, respecting
  the dynamic information.
  Finally we will apply that method to data obtained by tracking human eye
  fixations while these look at different paintings to detect the depicted
  objects.
  This can be seen as a form of object recognition which does not rely on
- the image data itself but identifies the objects based on the humans recognitio
-n reflected in their eye movement.
+ the image data itself but detects the objects based on the human recognition
+ reflected in their eye movement.
+\end_layout
+
+\begin_layout Standard
+The presented program was developed in cooperation with the Zuse Institute
+ Berlin and the University of Potsdam and I want to thank Dr.
+ Weber and Prof.
+ Dr.
+ Kliegl for their support.
 \end_layout
 
 \begin_layout Section
@@ -952,14 +959,20 @@ Then the
 \begin_inset Formula $\Lambda$
 \end_inset
 
- and discretization-propagation commutativity 
+ and 
+\emph on
+discretization-propagation commutativity
+\emph default
+ (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:com"
 
 \end_inset
 
- holds.
+) holds
+\emph on
+.
 \end_layout
 
 \begin_layout Proof
@@ -1116,14 +1129,14 @@ As this overlap would be applied on every iteration of
 \begin_inset Formula $P_{C}$
 \end_inset
 
- grants the desired commutativity 
+ grants the desired commutativity (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:com"
 
 \end_inset
 
- by factoring out these transitions.
+) by factoring out these transitions.
 \end_layout
 
 \begin_layout Standard
@@ -1150,6 +1163,10 @@ for larger times corresponding to
 W_{n}:=IP^{n}R=IRP_{C}^{n}.
 \]
 
+\end_inset
+
+
+\begin_inset Newpage newpage
 \end_inset
 
 
@@ -1287,6 +1304,10 @@ P_{C}:=\left(\begin{array}{cc}
 clustering
 \emph default
 .
+\begin_inset Newpage newpage
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection*
@@ -1594,7 +1615,11 @@ key "Kressner2006"
 .
  Note, that in the case of complex conjugate eigenvalues we have to select
  or discard the whole 2-by-2 blocks.
- Define 
+ 
+\end_layout
+
+\begin_layout Standard
+Define 
 \begin_inset Formula $\Lambda$
 \end_inset
 
@@ -1623,7 +1648,7 @@ key "Kressner2006"
 \emph on
 subspace condition
 \emph default
- for 
+ for Theorem 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "thm:comm"
@@ -1646,14 +1671,93 @@ The feasible transformation set
 \end_layout
 
 \begin_layout Standard
+Given the invariant subspace 
+\begin_inset Formula $X$
+\end_inset
+
+, we will now examine the set of feasible matrices 
+\begin_inset Formula $F_{A}\subset\mathbb{R}^{n\times n}$
+\end_inset
+
+ for the transformation 
+\begin_inset Formula $A$
+\end_inset
+
+, leading to actual 
+\emph on
+membership vectors
+\emph default
+ 
+\begin_inset Formula $\chi:=XA$
+\end_inset
+
+.
+ As 
+\begin_inset Formula $P$
+\end_inset
+
+ is stochastic the constant one vector is mapped to itself and thus forms
+ an eigenvector to eigenvalue one.
+ As this is the largest eigenvalue we have 
+\begin_inset Formula $X_{i,1}=1,\, i=1,...,N$
+\end_inset
+
+.
+ Thus, one can reformulate the 
+\emph on
+positivity
+\emph default
+ (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:pos"
+
+\end_inset
+
+) and 
+\emph on
+partition of unity
+\emph default
+ (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:pu"
+
+\end_inset
+
+) conditions in terms of the matrices X and A, leading to the following
+ constraints for A:
+\begin_inset Formula 
+\begin{eqnarray}
+A_{1,j} & \ge & -\sum_{k=2}^{n}X_{ik}A_{kj},\, i=1,...,N,\, j=1,...,n\,\left(\text{positivity}\right),\label{eq:fa}\\
+A_{i,1} & = & \delta_{i,1}-\sum_{j=2}^{n}A_{ij},\, i=1,...,n\,\left(\text{partition of unity}\right)
+\end{eqnarray}
+
+\end_inset
+
+Since these constraints are linear in A the set 
+\begin_inset Formula $F_{A}$
+\end_inset
+
+ is a convex polytope.
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Graphics
-	filename simplex.png
+	filename simplex2.png
+	lyxscale 30
+	width 10cm
 
 \end_inset
 
@@ -1689,88 +1793,6 @@ Schematic illustration of the linear transformation mapping the row vectors
 \end_layout
 
 \begin_layout Standard
-Given the invariant subspace 
-\begin_inset Formula $X$
-\end_inset
-
-, we will now examine the set of feasible matrices 
-\begin_inset Formula $F_{A}\subset\mathbb{R}^{n\times n}$
-\end_inset
-
- for the transformation 
-\begin_inset Formula $A$
-\end_inset
-
-, leading to actual 
-\emph on
-membership vectors
-\emph default
- 
-\begin_inset Formula $\chi:=XA$
-\end_inset
-
-.
- As 
-\begin_inset Formula $P$
-\end_inset
-
- is stochastic the constant one vector is mapped to itself, 
-\begin_inset Formula 
-\begin{eqnarray*}
-P\left(\begin{array}{c}
-1\\
-\vdots\\
-1
-\end{array}\right) & = & \left(\begin{array}{c}
-1\\
-\vdots\\
-1
-\end{array}\right),\\
-\end{eqnarray*}
-
-\end_inset
-
-and thus forms an eigenvector to eigenvalue one, therefore 
-\begin_inset Formula $X_{i,1}=1,\, i=1,...,N$
-\end_inset
-
-.
- Thus, one can reformulate the positivity 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:pos"
-
-\end_inset
-
- and partition of unity 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:pu"
-
-\end_inset
-
- conditions in terms of the matrices X and A, leading to the following constrain
-ts for A:
-\begin_inset Formula 
-\begin{eqnarray}
-A_{1,j} & \ge & -\sum_{k=2}^{n}X_{ik}A_{kj},\, i=1,...,N,\, j=1,...,n\,\left(\text{positivity}\right),\label{eq:fa}\\
-A_{i,1} & = & \delta_{i,1}-\sum_{j=2}^{n}A_{ij},\, i=1,...,n\,\left(\text{partition of unity}\right)
-\end{eqnarray}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Since these constraints are linear in A the set 
-\begin_inset Formula $F_{A}$
-\end_inset
-
- is a convex polytope.
-\end_layout
-
-\begin_layout Standard
 Geometrically one might think of the 
 \begin_inset Formula $N$
 \end_inset
@@ -1795,25 +1817,25 @@ reference "fig:simplex"
 \emph on
 positivity
 \emph default
- and 
+ (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:pos"
 
 \end_inset
 
- and 
+) and 
 \emph on
 partition of unity
 \emph default
- 
+ (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:pu"
 
 \end_inset
 
- conditions force these points to lie on the standard 
+) conditions force these points to lie on the standard 
 \begin_inset Formula $\left(n-1\right)$
 \end_inset
 
@@ -1823,7 +1845,7 @@ reference "eq:pu"
 
 .
  Now, if 
-\begin_inset Formula $\chi=XA$
+\begin_inset Formula $\chi^{T}=A^{T}X^{T}$
 \end_inset
 
  this means that the matrix 
@@ -1973,14 +1995,14 @@ key "Weber2006"
 \emph on
 index mapping algorithm
 \emph default
-
+ (Algorithm 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "alg:ima"
 
 \end_inset
 
-, turning this convex optimization problem into a linear one:
+), turning this convex optimization problem into a linear one:
 \begin_inset Formula 
 \[
 I_{1}\left(A\right)=\sum_{i,j=1}^{n}X_{ind\left(X\right)_{j},i}A_{ij}
@@ -2031,13 +2053,14 @@ reference "fig:hexagon"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Graphics
 	filename hexagon.png
 	lyxscale 20
-	width 11cm
+	width 10cm
 
 \end_inset
 
@@ -2139,14 +2162,14 @@ key "Roeblitz2013"
 \begin_inset Formula $\Lambda$
 \end_inset
 
-
+, see (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:conj"
 
 \end_inset
 
- and therefore independent of 
+), and therefore independent of 
 \begin_inset Formula $A$
 \end_inset
 
@@ -2184,14 +2207,14 @@ Unconstrained Optimization
 \end_layout
 
 \begin_layout Standard
-Due to the high number of inequality constraints 
+Due to the high number of inequality constraints (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:fa"
 
 \end_inset
 
- solving these linear or convex problems may still be very time consuming.
+) solving these linear or convex problems may still be very time consuming.
  Following Deuflhard and Weber 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2217,14 +2240,14 @@ A_{1,j} & = & -\min_{l=1,...,N}\sum_{i=2}^{n}X_{li}A_{ij},\, j=1,....,n.\label{e
 
 \end_inset
 
-Comparing these equalities to 
+Comparing these equalities to (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:fa"
 
 \end_inset
 
- one easily checks that 
+) one easily checks that 
 \begin_inset Formula $F_{A}^{'}\subset F_{A}$
 \end_inset
 
@@ -2343,14 +2366,14 @@ Steps 1 and 2 guarantee feasibility of
 \begin_inset Formula $\tilde{A}$
 \end_inset
 
- with respect to 
+ with respect to (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:fap"
 
 \end_inset
 
- for 
+) for 
 \begin_inset Formula $i=2,...,n$
 \end_inset
 
@@ -2364,14 +2387,14 @@ reference "eq:fap"
 \end_inset
 
  they are invariant under scalar multiplication and step 3 now furthermore
- assures the equality 
+ assures the equality (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:fap"
 
 \end_inset
 
- for 
+) for 
 \begin_inset Formula $i=1$
 \end_inset
 
@@ -2793,7 +2816,7 @@ Given P, compute
 \begin_inset Formula $X,\,\Lambda$
 \end_inset
 
- using the Schur decomposition as in 
+ using the Schur decomposition as in section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sub:constrXL"
@@ -2841,7 +2864,7 @@ Perform an iterative local optimization
 \begin_inset Formula $A_{k,ij},\, i,j\not=1$
 \end_inset
 
- without constraints, then use algorithm
+ without constraints, then use Algorithm
 \emph on
  
 \begin_inset CommandInset ref
@@ -2959,9 +2982,9 @@ Application to eye tracking data
 
 \begin_layout Standard
 This algorithm was applied to experimental eye tracking data obtained by
- the department of psychology of the University Potsdam, with the goal to
- detect objects as metastable clusters using just the dynamics of the human
- eye, i.e.
+ the department of psychology of the University of Potsdam, with the goal
+ to detect objects as metastable clusters using just the dynamics of the
+ human eye, i.e.
  without any data of the image itself, and thus provides a way of interpreting
  the humans object recognition expressed through the eye movements.
 \end_layout
@@ -3297,204 +3320,69 @@ Each of the following clustering was computed based on about 2000 fixations.
  was raised from low values to reach the desired regularity.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename 5.jpg
-	lyxscale 20
-	width 50col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Original
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename img5 n6 tau100 sigma250 methodscaling precl0.png
-	lyxscale 40
-	width 50col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset Formula $n=6,\,\tau=100,\,\sigma=250$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset Newline newline
-\end_inset
-
-
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename img5 n7 tau80 sigma120 methodscaling precl0.png
-	lyxscale 40
-	width 50col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset Formula $n=7,\,\tau=80,\,\sigma=120$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename img5 n9 tau80 sigma120 methodscaling precl0.png
-	lyxscale 40
-	width 50col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset Formula $n=9,\,\tau=80,\,\sigma=120$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:rembrandt"
-
-\end_inset
-
-The Three Trees (1643) by Rembrandt
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+\begin_layout Subsubsection*
+The Sistine Madonna
 \end_layout
 
 \begin_layout Standard
-In Figure 
+Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:rembrandt"
+reference "fig:raphael"
 
 \end_inset
 
-(a) we see Rembrandt's 
+(a) depicts Raphael's 
 \begin_inset Quotes eld
 \end_inset
 
-Three Trees
+Sistine Madonna
 \begin_inset Quotes erd
 \end_inset
 
-, widely regarded as his greatest and most elaborate landscape etching.
- It features a combination of many details: Of course there are the three
- trees as most prominent feature in the foreground, complemented by a fisherman
- accompanied by his wife in the lower left, a painter on the hill to the
- right of the trees and a cloud formation resembling and upcoming storm
- to their left.
+ oil painting, one of the last of his many Madonnas, commissioned by Pope
+ Julius II for the Monastery of San Sisto in Piacenza, Italy.
+ In the middle we see the Madonna, holding her child, the Christ.
+ She is flanked by Saint Sixtus and Saint Barbara.
+ To their feet we can see the two cherubim who became quite popular on their
+ own in the last centuries as motives for postcards, advertisements, gifts
+ and home décor.
+ In the bottom left we can see the Pope's crown, the Papal tiara.
 \end_layout
 
 \begin_layout Standard
-Already the coarse clustering (b) shows a good separation of the trees,
- also assigning clusters to the fisherman and the stormy clouds, additionally
- the the three corners of the image.
- A further refinement (c) now also separates the fisherman and his wife
- from the background, and further refinement (d) even separates the treetops
- from their trunks, also assigning an own cluster to the painter.
+In (b) we chose a small 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ value to emphasize the dynamic share of the clustering.
+ As a consequence Saint Sixtus and Saint Barbara are clustered into one
+ cluster, indicating back and forth movements of the observer, although
+ they are separated by the Madonna.
+ This non-convex clustering is a feature specific to the analysis of the
+ dynamics which can not be reached by purely spatial clustering, e.g.
+ k-means.
+ Furthermore the Madonna with her child and the papal tiara are separated.
+ The noisy red cluster is typical for small sigma values, as small cycles
+ get uncoupled from the rest of the fixations due to the missing spatial
+ coupling.
+\end_layout
+
+\begin_layout Standard
+The more natural 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ choice and a higher cluster number in (c) allow for separation between
+ the left and right saints, and instead of the red noise-cluster we now
+ get a further cluster for the right curtain.
+ 
+\end_layout
+
+\begin_layout Standard
+Further refinement (d) leads to additional separation of the left curtain,
+ the background behind Saint Sixtus and his and Madonnas feet respectively.
+ Unfortunately we were not able to separate the Madonna from her child.
 \end_layout
 
 \begin_layout Standard
@@ -3664,60 +3552,211 @@ The Sistine Madonna (1512) by Raphael
 \end_layout
 
 \begin_layout Standard
-Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:raphael"
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename 5.jpg
+	lyxscale 20
+	width 50col%
 
 \end_inset
 
-(a) depicts Raphael's 
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Original
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img5 n6 tau100 sigma250 methodscaling precl0.png
+	lyxscale 40
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $n=6,\,\tau=100,\,\sigma=250$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img5 n7 tau80 sigma120 methodscaling precl0.png
+	lyxscale 40
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $n=7,\,\tau=80,\,\sigma=120$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img5 n9 tau80 sigma120 methodscaling precl0.png
+	lyxscale 40
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $n=9,\,\tau=80,\,\sigma=120$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:rembrandt"
+
+\end_inset
+
+The Three Trees (1643) by Rembrandt
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Three Trees
+\end_layout
+
+\begin_layout Standard
+In Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:rembrandt"
+
+\end_inset
+
+(a) we see Rembrandt's 
 \begin_inset Quotes eld
 \end_inset
 
-Sistine Madonna
+Three Trees
 \begin_inset Quotes erd
 \end_inset
 
- oil painting, one of the last of his many Madonnas, commissioned by Pope
- Julius II for the Monastery of San Sisto in Piacenza, Italy.
- In the middle we see the Madonna, holding her child, the Christ.
- She is flanked by Saint Sixtus and Saint Barbara.
- To their feet we can see the two cherubim who became quite popular on their
- own in the last centuries as motives for postcards, advertisements, gifts
- and home décor.
- In the bottom left we can see the Pope's crown, the Papal tiara.
+, widely regarded as his greatest and most elaborate landscape etching.
+ It features a combination of many details: Of course there are the three
+ trees as most prominent feature in the foreground, complemented by a fisherman
+ accompanied by his wife in the lower left, a painter on the hill to the
+ right of the trees and a cloud formation resembling and upcoming storm
+ to their left.
 \end_layout
 
 \begin_layout Standard
-In (b) we chose a small 
-\begin_inset Formula $\sigma$
-\end_inset
-
- value to emphasize the dynamic share of the clustering.
- As a consequence Saint Sixtus and Saint Barbara are clustered into one
- cluster, indicating back and forth movements of the observer, although
- they are separated by the Madonna.
- This non-convex clustering is a feature specific to the analysis of the
- dynamics which can not be reached by purely spatial clustering, e.g.
- k-means.
- Furthermore the Madonna with her child and the papal tiara are separated.
- The noisy red cluster is typical for small sigma values, as small cycles
- get uncoupled from the rest of the fixations due to the missing spatial
- coupling.
+Already the coarse clustering (b) shows a good separation of the trees,
+ also assigning clusters to the fisherman and the stormy clouds, additionally
+ the the three corners of the image.
+ 
 \end_layout
 
 \begin_layout Standard
-The more natural 
-\begin_inset Formula $\sigma$
-\end_inset
-
- choice and a higher cluster number in (c) allow for separation between
- the left and right saints, and instead of the red noise-cluster we now
- get a further cluster for the right curtain.
- Further refinement (d) leads to additional separation of the left curtain,
- the background behind Saint Sixtus and his and Madonnas feet respectively.
- Unfortunately we were not able to separate the Madonna from her child.
+The refinement (c) now also separates the fisherman and his wife from the
+ background, and further refinement (d) even separates the treetops from
+ their trunks, also assigning an own cluster to the painter.
 \end_layout
 
 \begin_layout Standard
@@ -3888,6 +3927,10 @@ In the Totomi Mountains (1830) by Hokusai
 
 \end_layout
 
+\begin_layout Subsubsection*
+In the Totomi Mountains
+\end_layout
+
 \begin_layout Standard
 Figure 
 \begin_inset CommandInset ref
@@ -3927,10 +3970,18 @@ The clustering into six clusters (b) focuses on a rough seperation of the
  One might object that none of these clusters separates any of the objects
  properly, but as we impose just six clusters one can't expect a clear separatio
 n as the objects inbetween have to become assigned as well.
- Increasing the cluster number to eight (c), we gain an splitting of the
+ 
+\end_layout
+
+\begin_layout Standard
+Increasing the cluster number to eight (c), we gain an splitting of the
  former upper left cluster, now properly isolating the legend, the smoke
  around the Mount Fuji with its peak and the top of the wood block.
- Further refinement to ten clusters (d) splits the two lower clusters into
+ 
+\end_layout
+
+\begin_layout Standard
+Further refinement to ten clusters (d) splits the two lower clusters into
  three, now distinguishing between the man sawing on the ground, the woman
  with her baby and the standing woodcutter with the man making the fire
  in the background.
@@ -4020,14 +4071,14 @@ reference "eq:clmax"
 ng their relative shape and/or discarding points with no clear assignment
  to an extra cluster.
  This would also solve the problem of non-assignment of some clusters, mentioned
- in section 
+ in section (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sub:Implementation"
 
 \end_inset
 
-.
+).
 \end_layout
 
 \begin_layout Standard

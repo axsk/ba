@@ -1,17 +1,5 @@
-zeitplan
-========
-
-13. results
-14. discussion, fazit, introduction
-15. layout, dominik schicken
-16. korrektur
-17. print
-18. abgabe
-
-
 todo
 ====
-
-eq/alg references
 emphasise termini
-figure/algo positioning
+drucken, binden, abgeben :)
+
