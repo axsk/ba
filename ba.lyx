@@ -451,7 +451,7 @@ stationary distribution
 , satisfying
 \begin_inset Formula 
 \[
-\pi P=\pi.
+\pi P=\pi,\,\sum_{i=1}^{N}\pi_{i}=1.
 \]
 
 \end_inset
@@ -1048,21 +1048,21 @@ key "Kube2007"
 \begin_inset Formula 
 \begin{eqnarray*}
 R:\mathbb{R}^{N} & \rightarrow & \mathbb{R}^{n},\, x\mapsto x\chi\\
-I:\mathbb{R}^{n} & \rightarrow & \mathbb{R}^{N},\, x\mapsto x\tilde{D_{\pi}}^{-1}\chi^{T}D_{\pi}
+I:\mathbb{R}^{n} & \rightarrow & \mathbb{R}^{N},\, x\mapsto xD_{\tilde{\pi}}^{-1}\chi^{T}D_{\pi}
 \end{eqnarray*}
 
 \end_inset
 
 with 
-\begin_inset Formula $D_{\tilde{\pi}}=\text{diag}\left(\tilde{\pi}\right)$
-\end_inset
-
- and 
 \begin_inset Formula $\tilde{\pi}=\pi R$
 \end_inset
 
-, where we apply them from the right in line with the used notation of right-sto
-chastic matrices.
+ and 
+\begin_inset Formula $\chi$
+\end_inset
+
+ as above, where we apply them from the right in line with the used notation
+ of right-stochastic matrices.
 \end_layout
 
 \begin_layout Standard
@@ -1542,7 +1542,7 @@ For the construction of the invariant subspace we make use of the
  real Schur decomposition
 \emph default
 , decomposing a matrix 
-\begin_inset Formula $P=QTQ^{-1}$
+\begin_inset Formula $P=Q\Lambda Q^{-1}$
 \end_inset
 
  into a orthonormal
@@ -1559,7 +1559,7 @@ Schur vectors,
 \emph default
  and an upper quasi-triangular (1-by-1 and 2-by-2 blocks on its diagonal)
  matrix 
-\begin_inset Formula $T$
+\begin_inset Formula $\Lambda$
 \end_inset
 
 , called the 
@@ -1581,31 +1581,35 @@ Schur form
 \end_inset
 
  appear on the diagonal of 
-\begin_inset Formula $T$
+\begin_inset Formula $\Lambda$
 \end_inset
 
 , where complex conjugate eigenvalues correspond to the 2-by-2 blocks.
- We then reorder the 
+\end_layout
+
+\begin_layout Standard
+Compute the Schur decomposition of 
+\begin_inset Formula $\tilde{P}=D_{\pi}^{\frac{1}{2}}PD_{\pi}^{-\frac{1}{2}}$
+\end_inset
+
+.
+ Then reorder the 
 \emph on
 Schur form 
 \emph default
-and recompute the corresponding 
-\emph on
-Schur vectors
-\emph default
- such that the upper left 
+such that the upper left 
 \begin_inset Formula $n\times n$
 \end_inset
 
- block of 
-\begin_inset Formula $T$
-\end_inset
-
- contains the 
+ block contains the 
 \begin_inset Formula $n$
 \end_inset
 
- largest eigenvalues by a reordering algorithm 
+ largest eigenvalues, recomputing the corresponding 
+\emph on
+Schur vectors
+\emph default
+, using a Schur reordering algorithm 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Kressner2006"
@@ -1615,52 +1619,58 @@ key "Kressner2006"
 .
  Note, that in the case of complex conjugate eigenvalues we have to select
  or discard the whole 2-by-2 blocks.
- 
-\end_layout
-
-\begin_layout Standard
-Define 
+ Let us denote the resulting 
+\emph on
+Schur form 
+\emph default
+and 
+\emph on
+-vectors 
+\emph default
+by 
 \begin_inset Formula $\Lambda$
 \end_inset
 
- as the upper left 
-\begin_inset Formula $n\times n$
-\end_inset
-
- block of 
-\begin_inset Formula $T$
-\end_inset
-
- and 
-\begin_inset Formula $X$
-\end_inset
-
- as the 
-\begin_inset Formula $n$
-\end_inset
-
- first columns of 
-\begin_inset Formula $Q$
+, 
+\begin_inset Formula $\tilde{X}$
 \end_inset
 
 .
- These now satisfy the 
-\emph on
-subspace condition
-\emph default
- for Theorem 
+ Then, defining 
+\begin_inset Formula $X=D_{\pi}^{-\frac{1}{2}}\tilde{X}$
+\end_inset
+
+ and inserting into 
+\begin_inset Formula $\tilde{P}\tilde{X}=\tilde{X}\Lambda$
+\end_inset
+
+ leads to 
+\begin_inset Formula $PX=X\Lambda$
+\end_inset
+
+.
+ Furthermore, due to orhonormality of 
+\begin_inset Formula $\tilde{X}$
+\end_inset
+
+, we have 
+\begin_inset Formula $X^{T}D_{\pi}X=Id$
+\end_inset
+
+.
+ So 
+\begin_inset Formula $X$
+\end_inset
+
+ and 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+ satisfy the conditions for Theorem 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "thm:comm"
 
-\end_inset
-
- by definition, and the invertibility of 
-\begin_inset Formula $X^{T}D_{\pi}X$
-\end_inset
-
- follows from orthonormality of 
-\begin_inset Formula $Q$
 \end_inset
 
 .
@@ -1696,9 +1706,21 @@ membership vectors
 \begin_inset Formula $P$
 \end_inset
 
- is stochastic the constant one vector is mapped to itself and thus forms
- an eigenvector to eigenvalue one.
- As this is the largest eigenvalue we have 
+ is stochastic the vector 
+\begin_inset Formula $e=\left(1,...,1\right)^{T}$
+\end_inset
+
+ is mapped to itself and thus forms an eigenvector to eigenvalue one, which
+ for stochastic matrices also is the largest eigenvalue.
+ By the reordering of 
+\begin_inset Formula $X$
+\end_inset
+
+ and due to 
+\begin_inset Formula $X^{T}D_{\pi}X$
+\end_inset
+
+ we have 
 \begin_inset Formula $X_{i,1}=1,\, i=1,...,N$
 \end_inset
 
@@ -1775,7 +1797,7 @@ name "fig:simplex"
 \end_inset
 
 Schematic illustration of the linear transformation mapping the row vectors
- of the eigenvectors (points on the 
+ of the eigenvectors X (points on the 
 \begin_inset Formula $z=1$
 \end_inset
 
@@ -2118,7 +2140,7 @@ key "Deuflhard2005,Weber2006"
 \begin_layout Standard
 \begin_inset Formula 
 \[
-I_{2}\left(A\right):=\text{trace}\left(W\right)=\sum_{i=1}^{n}\lambda_{i}\sum_{j=1}^{n}\frac{A\left(i,j\right)^{2}}{A\left(1,j\right)},
+I_{2}\left(A\right):=\text{trace}\left(W\right)=\sum_{i=1}^{n}\lambda_{i}\sum_{j=1}^{n}\frac{A\left(i,j\right)^{2}}{A(1,j)}
 \]
 
 \end_inset
@@ -2177,7 +2199,7 @@ reference "eq:conj"
  She therefore suggests maximization of 
 \begin_inset Formula 
 \[
-I_{3}:=\text{trace}\left(IR\right)=\sum_{i,j=1}^{n}\frac{\left(A_{ij}\right)^{2}}{A_{1,j}}.
+I_{3}:=\text{trace}\left(IR\right)=\sum_{i=1}^{n}\sum_{j=1}^{n}\frac{A\left(i,j\right)^{2}}{A(1,j)}
 \]
 
 \end_inset
@@ -2186,7 +2208,7 @@ which is similar to the
 \emph on
 maximal metastability condition
 \emph default
-, with 
+, with the corresponding 
 \begin_inset Formula $P$
 \end_inset
 
@@ -2195,7 +2217,7 @@ maximal metastability condition
 
 \begin_layout Standard
 Maximizing the trace minimizes the off-diagonal entries of 
-\begin_inset Formula $IP$
+\begin_inset Formula $IR$
 \end_inset
 
  leading to the least amount of clustering-induced transitions and therefore
@@ -2812,11 +2834,15 @@ PCCA+
 \end_layout
 
 \begin_layout Enumerate
-Given P, compute 
+Given P and 
+\begin_inset Formula $\pi$
+\end_inset
+
+, compute 
 \begin_inset Formula $X,\,\Lambda$
 \end_inset
 
- using the Schur decomposition as in section 
+ using the weighted Schur decomposition as in section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sub:constrXL"
@@ -2883,7 +2909,15 @@ to get a feasible matrix
 \end_layout
 
 \begin_layout Enumerate
-Return the optimal transformation A
+Return 
+\begin_inset Formula $X$
+\end_inset
+
+ and 
+\begin_inset Formula $A$
+\end_inset
+
+.
 \end_layout
 
 \end_inset
@@ -3149,63 +3183,14 @@ where
 \end_layout
 
 \begin_layout Standard
-Alternatively we can also generate a 
-\emph on
-rate matrix
-\emph default
- corresponding to a time-continuous Markov model.
- In that case we estimate the transition rate from state 
-\begin_inset Formula $i$
-\end_inset
-
- to 
-\begin_inset Formula $j$
-\end_inset
-
- using the most likelihood estimator of the exponential distribution, the
- inverse of the expected transition time, which scales inversely to the
- membership, i.e.:
-\begin_inset Formula 
-\[
-W_{ij}=\left(\frac{\sum_{a\rightarrow b}\frac{\tau_{a\rightarrow b}}{M_{ai}M_{bj}}}{\sum_{a\rightarrow b}1}\right)^{-1},
-\]
-
-\end_inset
-
-denoting by 
-\begin_inset Formula $\sum_{a\rightarrow b}$
-\end_inset
-
- the sum over all fixation transitions, from 
-\begin_inset Formula $a$
-\end_inset
-
- to 
-\begin_inset Formula $b$
-\end_inset
-
-, and 
-\begin_inset Formula $\tau_{a\rightarrow b}$
-\end_inset
-
- the corresponding transition time.
-\end_layout
-
-\begin_layout Standard
 Once we have constructed 
 \begin_inset Formula $P$
 \end_inset
 
- this way we now compute the invariant eigenspace using the weighted Schur
- decomposition as in section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sub:constrXL"
-
-\end_inset
-
- and pass is to PCCA+, which in return gives us the fuzzy clustering 
-\begin_inset Formula $\chi$
+ this way we now compute the stationary distribution, beeing the left eigenvecto
+r to eigenvalue one, and pass them to PCCA+, which in return gives us X
+ and A to compute the clustering 
+\begin_inset Formula $\chi=XA$
 \end_inset
 
 .
@@ -3304,20 +3289,32 @@ The parameter
  stronger spatial coupling between nearby fixations.
 \end_layout
 
+\begin_layout Standard
+For a general routine 
+\begin_inset Formula $\Delta\tau$
+\end_inset
+
+ should be chosen small enough for most fixations to be counted and then
+ increase sigma starting from low values to reach the desired spatial regularity.
+ 
+\end_layout
+
+\begin_layout Standard
+The 
+\emph on
+maximal scaling condition 
+\emph default
+was used for the following clusterings, as it provided the best results.
+\end_layout
+
 \begin_layout Subsection
 Results
 \end_layout
 
 \begin_layout Standard
-Each of the following clustering was computed based on about 2000 fixations.
+Each of the following clusterings was computed based on about 2000 fixations.
  Each fixation is marked as a dot, with the color representing the corresponding
  cluster.
- 
-\begin_inset Formula $\Delta\tau$
-\end_inset
-
- was chosen small enough for most fixations to be counted (~95%), then sigma
- was raised from low values to reach the desired regularity.
 \end_layout
 
 \begin_layout Subsubsection*
@@ -3381,7 +3378,8 @@ The more natural
 
 \begin_layout Standard
 Further refinement (d) leads to additional separation of the left curtain,
- the background behind Saint Sixtus and his and Madonnas feet respectively.
+ the background behind Saint Sixtus, his and Madonnas feet as well as her
+ skirt.
  Unfortunately we were not able to separate the Madonna from her child.
 \end_layout
 
