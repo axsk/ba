@@ -37,7 +37,7 @@ algorithm2e
 \index_command default
 \float_placement h
 \paperfontsize default
-\spacing single
+\spacing onehalf
 \use_hyperref true
 \pdf_title "PCCA+ and its application to spatial timeseries clustering"
 \pdf_author "Alexander Sikorski"
@@ -51,7 +51,7 @@ algorithm2e
 \pdf_backref false
 \pdf_pdfusetitle true
 \papersize a4paper
-\use_geometry false
+\use_geometry true
 \use_package amsmath 1
 \use_package amssymb 1
 \use_package cancel 1
@@ -75,6 +75,9 @@ algorithm2e
 \shortcut idx
 \color #008000
 \end_index
+\leftmargin 3cm
+\topmargin 3.5cm
+\rightmargin 3cm
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
@@ -230,7 +233,7 @@ status open
 \backslash
 setcounter{page}{1}
 \backslash
-fancyhf[HRO,HLE]{
+fancyhf[FRO,FLE]{
 \backslash
 thepage}
 \end_layout
@@ -1382,10 +1385,6 @@ I=\left(\begin{array}{cc}
 \end_inset
 
 
-\begin_inset Newpage newpage
-\end_inset
-
-
 \end_layout
 
 \begin_layout Section
@@ -1650,7 +1649,7 @@ The feasible transformation set
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2032,7 +2031,7 @@ reference "fig:hexagon"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -3020,6 +3019,13 @@ AOEs.
 
 \begin_layout Subsection
 Implementation
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Implementation"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -3273,10 +3279,6 @@ The parameter
 
  values will lead to a more regular and convex clustering by enforcing a
  stronger spatial coupling between nearby fixations.
-\begin_inset Newpage newpage
-\end_inset
-
-
 \end_layout
 
 \begin_layout Subsection
@@ -3723,7 +3725,7 @@ The more natural
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Float figure
@@ -3894,7 +3896,7 @@ reference "fig:hokusai"
 
 \end_inset
 
- shows Katsushika Hokusai's 
+(a) shows Katsushika Hokusai's 
 \begin_inset Quotes eld
 \end_inset
 
@@ -3902,7 +3904,38 @@ In the Totomi Mountains
 \begin_inset Quotes erd
 \end_inset
 
+, one out 46 color woodblock prints of his series 
+\begin_inset Quotes eld
+\end_inset
 
+Thirty-six Views of Mount Fuji
+\begin_inset Quotes erd
+\end_inset
+
+, featuring the prominent volcano Mount Fuji, the highest mountain in Japan.
+ This picture was chosen as it has a large number of distinct features:
+ Two men sawing a large tree block on stands, a woman with a baby on her
+ back watching a third man sawing a tree trunk on the ground and another
+ man in the back making a fire, the Mount Fuji in the back entwinded by
+ a curling cloud.
+\end_layout
+
+\begin_layout Standard
+The clustering into six clusters (b) focuses on a rough seperation of the
+ people (three clusters on five people), the legend in the top left, the
+ smoke of the fire and the strawmatt at the foot of the tree block.
+ One might object that none of these clusters separates any of the objects
+ properly, but as we impose just six clusters one can't expect a clear separatio
+n as the objects inbetween have to become assigned as well.
+ Increasing the cluster number to eight (c), we gain an splitting of the
+ former upper left cluster, now properly isolating the legend, the smoke
+ around the Mount Fuji with its peak and the top of the wood block.
+ Further refinement to ten clusters (d) splits the two lower clusters into
+ three, now distinguishing between the man sawing on the ground, the woman
+ with her baby and the standing woodcutter with the man making the fire
+ in the background.
+ Additionally the upper right cluster gets split into two, now correctly
+ differentiating between the smoke and the hill.
 \end_layout
 
 \begin_layout Section
@@ -3919,7 +3952,17 @@ Given a good choice of parameters the algorithm showed to be able to cluster
 \begin_layout Standard
 This conclusion already implies the current problem of the approach, the
  parameters.
- The time step parameter 
+ Although most of the resulting clusters proved to be stable in many situations,
+ high cluster numbers or small 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ values lead to unstable results.
+ 
+\end_layout
+
+\begin_layout Standard
+The time step parameter 
 \begin_inset Formula $\Delta\tau$
 \end_inset
 
@@ -3955,13 +3998,17 @@ denoting by
 \end_layout
 
 \begin_layout Standard
-The last fixation poses another problem leading to a ..
- [TODO]
-\end_layout
+A more sophisticated method to discretize the fuzzy clustering then the
+ here chosen maximum method (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:clmax"
 
-\begin_layout Standard
-The results could probably be further improved by enhancing the method used
- to discretize the fuzzy clustering (
+\end_inset
+
+) could also proof crucial in improving the results.
+ The results could probably be further improved by enhancing the method
+ used to discretize the fuzzy clustering (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:clmax"
@@ -3969,9 +4016,18 @@ reference "eq:clmax"
 \end_inset
 
 ).
- One possibility here might be weighting the clusters with their size, thus
- emphasizing their relative shape, or just discarding points with no clear
- assignment to an extra cluster.
+ One possibility might be weighting the clusters with their size, thus emphasizi
+ng their relative shape and/or discarding points with no clear assignment
+ to an extra cluster.
+ This would also solve the problem of non-assignment of some clusters, mentioned
+ in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Implementation"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
