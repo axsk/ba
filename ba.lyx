@@ -111,7 +111,7 @@ PCCA+ and its application
 \begin_inset Newline newline
 \end_inset
 
-to spatial timeseries clustering
+to spatial time series clustering
 \begin_inset VSpace 1cm*
 \end_inset
 
@@ -265,7 +265,7 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-In this thesis we develop an algorithm for clustering spatial timeseries
+In this thesis we develop an algorithm for clustering spatial time series
  into a prescribed number of clusters, based on their spatial and dynamical
  properties.
 \end_layout
@@ -282,7 +282,7 @@ After an introduction to the underlying theoretical background we will review
 \end_layout
 
 \begin_layout Standard
-We will then show a method to turn spatial timeseries into a Markov Chain
+We will then show a method to turn spatial time series into a Markov Chain
  to obtain a spatial clustering by further application of PCCA+, respecting
  the dynamic information.
  Finally we will apply that method to data obtained by tracking human eye
@@ -342,7 +342,7 @@ It is common to interpret
 \begin_inset Formula $S$
 \end_inset
 
- as the state space of possible outcomes of measurements at timestep 
+ as the state space of possible outcomes of measurements at time step 
 \begin_inset Formula $t$
 \end_inset
 
@@ -352,7 +352,7 @@ It is common to interpret
 
 .
  The Markov property assures, that the transition probabilities to the next
- timestep 
+ time step 
 \begin_inset Formula $x{}_{t+1}$
 \end_inset
 
@@ -388,7 +388,7 @@ This does not really impose a restriction since any non-autonomous process
 \begin_inset Formula $S$
 \end_inset
 
- using the cartesian product 
+ using the Cartesian product 
 \begin_inset Formula $S':=\mathbb{N}\times S$
 \end_inset
 
@@ -425,8 +425,8 @@ P_{ij}:=P\left(X_{t+1}=j|X_{t}=i\right),
 
 \end_inset
 
-where right stochastic means that each row has rowsum one and propagation
- of states is realised by right application of P.
+where right stochastic means that each row has row sum one and propagation
+ of states is realized by right application of P.
 \end_layout
 
 \begin_layout Standard
@@ -467,7 +467,7 @@ Given a stationary distribution
 
 \begin_layout Standard
 Although we only consider a discrete state space in this thesis, the results
- are extendible to continous state spaces as well.
+ are extendible to continuous state spaces as well.
  The easiest way is using a set-based discretization, dividing the state
  space into a finite mesh of subsets.
  For high dimensional state spaces, as for example met in molecular dynamics,
@@ -489,7 +489,7 @@ Clustering of the state space
 \end_layout
 
 \begin_layout Standard
-As the goal of PCCA+ is to reduce the complexity of analysis of the markov
+As the goal of PCCA+ is to reduce the complexity of analysis of the Markov
  chain by a dimension reduction we will now introduce the concept of clustering,
  that is subsuming different states of the state space to a smaller set
  of 
@@ -546,18 +546,18 @@ key "Deuflhard2000"
 
 \end_inset
 
-, has the disadvantage of not being robust against small pertubations, since
- continuous changes in 
+, has the disadvantage of not being robust against small perturbations,
+ since continuous changes in 
 \begin_inset Formula $P$
 \end_inset
 
- finally result in discontinous changes in the clustering.
+ finally result in discontinuous changes in the clustering.
 \end_layout
 
 \begin_layout Standard
 Deuflhard and Weber therefore developed a robust version, 
 \emph on
-Robust Perron Cluster Analyis
+Robust Perron Cluster Analysis
 \emph default
  (PCCA+) 
 \begin_inset CommandInset citation
@@ -705,7 +705,7 @@ fuzzy clustering
 \emph default
 setting the problem arises, that it is not clear anymore which state belongs
  to which cluster.
- It is therefore convenient to interpret the membershipership of state 
+ It is therefore convenient to interpret the membership of state 
 \begin_inset Formula $j$
 \end_inset
 
@@ -759,8 +759,8 @@ metastable
 conformations
 \emph default
  of molecular systems, e.g.
- to analyse the effectivity of active pharmaceutical ingredients in Computional
- Molecular Design (for a overview over this approach see 
+ to analyze the effectivity of active pharmaceutical ingredients in Computationa
+l Molecular Design (for a overview over this approach see 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Jan-HendrikPrinz2011"
@@ -827,7 +827,7 @@ Unfortunately, the projection via the
 coupling matrix 
 \emph default
 does not commute with time propagation, and therefore cannot be used for
- long term analyses of the underlying markov chain.
+ long term analyses of the underlying Markov chain.
 \end_layout
 
 \begin_layout Standard
@@ -875,7 +875,7 @@ crisp clustering
 \begin_inset Formula $P$
 \end_inset
 
--invariant subspace satisfying an invertibilty condition it has the advantage
+-invariant subspace satisfying an invertibility condition it has the advantage
  that discretization via 
 \begin_inset Formula $\chi$
 \end_inset
@@ -893,7 +893,7 @@ This property ensures that the
 \emph on
 coupling matrix 
 \emph default
-represents the right dynamics of the underlying markov chain on the reduced
+represents the right dynamics of the underlying Markov chain on the reduced
  state space, even for iterative application, i.e.
  
 \begin_inset Formula $P^{n}\chi=\chi P_{C}^{n}$
@@ -1230,7 +1230,7 @@ Example 2: The 3-pot
 \end_layout
 
 \begin_layout Standard
-Next, we will consider the stationary markov chain on three states with
+Next, we will consider the stationary Markov chain on three states with
  a 
 \emph on
 fuzzy clustering
@@ -1497,7 +1497,7 @@ key "Deuflhard2000"
 \begin_inset Formula $\epsilon$
 \end_inset
 
--pertubations of the coupling of uncoupled markov chains also from below
+-perturbations of the coupling of uncoupled Markov chains also from below
  by 
 \begin_inset Formula $\sum\lambda_{i}-O\left(\epsilon^{2}\right)$
 \end_inset
@@ -2012,7 +2012,7 @@ key "Weber2006"
 \end_layout
 
 \begin_layout Standard
-Note, that this objective, ignoring the datapoints not beeing the maxima,
+Note, that this objective, ignoring the data points not being the maxima,
  cannot distinguish between differences in the interior of the convex hull,
  leading to possibly non-optimal transformation matrices 
 \begin_inset Formula $A$
@@ -2434,11 +2434,11 @@ key "Weber2006"
 \begin_inset Formula $n^{2}$
 \end_inset
 
- unknows to an unconstrained in 
+ unknowns to an unconstrained in 
 \begin_inset Formula $\left(n-1\right)^{2}$
 \end_inset
 
- unknows.
+ unknowns.
 \end_layout
 
 \begin_layout Standard
@@ -2501,7 +2501,7 @@ looks for the indices
 \begin_inset Formula $i_{j}$
 \end_inset
 
- of the succesively farthest linear independent rows.
+ of the successively farthest linear independent rows.
  It starts by choosing the largest row vector as starting point, and then
  iteratively adds the points with the largest distance to the hyperplane
  spanned by the chosen points so far:
@@ -2740,7 +2740,7 @@ Therefore, the result is not feasible in the generic case.
 maximality assumption 
 \emph default
 almost holds, i.e.
- the convex hull of X is a small pertubation of a simplex, which according
+ the convex hull of X is a small perturbation of a simplex, which according
  to Weber 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2758,7 +2758,7 @@ key "Weber2006"
 \begin_inset Formula $F_{A}$
 \end_inset
 
- and thus a good initial guess for a local optimization of the unconstraint
+ and thus a good initial guess for a local optimization of the unconstrained
  optimization.
 \end_layout
 
@@ -2870,11 +2870,11 @@ Return the optimal transformation A
 \end_layout
 
 \begin_layout Subsubsection*
-Extension to time-continous markov chains
+Extension to time-continuous Markov chains
 \end_layout
 
 \begin_layout Standard
-PCCA+ is also applicable to the clustering of time-continuous markov chains
+PCCA+ is also applicable to the clustering of time-continuous Markov chains
  (c.f.
  
 \begin_inset CommandInset citation
@@ -2900,7 +2900,7 @@ transition rate matrix
 
 
 \emph default
-, having row-sum zero and nonnegative off-diagonal entries.
+, having row-sum zero and non-negative off-diagonal entries.
  The transitions after a fixed time can then be computed by
 \begin_inset Formula 
 \[
@@ -2948,21 +2948,21 @@ So by selecting the eigenvectors with smallest eigenvalue of
 \begin_inset Formula $Q$
 \end_inset
 
- we can compute the corresponding clustering for time-continuous markov
- cains.
+ we can compute the corresponding clustering for time-continuous Markov
+ chains.
 \end_layout
 
 \begin_layout Section
 
 \shape up
-Application to eyetracking data
+Application to eye tracking data
 \end_layout
 
 \begin_layout Standard
-This algorithm was applied to experimental eye-tracking data obtained by
- the department of psychology of the Universität Potsdam, with the goal
- to detect objects as metastable clusters using just the dynamics of the
- human eye, i.e.
+This algorithm was applied to experimental eye tracking data obtained by
+ the department of psychology of the University Potsdam, with the goal to
+ detect objects as metastable clusters using just the dynamics of the human
+ eye, i.e.
  without any data of the image itself, and thus provides a way of interpreting
  the humans object recognition expressed through the eye movements.
 \end_layout
@@ -2973,7 +2973,7 @@ The experiment and model
 
 \begin_layout Standard
 A group of test persons was presented different pictures for about 10 seconds,
- during which an eye-tracker measured their eye-fixations 
+ during which an eye tracker measured their fixations 
 \begin_inset Formula $f_{i}\in\mathbb{R}^{2}$
 \end_inset
 
@@ -2992,7 +2992,7 @@ which correspond to subjectively identified objects in the corresponding
 \end_layout
 
 \begin_layout Standard
-To apply PCCA+ we need to turn this spatial timeseries into a markov chain.
+To apply PCCA+ we need to turn this spatial time series into a Markov chain.
 \end_layout
 
 \begin_layout Standard
@@ -3000,13 +3000,13 @@ We model each fixation as a
 \emph on
 random choice
 \emph default
- on a spatial grid weighted by a gaussian of the distance to the grid points,
+ on a spatial grid weighted by a Gaussian of the distance to the grid points,
  and then construct a 
 \emph on
-markov chain
+Markov chain
 \emph default
  by counting the induced transitions on the grid points.
- Assuming that humans, when looking at the pictures, dont jump randomly
+ Assuming that humans, when looking at the pictures, don’t jump randomly
  between all recognized objects but remain for some fixations inside one
  
 \emph on
@@ -3041,7 +3041,7 @@ Introducing a parameter
 \end_inset
 
 , we assign a membership of each fixation to each grid point weighted by
- a gaussian of the distance between them, i.e.
+ a Gaussian of the distance between them, i.e.
  for each fixation 
 \begin_inset Formula $f_{i}$
 \end_inset
@@ -3070,7 +3070,7 @@ overlap
 \end_inset
 
 , adopting the metric information contained in the fixation data to the
- markov process.
+ Markov process.
  Thus the parameter 
 \begin_inset Formula $\sigma$
 \end_inset
@@ -3124,7 +3124,7 @@ Alternatively we can also generate a
 \emph on
 rate matrix
 \emph default
- corresponding to a time-continuous markov model.
+ corresponding to a time-continuous Markov model.
  In that case we estimate the transition rate from state 
 \begin_inset Formula $i$
 \end_inset
@@ -3168,8 +3168,14 @@ Once we have constructed
 \end_inset
 
  this way we now compute the invariant eigenspace using the weighted Schur
- decomposition as in [todo] and pass is to PCCA+, which in return gives
- us the fuzzy clustering 
+ decomposition as in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:constrXL"
+
+\end_inset
+
+ and pass is to PCCA+, which in return gives us the fuzzy clustering 
 \begin_inset Formula $\chi$
 \end_inset
 
@@ -3199,7 +3205,7 @@ c_{i}=\text{argmax}_{j}\chi_{ij}.\label{eq:clmax}
 
 \begin_layout Standard
 Note, that choosing this discretization of the fuzzy clustering, some clusters
- may never be assigned, when beeing dominated by other clusters on every
+ may never be assigned, when being dominated by other clusters on every
  grid point.
 \end_layout
 
@@ -3226,7 +3232,7 @@ The desired number of clusters,
 \begin_inset Formula $n$
 \end_inset
 
-, was chosen near the number of objects recognized by the experimentator.
+, was chosen near the number of objects recognized by the experimenter.
  This, of course, is a subjective choice, but the number of clusters in
  general depends on the desired resolution of the clustering and thus on
  the further application.
@@ -3253,19 +3259,19 @@ The parameter
 \begin_inset Formula $\sigma$
 \end_inset
 
- introduces the spatial informations and can thus be considered as a weight
+ introduces the spatial information and can thus be considered as a weight
  between dynamic and spatial clustering.
  While small 
 \begin_inset Formula $\sigma$
 \end_inset
 
- values favour the dynamic informations, this can lead to scattered clusters
+ values favour the dynamic information, this can lead to scattered clusters
  neglecting the spatial component.
  Large 
 \begin_inset Formula $\sigma$
 \end_inset
 
- values will lead to more regular and convex clusterings by enforcing a
+ values will lead to a more regular and convex clustering by enforcing a
  stronger spatial coupling between nearby fixations.
 \begin_inset Newpage newpage
 \end_inset
@@ -3481,12 +3487,12 @@ Three Trees
 \end_layout
 
 \begin_layout Standard
-Already the coarse clustering (b) shows a good seperation of the trees,
+Already the coarse clustering (b) shows a good separation of the trees,
  also assigning clusters to the fisherman and the stormy clouds, additionally
  the the three corners of the image.
- A further refinement (c) now also seperates the fisherman and his wife
- from the background, and even further refinement (d) even seperates the
- treetops from the their trunks, also assigning an own cluster to the painter.
+ A further refinement (c) now also separates the fisherman and his wife
+ from the background, and further refinement (d) even separates the treetops
+ from their trunks, also assigning an own cluster to the painter.
 \end_layout
 
 \begin_layout Standard
@@ -3671,10 +3677,10 @@ Sistine Madonna
 \begin_inset Quotes erd
 \end_inset
 
- oil painting, one of the last of his many Madonnas, commisioned by Pope
+ oil painting, one of the last of his many Madonnas, commissioned by Pope
  Julius II for the Monastery of San Sisto in Piacenza, Italy.
  In the middle we see the Madonna, holding her child, the Christ.
- She is flanked by Saint Sixtus and and Saint Barbara.
+ She is flanked by Saint Sixtus and Saint Barbara.
  To their feet we can see the two cherubim who became quite popular on their
  own in the last centuries as motives for postcards, advertisements, gifts
  and home décor.
@@ -3686,14 +3692,14 @@ In (b) we chose a small
 \begin_inset Formula $\sigma$
 \end_inset
 
- value to emphasisze the dynamic share of the clustering.
+ value to emphasize the dynamic share of the clustering.
  As a consequence Saint Sixtus and Saint Barbara are clustered into one
  cluster, indicating back and forth movements of the observer, although
- they are seperated by the Madonna.
+ they are separated by the Madonna.
  This non-convex clustering is a feature specific to the analysis of the
  dynamics which can not be reached by purely spatial clustering, e.g.
  k-means.
- Furthermorethe Madonna with her child and the papal tiara are seperated.
+ Furthermore the Madonna with her child and the papal tiara are separated.
  The noisy red cluster is typical for small sigma values, as small cycles
  get uncoupled from the rest of the fixations due to the missing spatial
  coupling.
@@ -3704,12 +3710,12 @@ The more natural
 \begin_inset Formula $\sigma$
 \end_inset
 
- choice and a higher cluster number in (c) allow for seperation between
+ choice and a higher cluster number in (c) allow for separation between
  the left and right saints, and instead of the red noise-cluster we now
  get a further cluster for the right curtain.
- Further refinement (d) leads to additional seperation of the left curtain,
+ Further refinement (d) leads to additional separation of the left curtain,
  the background behind Saint Sixtus and his and Madonnas feet respectively.
- Unfortunately we were not able to seperate the Madonna from her child.
+ Unfortunately we were not able to separate the Madonna from her child.
 \end_layout
 
 \begin_layout Standard
@@ -3880,6 +3886,25 @@ In the Totomi Mountains (1830) by Hokusai
 
 \end_layout
 
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:hokusai"
+
+\end_inset
+
+ shows Katsushika Hokusai's 
+\begin_inset Quotes eld
+\end_inset
+
+In the Totomi Mountains
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Discussion
 \end_layout
@@ -3898,9 +3923,9 @@ This conclusion already implies the current problem of the approach, the
 \begin_inset Formula $\Delta\tau$
 \end_inset
 
- could be completely eliminated by using a time-continuous markov chain
+ could be completely eliminated by using a time-continuous Markov chain
  as underlying transition model, leading to a transition rate matrix.
- Unfortunately the ad-hoc approach using 
+ Unfortunately the ad hoc approach using 
 \begin_inset Formula 
 \[
 W_{ij}=\left(\frac{\sum_{a\rightarrow b}M_{ai}M_{bj}\tau_{a\rightarrow b}}{\sum_{a\rightarrow b}M_{ai}}\right)^{-1},
@@ -3931,18 +3956,19 @@ denoting by
 
 \begin_layout Standard
 The last fixation poses another problem leading to a ..
+ [TODO]
 \end_layout
 
 \begin_layout Standard
-The results could probably be further improved by enhancing the method by
- which the fuzzy clustering is turned to a discrete one in 
+The results could probably be further improved by enhancing the method used
+ to discretize the fuzzy clustering (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:clmax"
 
 \end_inset
 
-.
+).
  One possibility here might be weighting the clusters with their size, thus
  emphasizing their relative shape, or just discarding points with no clear
  assignment to an extra cluster.
