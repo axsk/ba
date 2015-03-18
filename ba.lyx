@@ -3328,7 +3328,7 @@ The parameter
 \end_inset
 
  introduces the spatial information and can thus be considered as a weight
- between dynamic and spatial clustering and is therefore inherently neceassary.
+ between dynamic and spatial clustering and is therefore inherently necessary.
  While small 
 \begin_inset Formula $\sigma$
 \end_inset
@@ -4018,17 +4018,17 @@ Thirty-six Views of Mount Fuji
  This picture was chosen for it has a large number of distinct features:
  Two men sawing a large tree block on stands, a woman with a baby on her
  back watching a third man sawing a tree trunk on the ground and another
- man in the back making a fire, the Mount Fuji in the back entwinded by
- a curling cloud.
+ man in the back making a fire, the Mount Fuji in the back entwined by a
+ curling cloud.
 \end_layout
 
 \begin_layout Standard
-The clustering into six clusters (b) focuses on a rough seperation of the
+The clustering into six clusters (b) focuses on a rough separation of the
  people (three clusters on five people), the legend in the top left, the
- smoke of the fire and the strawmatt at the foot of the tree block.
+ smoke of the fire and the strawmat at the foot of the tree block.
  One might object that none of these clusters separate any of the objects
  properly, but as we impose just six clusters one can't expect a clear separatio
-n as the objects inbetween have to become assigned as well.
+n as the objects in between have to become assigned as well.
  
 \end_layout
 
@@ -4120,15 +4120,15 @@ reference "eq:clmax"
  One possibility might be weighting the clusters with their size, thus,
  emphasizing their relative shape and/or discarding points with no clear
  assignment to an extra cluster.
- This would also solve the problem of non-assignment of some clusters, mentioned
- in section (
+ This would also solve the problem of non-assignment of some clusters mentioned
+ in section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sub:Implementation"
 
 \end_inset
 
-).
+.
 \end_layout
 
 \begin_layout Standard
@@ -4151,7 +4151,7 @@ reference "eq:mass"
 
 \end_inset
 
-) and a different weighting of the states than by the stationary distribtution
+) and a different weighting of the states than by the stationary distribution
  
 \begin_inset Formula $\pi$
 \end_inset
@@ -4167,9 +4167,10 @@ reference "sub:constrXL"
 \end_layout
 
 \begin_layout Standard
-Overall the presented method, turning the time series into a Markov chain
- and applying PCCA+ for the clustering, proved as a viable approach to spatial
- time series clustering with open opportunities for further improvement.
+Overall, the presented method, turning the time series into a Markov chain
+ and applying PCCA+ for the clustering, proved to be successful and a viable
+ approach to spatial time series clustering with open opportunities for
+ further improvement.
 \end_layout
 
 \begin_layout Standard
