@@ -268,8 +268,8 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-In this thesis we develop an algorithm for clustering spatial time series
- into a prescribed number of clusters, based on their spatial and dynamical
+In this thesis, we develop an algorithm for clustering spatial time series
+ into a prescribed number of clusters based on their spatial and dynamical
  properties.
 \end_layout
 
@@ -280,17 +280,17 @@ After an introduction to the underlying theoretical background we will review
 Robust Perron Cluster Cluster Analysis
 \emph default
  (PCCA+), which forms the basis for our application.
- PCCA+ allows to identify metastable clusters in Markov chains, which are
+ PCCA+ allows to identify metastable clusters in Markov chains which are
  configurations of the system which are likely to persist for a longer time.
- In the course we will extend the known results by a stochastic interpretation
- for the propagator matrix, which encodes the time evolution on the clusters.
+ In the course, we will extend the known results by a stochastic interpretation
+ for the propagator matrix which encodes the time evolution on the clusters.
 \end_layout
 
 \begin_layout Standard
-We then explain a method to turn spatial time series into a Markov Chain
+We then explain a method to turn spatial time series into a Markov chain
  to obtain a spatial clustering by further application of PCCA+, respecting
  the dynamic information.
- Finally we will apply that method to data obtained by tracking human eye
+ Finally, we will apply that method to data obtained by tracking human eye
  fixations while these look at different paintings to detect the depicted
  objects.
  This can be seen as a form of object recognition which does not rely on
@@ -300,7 +300,7 @@ We then explain a method to turn spatial time series into a Markov Chain
 
 \begin_layout Standard
 The presented program was developed in cooperation with the Zuse Institute
- Berlin and the University of Potsdam and I want to thank Dr.
+ Berlin and the University of Potsdam and I would like to thank Dr.
  Weber and Prof.
  Dr.
  Kliegl for their support.
@@ -364,7 +364,7 @@ It is common to interpret
 \end_inset
 
 .
- The Markov property assures, that the transition probabilities to the next
+ The Markov property assures that the transition probabilities to the next
  time step 
 \begin_inset Formula $x{}_{t+1}$
 \end_inset
@@ -382,7 +382,7 @@ It is common to interpret
 \begin_inset Formula $(x_{1},...,x_{t-1})$
 \end_inset
 
-, this is also sometimes called the memoryless property.
+, sometimes this is also called the memoryless property.
 \end_layout
 
 \begin_layout Standard
@@ -405,7 +405,7 @@ This does not really impose a restriction since any non-autonomous process
 \begin_inset Formula $S':=\mathbb{N}\times S$
 \end_inset
 
- the explicit time-dependence of the process on 
+, the explicit time-dependence of the process on 
 \begin_inset Formula $S$
 \end_inset
 
@@ -421,7 +421,7 @@ Since
 \begin_inset Formula $S$
 \end_inset
 
- is finite we can, enumerating all states in 
+ is finite, we can, enumerating all states in 
 \begin_inset Formula $S$
 \end_inset
 
@@ -438,8 +438,8 @@ P_{ij}:=P\left(X_{t+1}=j|X_{t}=i\right),
 
 \end_inset
 
-where right stochastic means that each row has row sum one and propagation
- of states is realized by right application of 
+in which case right stochastic means that each row has row sum one and propagati
+on of states is realized by right application of 
 \begin_inset Formula $P$
 \end_inset
 
@@ -471,7 +471,7 @@ Given a stationary distribution
 \begin_inset Formula $\pi$
 \end_inset
 
- we denote by 
+, we denote by 
 \begin_inset Formula $D_{\pi}$
 \end_inset
 
@@ -485,8 +485,8 @@ Given a stationary distribution
 \begin_layout Standard
 Although we only consider a discrete state space in this thesis, the results
  are extendible to continuous state spaces as well.
- The easiest way is using a set-based discretization, dividing the state
- space into a finite mesh of subsets.
+ A natural way is using a set-based discretization dividing the state space
+ into a finite mesh of subsets.
  For high dimensional state spaces, as for example met in molecular dynamics,
  this approach exhibits the curse of dimensionality, as the size of the
  mesh grows exponentially with the dimensions.
@@ -508,7 +508,7 @@ Clustering of the state space
 \begin_layout Standard
 The goal of PCCA+ is to reduce the complexity of analysis of the Markov
  chain by a dimension reduction of the state space.
- To formalize this we will now introduce the concept of clustering, that
+ To formalize this we will now introduce the concept of clustering, which
  is subsuming different states of the state space to a smaller set of 
 \begin_inset Formula $n\in\mathbb{N}$
 \end_inset
@@ -529,7 +529,7 @@ The simplest possibility is assigning each state
 \begin_inset Formula $i\in C$
 \end_inset
 
-, which can be encoded by means of the 
+ which can be encoded by means of the 
 \emph on
 characteristic vector
 \emph default
@@ -563,8 +563,8 @@ key "Deuflhard2000"
 
 \end_inset
 
-, has the disadvantage of not being robust against small perturbations,
- since continuous changes in 
+, has the disadvantage of not being robust against small perturbations since
+ continuous changes in 
 \begin_inset Formula $P$
 \end_inset
 
@@ -720,7 +720,7 @@ In the
 \emph on
 fuzzy clustering 
 \emph default
-setting the problem arises, that it is not clear anymore which state belongs
+setting, the problem arises that it is not clear anymore which state belongs
  to which cluster.
  It is therefore convenient to interpret the membership of state 
 \begin_inset Formula $j$
@@ -734,7 +734,7 @@ setting the problem arises, that it is not clear anymore which state belongs
 \begin_inset Formula $\chi_{ij}$
 \end_inset
 
-, as probability of measuring state 
+, as the probability of measuring state 
 \begin_inset Formula $j$
 \end_inset
 
@@ -743,7 +743,7 @@ setting the problem arises, that it is not clear anymore which state belongs
 \end_inset
 
 .
- Then 
+ Then, 
 \begin_inset Formula $W_{ij}$
 \end_inset
 
@@ -760,8 +760,8 @@ setting the problem arises, that it is not clear anymore which state belongs
 
 \begin_layout Standard
 Note, however, that even if no real transitions are actually happening in
- the state space, we still may count transitions between clusters, since
- we once measure the same state belonging to one and then to another cluster,
+ the state space, we still may count transitions between clusters since
+ we measure the same state once belonging to one and then to another cluster,
  as demonstrated in example 3.
 \end_layout
 
@@ -830,8 +830,7 @@ coupling matrix
 \begin_inset Formula $\text{tr}\left(W\right).$
 \end_inset
 
- Note, that this does not need to correspond with a high probability of
- the cluster.
+ Note, this does not need to correspond with a high probability of the cluster.
 \end_layout
 
 \begin_layout Subsubsection*
@@ -843,12 +842,12 @@ Unfortunately, the projection via the
 \emph on
 coupling matrix 
 \emph default
-does not commute with time propagation, and therefore cannot be used for
+does not commute with time propagation and therefore cannot be used for
  long term analyses of the underlying Markov chain.
 \end_layout
 
 \begin_layout Standard
-As remedy Kube and Weber 
+As remedy, Kube and Weber 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Kube2007"
@@ -864,7 +863,7 @@ coarse propagator matrix
 
 \begin_inset Formula 
 \begin{equation}
-P_{C}:=\left(\chi^{T}D_{\pi}\chi\right)^{-1}\chi^{T}D_{\pi}P\chi,\label{eq:pc}
+P_{C}:=\left(\chi^{T}D_{\pi}\chi\right)^{-1}\chi^{T}D_{\pi}P\chi\label{eq:pc}
 \end{equation}
 
 \end_inset
@@ -892,7 +891,7 @@ crisp clustering
 \begin_inset Formula $P$
 \end_inset
 
--invariant subspace satisfying an invertibility condition it has the advantage
+-invariant subspace satisfying an invertibility condition, it has the advantage
  that discretization via 
 \begin_inset Formula $\chi$
 \end_inset
@@ -1007,11 +1006,11 @@ P\chi=PXA=X\Lambda A=XAA^{-1}\Lambda A=\chi P_{C}.
 
 \begin_layout Standard
 This form of the theorem constitutes a small generalization towards its
- so far published versions, where instead of invertibility 
+ so far published versions in which 
 \begin_inset Formula $C=Id$
 \end_inset
 
- was assumed.
+ was assumed instead of invertibility.
 \end_layout
 
 \begin_layout Subsubsection*
@@ -1019,11 +1018,11 @@ Stochastic interpretation
 \end_layout
 
 \begin_layout Standard
-Due to the matrix inversion the 
+Due to the matrix inversion, the 
 \emph on
 propagator matrix
 \emph default
- can have negative entries, as shown in example 3 below, thus prohibiting
+ can have negative entries as shown in example 3 below, thus prohibiting
  a natural stochastic interpretation.
 \end_layout
 
@@ -1036,7 +1035,7 @@ and the
 \emph on
 propagator matrix
 \emph default
-, making use of the notation of the 
+ making use of the notation of the 
 \emph on
 restriction
 \emph default
@@ -1044,7 +1043,7 @@ restriction
 \emph on
 interpolation operators
 \emph default
-, introduced by Kube and Weber 
+ introduced by Kube and Weber 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Kube2007"
@@ -1074,8 +1073,8 @@ with
 
 \begin_layout Standard
 These provide the transformations between the (fine-grained) configuration
- space and the (coarse-grained) cluster space, being natural in the sense
- that 
+ space and the (coarse-grained) cluster space.
+ These are in the sense that 
 \begin_inset Formula $IRw=w$
 \end_inset
 
@@ -1084,11 +1083,11 @@ These provide the transformations between the (fine-grained) configuration
 \begin_inset Formula $I$
 \end_inset
 
- reconstructs the fine-grained density, lost by the restriction 
+ reconstructs the fine-grained density lost by the restriction 
 \begin_inset Formula $R$
 \end_inset
 
-, using the fine-grained stationary density.
+ using the fine-grained stationary density.
 \end_layout
 
 \begin_layout Standard
@@ -1111,8 +1110,8 @@ P_{C} & = & \left(IR\right)^{-1}IPR.
 \end_layout
 
 \begin_layout Standard
-Now consider the situation when setting 
-\begin_inset Formula $P=Id $
+Now, consider the situation when setting 
+\begin_inset Formula $P=Id$
 \end_inset
 
  with a fuzzy clustering.
@@ -1130,7 +1129,7 @@ As this overlap would be applied on every iteration of
 \begin_inset Formula $W$
 \end_inset
 
- it would lead to increased mixing between the states, resulting in wrong
+, it would lead to increased mixing between the states resulting in wrong
  long-term results.
  
 \begin_inset Formula $P_{C}$
@@ -1147,8 +1146,8 @@ reference "eq:com"
 \end_layout
 
 \begin_layout Standard
-But this also shows us how we can compute a corresponding stochastically
- interpretable 
+This also shows how we can compute a corresponding stochastically interpretable
+ 
 \emph on
 coupling matrix 
 \emph default
@@ -1233,8 +1232,8 @@ with eigenvalue 1, the vectors
 \emph on
 crisp clustering
 \emph default
-, and assuming an equidistributed starting distribution we can compute the,
- in the 
+ and, assuming an equidistributed starting distribution, we can compute
+ the, in the 
 \emph on
 crisp 
 \emph default
@@ -1296,11 +1295,11 @@ P_{C}:=\left(\begin{array}{cc}
 
 \end_inset
 
- We thus observe, that 
+ We thus observe that 
 \begin_inset Formula $P_{C}$
 \end_inset
 
- contains the expected stationary dynamics on the reduced state space, while
+ contains the expected stationary dynamics on the reduced state space while
  
 \begin_inset Formula $W$
 \end_inset
@@ -1396,7 +1395,7 @@ Here, the negative entry amounts for the overlap of the clusters and is
 \begin_inset Formula $P_{C}$
 \end_inset
 
- acting to the basis of clusters, eliminating the overlap.
+ acting to the basis of clusters eliminating the overlap.
 \end_layout
 
 \begin_layout Standard
@@ -1422,7 +1421,7 @@ PCCA+
 \end_layout
 
 \begin_layout Standard
-In this section we will construct the 
+In this section, we will construct the 
 \emph on
 Robust Perron Cluster Cluster Analysis 
 \emph default
@@ -1444,8 +1443,8 @@ key "Deuflhard2005"
 \end_inset
 
  mapping these to a set of membership vectors.
- Finally we propose different objectives to an optimization problem to specify
- a 
+ Finally, we propose different objectives to an optimization problem to
+ specify a 
 \begin_inset Quotes eld
 \end_inset
 
@@ -1457,9 +1456,9 @@ good
 \end_layout
 
 \begin_layout Standard
-Unlike previous treatises we will not restrict ourselves to reversible processes
- and provide a more general version of PCCA+ using the Schur decomposition
- thus reflecting the newest developments in 
+Unlike previous treatises, we will not restrict ourselves to reversible
+ processes and provide a more general version of PCCA+ using the Schur decomposi
+tion thus reflecting the newest developments in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Weber2015"
@@ -1476,8 +1475,8 @@ Note, that we impose a fixed cluster number
 \end_inset
 
 .
- An overview over methods for estimating the cluster number, based on different
- criteria, is given by Röblitz, Weber
+ An overview over methods for estimating the cluster number based on different
+ criteria is given by Röblitz, Weber
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Roeblitz2013"
@@ -1488,11 +1487,11 @@ key "Roeblitz2013"
 \end_layout
 
 \begin_layout Standard
-PCCA+ will construct the clusters, described by the 
+PCCA+ will construct the clusters described by the 
 \emph on
 membership vectors
 \emph default
-, as a linear combination of eigenvectors.
+ as a linear combination of eigenvectors.
  This guarantees that 
 \begin_inset Formula $\chi$
 \end_inset
@@ -1503,7 +1502,7 @@ es.
 \begin_inset Formula $n<N$
 \end_inset
 
- eigenvectors with the largest eigenvalues one hopes to preserve the principal
+ eigenvectors with the largest eigenvalues, one hopes to preserve the principal
  dynamics of 
 \begin_inset Formula $P$
 \end_inset
@@ -1520,7 +1519,7 @@ key "Deuflhard2000"
 \end_inset
 
  have furthermore shown that the desired metastability is bounded from above
- by the sum of the chosen eigenvalues, and for 
+ by the sum of the chosen eigenvalues and for 
 \begin_inset Formula $\epsilon$
 \end_inset
 
@@ -1544,11 +1543,11 @@ name "sub:constrXL"
 \end_layout
 
 \begin_layout Standard
-For the construction of the invariant subspace we make use of the
+For the construction of the invariant subspace, we make use of the
 \emph on
  real Schur decomposition
 \emph default
-, decomposing a matrix 
+ decomposing a matrix 
 \begin_inset Formula $P=Q\Lambda Q^{-1}$
 \end_inset
 
@@ -1604,7 +1603,7 @@ Compute the Schur decomposition of
 \emph on
 Schur form 
 \emph default
-such that the upper left 
+so that the upper left 
 \begin_inset Formula $n\times n$
 \end_inset
 
@@ -1616,7 +1615,7 @@ such that the upper left
 \emph on
 Schur vectors
 \emph default
-, using a Schur reordering algorithm 
+ using a Schur reordering algorithm 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Kressner2006"
@@ -1656,7 +1655,7 @@ by
 \end_inset
 
 .
- Furthermore, due to orhonormality of 
+ Furthermore, due to orthonormality of 
 \begin_inset Formula $\tilde{X}$
 \end_inset
 
@@ -1713,11 +1712,11 @@ membership vectors
 \begin_inset Formula $P$
 \end_inset
 
- is stochastic the vector 
+ is stochastic, the vector 
 \begin_inset Formula $e=\left(1,...,1\right)^{T}$
 \end_inset
 
- is mapped to itself and thus forms an eigenvector to eigenvalue one, which
+ is mapped to itself and thus forms an eigenvector to eigenvalue one which
  for stochastic matrices also is the largest eigenvalue.
  By the reordering of 
 \begin_inset Formula $X$
@@ -1727,7 +1726,7 @@ membership vectors
 \begin_inset Formula $X^{T}D_{\pi}X$
 \end_inset
 
- we have 
+, we have 
 \begin_inset Formula $X_{i,1}=1,\, i=1,...,N$
 \end_inset
 
@@ -1772,7 +1771,7 @@ Since these constraints are linear in
 \begin_inset Formula $A$
 \end_inset
 
- the set 
+, the set 
 \begin_inset Formula $F_{A}$
 \end_inset
 
@@ -1834,7 +1833,7 @@ Schematic illustration of the linear transformation mapping the row vectors
 \end_layout
 
 \begin_layout Standard
-Geometrically one might think of the 
+Geometrically, one might think of the 
 \begin_inset Formula $N$
 \end_inset
 
@@ -1893,7 +1892,7 @@ reference "eq:pu"
 \begin_inset Formula $A$
 \end_inset
 
- maps the the 
+ maps the 
 \begin_inset Formula $N$
 \end_inset
 
@@ -1902,7 +1901,7 @@ reference "eq:pu"
 \end_inset
 
  to that simplex.
- As we have seen the first component of each row is 1, thus all rows lie
+ As we have seen the first component of each row is 1, thus, all rows lie
  on the hyperplane with first component 1.
  They furthermore are contained in a bounded region, and thus we can map
  them linearly onto 
@@ -1917,7 +1916,7 @@ reference "eq:pu"
 \end_layout
 
 \begin_layout Standard
-Thus we directly see that the set 
+Thus, we directly see that the set 
 \begin_inset Formula $F_{A}$
 \end_inset
 
@@ -1939,7 +1938,7 @@ As we have the choice between infinitely many possible solutions for
 \begin_inset Formula $A\subset F_{A}$
 \end_inset
 
- we will now specify and motivate different optimization objectives, to
+, we will now specify and motivate different optimization objectives to
  choose a specific solution by the optimization problem.
 \end_layout
 
@@ -1950,7 +1949,7 @@ Maximal scaling condition
 \begin_layout Standard
 Assuming (
 \emph on
-maximality assumption) 
+maximality assumption), 
 \emph default
 that the convex hull 
 \begin_inset Formula $\text{co}\left(X\right)$
@@ -2066,7 +2065,7 @@ key "Weber2006"
 
 \end_inset
 
- Weber furthermore shows that 
+, Weber furthermore shows that 
 \begin_inset Formula $W_{jj}\le\max_{i=1..N}\chi_{ij}$
 \end_inset
 
@@ -2084,7 +2083,7 @@ Note, that this objective, ignoring the data points not being the maxima,
 \begin_inset Formula $A$
 \end_inset
 
-, as illustrated in Figure 
+ as illustrated in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:hexagon"
@@ -2149,7 +2148,7 @@ Maximal metastability condition
 \end_layout
 
 \begin_layout Standard
-Another choice might be optimizing directly towards a maximal metastability,
+Another choice might be optimizing directly towards a maximal metastability
  as done by Deuflhard and Weber 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2231,7 +2230,7 @@ which is similar to the
 \emph on
 maximal metastability condition
 \emph default
-, with the corresponding 
+ with the corresponding 
 \begin_inset Formula $P$
 \end_inset
 
@@ -2259,7 +2258,7 @@ reference "eq:fa"
 
 \end_inset
 
-) solving these linear or convex problems may still be very time consuming.
+), solving these linear or convex problems may still be very time consuming.
  Following Deuflhard and Weber 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2267,8 +2266,8 @@ key "Deuflhard2005,Weber2006"
 
 \end_inset
 
- we will now show how to turn this constrained into an unconstrained optimizatio
-n problem by enforcing the constraints after each iteration.
+, we will now show how to turn this constrained into an unconstrained optimizati
+on problem by enforcing the constraints after each iteration.
 \end_layout
 
 \begin_layout Standard
@@ -2292,7 +2291,7 @@ reference "eq:fa"
 
 \end_inset
 
-) one easily checks that 
+), one easily checks that 
 \begin_inset Formula $F_{A}^{'}\subset F_{A}$
 \end_inset
 
@@ -2431,7 +2430,7 @@ reference "eq:fap"
 \begin_inset Formula $A$
 \end_inset
 
- they are invariant under scalar multiplication and step 3 now furthermore
+, they are invariant under scalar multiplication and step 3 now furthermore
  assures the equality (
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2444,7 +2443,7 @@ reference "eq:fap"
 \end_inset
 
 .
- Thus 
+ Thus, 
 \begin_inset Formula $F$
 \end_inset
 
@@ -2465,7 +2464,11 @@ reference "eq:fap"
 \begin_inset Formula $F\left(\tilde{A}\right)=A$
 \end_inset
 
- we see that F is surjective.
+, we see that 
+\begin_inset Formula $F$
+\end_inset
+
+ is surjective.
 \end_layout
 
 \begin_layout Standard
@@ -2546,16 +2549,16 @@ key "Weber2002"
 
 \end_inset
 
- we outline the
+, we outline the
 \emph on
  inner simplex algorithm
 \emph default
-, determining an initial guess for the matrix 
+ determining an initial guess for the matrix 
 \begin_inset Formula $A$
 \end_inset
 
  by constructing a simplex surrounding all row-points and then computing
- the transformation to the standard simplex, thus turning the global into
+ the transformation to the standard simplex, thus, turning the global into
  a local optimization problem.
 \end_layout
 
@@ -2568,14 +2571,18 @@ the
 \emph on
 index mapping algorithm, 
 \emph default
-looks for the indices 
+searches for the indices 
 \begin_inset Formula $i_{j}$
 \end_inset
 
  of the successively farthest linear independent rows.
- It starts by choosing the largest row vector as starting point, and then
+ It starts by choosing the largest row vector as starting point and then
  iteratively adds the points with the largest distance to the hyperplane
  spanned by the chosen points so far:
+\begin_inset VSpace bigskip
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2661,6 +2668,10 @@ Return the indices
 \end_inset
 
 
+\begin_inset VSpace bigskip
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2681,6 +2692,10 @@ inner simplex algorithm
 \end_inset
 
 :
+\begin_inset VSpace bigskip
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2722,6 +2737,17 @@ index mapping algorithm
 \end_inset
 
 
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2754,10 +2780,7 @@ determines its vertices, thus
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-For the general case though Weber 
+ For the general case though, Weber 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Weber2006"
@@ -2806,7 +2829,7 @@ inner simplex algorithm
 
 \begin_layout Standard
 Therefore, the result is not feasible in the generic case.
- If however the 
+ If, however, the 
 \emph on
 maximality assumption 
 \emph default
@@ -2821,7 +2844,7 @@ key "Weber2006"
 
  (3.4.4) is satisfied in many applications, the algorithm still gives a solution
  near the unperturbed solution.
- Thus 
+ Thus, 
 \begin_inset Formula $A$
 \end_inset
 
@@ -2967,7 +2990,7 @@ key "Kube2007"
 \end_inset
 
 ).
- In that case the 
+ In that case, the 
 \emph on
 transition matrix
 \emph default
@@ -2983,7 +3006,7 @@ transition rate matrix
 
 
 \emph default
-, having row-sum zero and non-negative off-diagonal entries.
+ having row-sum zero and non-negative off-diagonal entries.
  The transitions after a fixed time can then be computed by
 \begin_inset Formula 
 \[
@@ -2996,7 +3019,7 @@ P(t)=e^{tQ}.
 \end_layout
 
 \begin_layout Standard
-In that case the eigenvectors of 
+In that case, the eigenvectors of 
 \begin_inset Formula $P$
 \end_inset
 
@@ -3013,8 +3036,8 @@ In that case the eigenvectors of
 \end_inset
 
 .
- As the exponential is monotone the eigenvectors with highest absolute eigenvalu
-e, near 1, of 
+ As the exponential is monotone, the eigenvectors with highest absolute
+ eigenvalue, near 1, of 
 \begin_inset Formula $P$
 \end_inset
 
@@ -3043,7 +3066,7 @@ Application to eye tracking data
 
 \begin_layout Standard
 This algorithm was applied to experimental eye tracking data obtained by
- the Department of Psychology of the University of Potsdam, with the goal
+ the Department of Psychology of the University of Potsdam with the goal
  to detect objects as metastable clusters using just the dynamics of the
  human eye, i.e.
  without any data of the image itself, and thus provides a way of interpreting
@@ -3075,7 +3098,7 @@ which correspond to subjectively identified objects in the corresponding
 \end_layout
 
 \begin_layout Standard
-To apply PCCA+ we need to turn this spatial time series into a Markov chain.
+To apply PCCA+, we need to turn this spatial time series into a Markov chain.
 \end_layout
 
 \begin_layout Standard
@@ -3083,13 +3106,13 @@ We model each fixation as a
 \emph on
 random choice
 \emph default
- on a spatial grid weighted by a Gaussian of the distance to the grid points,
+ on a spatial grid, weighted by a Gaussian of the distance to the grid points,
  and then construct a 
 \emph on
 Markov chain
 \emph default
  by counting the induced transitions on the grid points.
- Assuming that humans, when looking at the pictures, don’t jump randomly
+ Assuming, that humans, when looking at the pictures, do not jump randomly
  between all recognized objects but remain for some fixations inside one
  
 \emph on
@@ -3145,13 +3168,17 @@ Introducing a parameter
 
 \begin_layout Standard
 \begin_inset Formula 
-\[
-M_{ij}:=\frac{e^{\frac{\left|f_{i}-s_{j}\right|^{2}}{2\sigma^{2}}}}{\sum_{j}e^{\frac{\left|f_{i}-s_{j}\right|^{2}}{2\sigma^{2}}}}
-\]
+\begin{equation}
+M_{ij}:=\frac{e^{\frac{\left|f_{i}-s_{j}\right|^{2}}{2\sigma^{2}}}}{\sum_{j}e^{\frac{\left|f_{i}-s_{j}\right|^{2}}{2\sigma^{2}}}}\label{eq:mass}
+\end{equation}
 
 \end_inset
 
-This assures that nearby fixations 
+This 
+\emph on
+mass matrix 
+\emph default
+assures that nearby fixations 
 \begin_inset Quotes eld
 \end_inset
 
@@ -3161,7 +3188,7 @@ overlap
 
 , adopting the metric information contained in the fixation data to the
  Markov process.
- Thus the parameter 
+ Thus, the parameter 
 \begin_inset Formula $\sigma$
 \end_inset
 
@@ -3175,7 +3202,7 @@ We then choose a fixed time step
 \end_inset
 
  as grid size for the time discretization, along which we count the transitions
- between the states weighted with the the corresponding fixation transitions,
+ between the states weighted with the corresponding fixation transitions,
  and row-normalize it to generate a 
 \emph on
 transition matrix
@@ -3189,7 +3216,7 @@ transition matrix
 \begin_inset Formula $j$
 \end_inset
 
-, we have
+ we have
 \begin_inset Formula 
 \begin{eqnarray*}
 \\
@@ -3214,7 +3241,7 @@ Once we have constructed
 \begin_inset Formula $P$
 \end_inset
 
- this way we now compute the stationary distribution, beeing the left eigenvecto
+ this way, we now compute the stationary distribution, being the left eigenvecto
 r to eigenvalue one, and pass them to PCCA+, which in return gives us X
  and A to compute the clustering 
 \begin_inset Formula $\chi=XA$
@@ -3224,7 +3251,7 @@ r to eigenvalue one, and pass them to PCCA+, which in return gives us X
 \end_layout
 
 \begin_layout Standard
-As a final step we discretize this fuzzy clustering by assigning to each
+As a final step, we discretize this fuzzy clustering by assigning to each
  state 
 \begin_inset Formula $s_{i}$
 \end_inset
@@ -3256,7 +3283,7 @@ In case of preclustering via k-means, the cluster assignment of the grid
 \end_layout
 
 \begin_layout Standard
-The program was implemented in Julia and its source will be published under
+The program was implemented in Julia and its source will be published on
  
 \begin_inset Newline newline
 \end_inset
@@ -3277,7 +3304,7 @@ The desired number of clusters,
  This, of course, is a subjective choice, but the number of clusters in
  general depends on the desired resolution of the clustering and thus on
  the further application.
- For example imagine a picture of a bookshelf with books, here one might
+ For example, imagine a picture of a bookshelf with books, here one might
  recognize either the whole shelf, the books, or their titles as objects.
 \end_layout
 
@@ -3289,7 +3316,7 @@ The time step size
  should be chosen as large as possible without skipping too many transitions.
  If it is chosen too large some fixations will be skipped resulting in loss
  of information and thus leading to a worse clustering.
- If on the other hand chosen too small we count one fixation as multiple
+ If, on the other hand, chosen too small we count one fixation as multiple
  self-transitions, thus weakening the effect of the real transitions, favouring
  the spatial over the dynamic information.
  
@@ -3301,7 +3328,7 @@ The parameter
 \end_inset
 
  introduces the spatial information and can thus be considered as a weight
- between dynamic and spatial clustering.
+ between dynamic and spatial clustering and is therefore inherently neceassary.
  While small 
 \begin_inset Formula $\sigma$
 \end_inset
@@ -3370,12 +3397,12 @@ Sistine Madonna
 
  oil painting, one of the last of his many Madonnas, commissioned by Pope
  Julius II for the Monastery of San Sisto in Piacenza, Italy.
- In the middle we see the Madonna, holding her child, the Christ.
+ In the middle, we see the Madonna, holding Jesus, her child.
  She is flanked by Saint Sixtus and Saint Barbara.
- To their feet we can see the two cherubim who became quite popular on their
- own in the last centuries as motives for postcards, advertisements, gifts
- and home décor.
- In the bottom left we can see the Pope's crown, the Papal tiara.
+ To their feet, we can see the two cherubim who became quite popular on
+ their own in the last centuries as motives for postcards, advertisements,
+ gifts and home décor.
+ In the bottom left, we can see the Pope's crown, the Papal tiara.
 \end_layout
 
 \begin_layout Standard
@@ -3390,7 +3417,7 @@ In (b) we chose a small
  This non-convex clustering is a feature specific to the analysis of the
  dynamics which can not be reached by purely spatial clustering, e.g.
  k-means.
- Furthermore the Madonna with her child and the papal tiara are separated.
+ Furthermore, the Madonna with her child and the Papal tiara are separated.
  The noisy red cluster is typical for small 
 \begin_inset Formula $\sigma$
 \end_inset
@@ -3404,9 +3431,9 @@ The more natural
 \begin_inset Formula $\sigma$
 \end_inset
 
- choice and a higher cluster number in (c) allow for separation between
- the left and right saints, and instead of the red noise-cluster we now
- get a further cluster for the right curtain.
+ choice and a higher cluster number in (c) allow a separation between the
+ left and right saints, and instead of the red noise-cluster we now get
+ a further cluster for the right curtain.
  
 \end_layout
 
@@ -3414,7 +3441,7 @@ The more natural
 Further refinement (d) leads to additional separation of the left curtain,
  the background behind Saint Sixtus, his and Madonnas feet as well as her
  skirt.
- Unfortunately we were not able to separate the Madonna from her child.
+ Unfortunately, we were not able to separate the Madonna from her child.
 \end_layout
 
 \begin_layout Standard
@@ -3762,7 +3789,7 @@ reference "fig:rembrandt"
 
 \end_inset
 
-(a) we see Rembrandt's 
+(a), we see Rembrandt's 
 \begin_inset Quotes eld
 \end_inset
 
@@ -3781,7 +3808,7 @@ Three Trees
 \begin_layout Standard
 Already the coarse clustering (b) shows a good separation of the trees,
  also assigning clusters to the fisherman and the stormy clouds, additionally
- the the three corners of the image.
+ the three corners of the image.
  
 \end_layout
 
@@ -3979,7 +4006,7 @@ In the Totomi Mountains
 \begin_inset Quotes erd
 \end_inset
 
-, one out 46 color woodblock prints of his series 
+, one out 36 color woodblock prints of his series 
 \begin_inset Quotes eld
 \end_inset
 
@@ -3988,7 +4015,7 @@ Thirty-six Views of Mount Fuji
 \end_inset
 
 , featuring the prominent volcano Mount Fuji, the highest mountain in Japan.
- This picture was chosen as it has a large number of distinct features:
+ This picture was chosen for it has a large number of distinct features:
  Two men sawing a large tree block on stands, a woman with a baby on her
  back watching a third man sawing a tree trunk on the ground and another
  man in the back making a fire, the Mount Fuji in the back entwinded by
@@ -3999,7 +4026,7 @@ Thirty-six Views of Mount Fuji
 The clustering into six clusters (b) focuses on a rough seperation of the
  people (three clusters on five people), the legend in the top left, the
  smoke of the fire and the strawmatt at the foot of the tree block.
- One might object that none of these clusters separates any of the objects
+ One might object that none of these clusters separate any of the objects
  properly, but as we impose just six clusters one can't expect a clear separatio
 n as the objects inbetween have to become assigned as well.
  
@@ -4017,7 +4044,7 @@ Further refinement to ten clusters (d) splits the two lower clusters into
  three, now distinguishing between the man sawing on the ground, the woman
  with her baby and the standing woodcutter with the man making the fire
  in the background.
- Additionally the upper right cluster gets split into two, now correctly
+ Additionally, the upper right cluster gets split into two, now correctly
  differentiating between the smoke and the hill.
 \end_layout
 
@@ -4026,7 +4053,7 @@ Discussion
 \end_layout
 
 \begin_layout Standard
-Given a good choice of parameters the algorithm showed to be able to cluster
+Given a good choice of parameters, the algorithm showed to be able to cluster
  the points to the subjectively identified objects in the picture, backing
  up the hypothesis that human sight exhibits the metastable behaviour on
  recognized objects.
@@ -4090,18 +4117,9 @@ reference "eq:clmax"
 
 ), more sophisticated method to discretize the fuzzy clustering could also
  proof crucial in improving the results.
- The results could probably be further improved by enhancing the method
- used to discretize the fuzzy clustering (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:clmax"
-
-\end_inset
-
-).
- One possibility might be weighting the clusters with their size, thus emphasizi
-ng their relative shape and/or discarding points with no clear assignment
- to an extra cluster.
+ One possibility might be weighting the clusters with their size, thus,
+ emphasizing their relative shape and/or discarding points with no clear
+ assignment to an extra cluster.
  This would also solve the problem of non-assignment of some clusters, mentioned
  in section (
 \begin_inset CommandInset ref
@@ -4111,6 +4129,47 @@ reference "sub:Implementation"
 \end_inset
 
 ).
+\end_layout
+
+\begin_layout Standard
+The choice of other 
+\emph on
+mass matrices 
+\emph default
+
+\begin_inset Formula $M$
+\end_inset
+
+
+\emph on
+ 
+\emph default
+in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:mass"
+
+\end_inset
+
+) and a different weighting of the states than by the stationary distribtution
+ 
+\begin_inset Formula $\pi$
+\end_inset
+
+ in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:constrXL"
+
+\end_inset
+
+ might allow for further adjustment of the results.
+\end_layout
+
+\begin_layout Standard
+Overall the presented method, turning the time series into a Markov chain
+ and applying PCCA+ for the clustering, proved as a viable approach to spatial
+ time series clustering with open opportunities for further improvement.
 \end_layout
 
 \begin_layout Standard
