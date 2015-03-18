@@ -110,11 +110,11 @@ Bachelor Thesis
 
 
 \shape up
-PCCA+ and its application 
+PCCA+ and its Application 
 \begin_inset Newline newline
 \end_inset
 
-to spatial time series clustering
+to Spatial Time Series Clustering
 \begin_inset VSpace 1cm*
 \end_inset
 
@@ -275,8 +275,11 @@ In this thesis we develop an algorithm for clustering spatial time series
 
 \begin_layout Standard
 After an introduction to the underlying theoretical background we will review
- known results about the Perron Cluster Cluster Analysis (PCCA+), which
- forms the basis for our application.
+ known results about the 
+\emph on
+Robust Perron Cluster Cluster Analysis
+\emph default
+ (PCCA+), which forms the basis for our application.
  PCCA+ allows to identify metastable clusters in Markov chains, which are
  configurations of the system which are likely to persist for a longer time.
  In the course we will extend the known results by a stochastic interpretation
@@ -320,7 +323,7 @@ Let
 
  be any finite set, i.e.
  
-\begin_inset Formula $S=:\left\{ s_{1},...,s_{N}\right\} $
+\begin_inset Formula $S:=\left\{ s_{1},...,s_{N}\right\} $
 \end_inset
 
 .
@@ -436,7 +439,11 @@ P_{ij}:=P\left(X_{t+1}=j|X_{t}=i\right),
 \end_inset
 
 where right stochastic means that each row has row sum one and propagation
- of states is realized by right application of P.
+ of states is realized by right application of 
+\begin_inset Formula $P$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -499,10 +506,10 @@ Clustering of the state space
 \end_layout
 
 \begin_layout Standard
-As the goal of PCCA+ is to reduce the complexity of analysis of the Markov
- chain by a dimension reduction we will now introduce the concept of clustering,
- that is subsuming different states of the state space to a smaller set
- of 
+The goal of PCCA+ is to reduce the complexity of analysis of the Markov
+ chain by a dimension reduction of the state space.
+ To formalize this we will now introduce the concept of clustering, that
+ is subsuming different states of the state space to a smaller set of 
 \begin_inset Formula $n\in\mathbb{N}$
 \end_inset
 
@@ -1104,13 +1111,13 @@ P_{C} & = & \left(IR\right)^{-1}IPR.
 \end_layout
 
 \begin_layout Standard
-Now, consider the situation when setting 
-\begin_inset Formula $P=\text{Id }$
+Now consider the situation when setting 
+\begin_inset Formula $P=Id $
 \end_inset
 
  with a fuzzy clustering.
  Then 
-\begin_inset Formula $W=IR=\tilde{D_{\pi}}^{-1}\chi^{T}D_{\pi}\chi\ne\text{Id}$
+\begin_inset Formula $W=IR=\tilde{D_{\pi}}^{-1}\chi^{T}D_{\pi}\chi\ne Id$
 \end_inset
 
  as different clusters overlap.
@@ -1502,7 +1509,7 @@ es.
 \end_inset
 
 .
- A good indicator towards this goal is that eigenvectors with high eigenvalues
+ A good indicator towards this goal is that eigenvectors with large eigenvalues
  represent conformations with a high degree of self-mapping.
  Deuflhard et al.
  
@@ -1522,7 +1529,7 @@ key "Deuflhard2000"
 \begin_inset Formula $\sum\lambda_{i}-O\left(\epsilon^{2}\right)$
 \end_inset
 
-, justifying the choice of high eigenvalues.
+, justifying the choice of large eigenvalues.
 \end_layout
 
 \begin_layout Subsection
@@ -1748,7 +1755,11 @@ reference "eq:pu"
 \end_inset
 
 ) conditions in terms of the matrices X and A, leading to the following
- constraints for A:
+ constraints for 
+\begin_inset Formula $A$
+\end_inset
+
+:
 \begin_inset Formula 
 \begin{eqnarray}
 A_{1,j} & \ge & -\sum_{k=2}^{n}X_{ik}A_{kj},\, i=1,...,N,\, j=1,...,n\,\left(\text{positivity}\right),\label{eq:fa}\\
@@ -1757,7 +1768,11 @@ A_{i,1} & = & \delta_{i,1}-\sum_{j=2}^{n}A_{ij},\, i=1,...,n\,\left(\text{partit
 
 \end_inset
 
-Since these constraints are linear in A the set 
+Since these constraints are linear in 
+\begin_inset Formula $A$
+\end_inset
+
+ the set 
 \begin_inset Formula $F_{A}$
 \end_inset
 
@@ -1797,7 +1812,11 @@ name "fig:simplex"
 \end_inset
 
 Schematic illustration of the linear transformation mapping the row vectors
- of the eigenvectors X (points on the 
+ of the eigenvectors 
+\begin_inset Formula $X$
+\end_inset
+
+ (points on the 
 \begin_inset Formula $z=1$
 \end_inset
 
@@ -1890,7 +1909,11 @@ reference "eq:pu"
 \begin_inset Formula $\Delta$
 \end_inset
 
- via a linear map A.
+ via a linear map 
+\begin_inset Formula $A$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -2421,7 +2444,11 @@ reference "eq:fap"
 \end_inset
 
 .
- Thus F indeed maps to 
+ Thus 
+\begin_inset Formula $F$
+\end_inset
+
+ indeed maps to 
 \begin_inset Formula $F_{A}^{'}$
 \end_inset
 
@@ -3016,7 +3043,7 @@ Application to eye tracking data
 
 \begin_layout Standard
 This algorithm was applied to experimental eye tracking data obtained by
- the department of psychology of the University of Potsdam, with the goal
+ the Department of Psychology of the University of Potsdam, with the goal
  to detect objects as metastable clusters using just the dynamics of the
  human eye, i.e.
  without any data of the image itself, and thus provides a way of interpreting
@@ -3295,7 +3322,11 @@ For a general routine
 \end_inset
 
  should be chosen small enough for most fixations to be counted and then
- increase sigma starting from low values to reach the desired spatial regularity.
+ increase 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ starting from small values to reach the desired spatial regularity.
  
 \end_layout
 
@@ -3360,9 +3391,12 @@ In (b) we chose a small
  dynamics which can not be reached by purely spatial clustering, e.g.
  k-means.
  Furthermore the Madonna with her child and the papal tiara are separated.
- The noisy red cluster is typical for small sigma values, as small cycles
- get uncoupled from the rest of the fixations due to the missing spatial
- coupling.
+ The noisy red cluster is typical for small 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ values, as small cycles get uncoupled from the rest of the fixations due
+ to the missing spatial coupling.
 \end_layout
 
 \begin_layout Standard
@@ -4041,21 +4075,21 @@ denoting by
 \begin_inset Formula $\tau_{a\rightarrow b}$
 \end_inset
 
- the corresponding transition time, lead to worse results.
+ the corresponding transition time, leads to worse results.
  It is not yet clear to the author how to construct the most likelihood
  estimator for the corresponding process.
 \end_layout
 
 \begin_layout Standard
-A more sophisticated method to discretize the fuzzy clustering then the
- here chosen maximum method (
+A, compared to the here chosen maximum method (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:clmax"
 
 \end_inset
 
-) could also proof crucial in improving the results.
+), more sophisticated method to discretize the fuzzy clustering could also
+ proof crucial in improving the results.
  The results could probably be further improved by enhancing the method
  used to discretize the fuzzy clustering (
 \begin_inset CommandInset ref
