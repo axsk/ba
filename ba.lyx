@@ -2119,10 +2119,10 @@ Mapping of 7 rows of the eigenvectors (affine hexagon with an interior point)
 \end_inset
 
  cannot differentiate between the two mappings, 
-\begin_inset Formula $I_{2}$
+\begin_inset Formula $I_{3}$
 \end_inset
 
- will choose the second as it provides a crisper assignment of the interior
+ will choose the first as it provides a crisper assignment of the interior
  point.
 \begin_inset CommandInset label
 LatexCommand label
